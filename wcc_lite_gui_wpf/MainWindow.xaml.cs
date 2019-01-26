@@ -13,6 +13,9 @@ namespace wcc_lite_gui_wpf
             InitializeComponent();
             DataContext = viewModel;
 
+            //FIXME ??
+
+
         }
     }
 }

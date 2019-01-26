@@ -25,13 +25,13 @@ namespace wcc_lite_gui_wpf.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("sddsvasd")]
-        public string test {
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string WccPath {
             get {
-                return ((string)(this["test"]));
+                return ((string)(this["WccPath"]));
             }
             set {
-                this["test"] = value;
+                this["WccPath"] = value;
             }
         }
 

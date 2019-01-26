@@ -13,13 +13,14 @@ namespace wcc_lite_gui_wpf
 
 
         /*
+       [global::System.Configuration.SettingsSerializeAs(System.Configuration.SettingsSerializeAs.Binary)]
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public ObservableCollection<WccLite_Command> WccLite_Commands
+        public System.Collections.ObjectModel.ObservableCollection<Wcc_lite_core.WccLite_Command> WccLite_Commands
         {
             get
             {
-                return ((ObservableCollection<WccLite_Command>)(this["WccLite_Commands"]));
+                return ((System.Collections.ObjectModel.ObservableCollection<Wcc_lite_core.WccLite_Command>)(this["WccLite_Commands"]));
             }
             set
             {

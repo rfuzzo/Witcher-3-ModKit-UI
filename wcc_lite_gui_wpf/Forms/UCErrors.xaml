@@ -23,7 +23,10 @@
 
 
     <Grid>
-        <xcdg:DataGridControl 
+       
+        
+        <xcdg:DataGridControl
+           
         x:Name="_extendedLogGrid"
         ItemsSource="{Binding Source={StaticResource cvs_log}, Mode=OneWay}"
         HorizontalAlignment="Stretch" 

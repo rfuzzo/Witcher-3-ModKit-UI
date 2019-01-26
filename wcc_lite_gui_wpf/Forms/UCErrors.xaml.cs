@@ -13,8 +13,6 @@ namespace wcc_lite_gui_wpf.Forms
         {
             InitializeComponent();
 
-            Xceed.Wpf.DataGrid.ColumnWidth columnWidth = new Xceed.Wpf.DataGrid.ColumnWidth(200);
-            //_extendedLogGrid.Columns[_extendedLogGrid.Columns.Count-1].Width = columnWidth;
         }
 
 
@@ -31,6 +29,11 @@ namespace wcc_lite_gui_wpf.Forms
             {
                 e.Accepted = false;
             }
+        }
+
+        private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+
         }
     }
 }

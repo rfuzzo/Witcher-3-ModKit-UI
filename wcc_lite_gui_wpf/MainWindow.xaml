@@ -103,7 +103,7 @@
                     <ad:LayoutAnchorSide>
                         <ad:LayoutAnchorGroup>
                             <ad:LayoutAnchorable AutoHideMinWidth="200" Title="Commands" >
-                                <frms:UCCommands x:Name="Commands"/>
+                                <frms:UCCommands x:Name="_commandsView"/>
                             </ad:LayoutAnchorable>
                         </ad:LayoutAnchorGroup>
                     </ad:LayoutAnchorSide>
@@ -116,7 +116,7 @@
                     <!-- Just a Pane -->
                     <ad:LayoutDocumentPane>
                         <ad:LayoutAnchorable ContentId="workspace" Title="Workspace">
-                            <frms:UCWorkflowView x:Name="Workspace"/>
+                            <frms:UCWorkflowView x:Name="_workflowView"/>
                         </ad:LayoutAnchorable>
                     </ad:LayoutDocumentPane>
 
@@ -125,14 +125,10 @@
                     <ad:LayoutPanel DockHeight="150" Orientation="Horizontal">
                         <ad:LayoutAnchorablePane>
                             <ad:LayoutAnchorable ContentId="errors" Title="Error List">
-                                <frms:UCErrors/>
+                                <frms:UCErrors x:Name="_errorView"/>
                             </ad:LayoutAnchorable>
                             <ad:LayoutAnchorable ContentId="output" Title="Console">
-                                <frms:UCConsole x:Name="Console">
-
-                                    
-
-                                </frms:UCConsole>
+                                <frms:UCConsole x:Name="_consoleView"/>
                             </ad:LayoutAnchorable>
                         </ad:LayoutAnchorablePane>
                     </ad:LayoutPanel>

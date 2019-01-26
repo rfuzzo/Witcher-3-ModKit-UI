@@ -113,10 +113,6 @@ namespace wcc_lite_gui_wpf.ViewModels
         #endregion
 
         #region Properties
-        public string WccPath { get; set; }
-        
-
-        //public WccCommandsCollection WccLiteCommands { get; set; }
         public WccTaskHandler WccTaskHandler { get; set; }
 
 
@@ -126,6 +122,10 @@ namespace wcc_lite_gui_wpf.ViewModels
         #region Commands
         public ICommand RunWccCmdCommand { get; }
         public ICommand SaveFileCommand { get; }
+        //FIXME in child View Model 
+        public ICommand AddToFavouritesCommand { get; }
+        public ICommand RemoveFromfavouritesCommand { get; }
+
 
         #region Command Implementation
         public bool CanRun()
@@ -150,7 +150,25 @@ namespace wcc_lite_gui_wpf.ViewModels
             wcc_lite_gui_wpf.Properties.Settings.Default.Save();
         }
 
-        
+        //FIXME in child View Model 
+        public bool CanAddToFavourites()
+        {
+            return ActiveCommand != null && ActiveCommand.Category != WccCommandCategory.Favourites;
+        }
+        public void AddToFavourites()
+        {
+            ActiveCommand.Category = WccCommandCategory.Favourites;
+        }
+        public bool CanRemoveFromfavourites()
+        {
+            return ActiveCommand != null && ActiveCommand.Category != WccCommandCategory.Default;
+        }
+        public void RemoveFromfavourites()
+        {
+            ActiveCommand.Category = WccCommandCategory.Default;
+        }
+
+
 
 
         #endregion
@@ -167,16 +185,15 @@ namespace wcc_lite_gui_wpf.ViewModels
             #region Relay Commands
             RunWccCmdCommand = new RelayCommand(Run, CanRun);
             SaveFileCommand = new RelayCommand(Save, CanSave);
+            //FIXME in child View Model 
+            AddToFavouritesCommand = new RelayCommand(AddToFavourites, CanAddToFavourites);
+            RemoveFromfavouritesCommand = new RelayCommand(RemoveFromfavourites, CanRemoveFromfavourites);
+
 
             #endregion
 
-            //FIXME
-            WccPath = @"C:\Steam\steamapps\common\The Witcher 3\bin\x64\wcc_lite.exe";
-            
 
-            //WccLiteCommands = new WccCommandsCollection();
-
-            WccTaskHandler = new WccTaskHandler(WccPath);
+            WccTaskHandler = new WccTaskHandler(wcc_lite_gui_wpf.Properties.Settings.Default.WccPath);
 
         }
 

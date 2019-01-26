@@ -16,7 +16,7 @@
     <UserControl.Resources>
         <CollectionViewSource  
             x:Key="cvs_cmd" 
-            Source="{Binding Source={x:Static properties:Settings.Default}, Path=WccLite_Commands}"
+            Source="{Binding Source={x:Static properties:Settings.Default}, Path=WccLite_Commands, Mode=TwoWay}"
             IsLiveGroupingRequested="True"
             >
             <!-- Sorting -->
@@ -26,8 +26,7 @@
             
             <!-- Grouping-->
             <CollectionViewSource.GroupDescriptions>
-                <dat:PropertyGroupDescription PropertyName="Favourite" />
-                
+                <dat:PropertyGroupDescription PropertyName="Category" />
             </CollectionViewSource.GroupDescriptions>
 
         </CollectionViewSource>
@@ -39,6 +38,19 @@
                   ItemsSource="{Binding Source={StaticResource cvs_cmd}, UpdateSourceTrigger=PropertyChanged}" 
                   SelectedItem="{Binding ActiveCommand}"
                    >
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Add to Favourites"
+                         Command="{Binding AddToFavouritesCommand}"
+                         CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu}, Path=PlacementTarget.SelectedItem}">
+                    </MenuItem>
+                    <MenuItem Header="Remove from Favourites"
+                         Command="{Binding RemoveFromfavouritesCommand}"
+                         CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu}, Path=PlacementTarget.SelectedItem}">
+                    </MenuItem>
+                </ContextMenu>
+            </ListView.ContextMenu>
+
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Command"/>
