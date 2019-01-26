@@ -1,0 +1,39 @@
+﻿<UserControl x:Class="wcc_lite_gui_wpf.Forms.UCErrors"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:wcc_lite_gui_wpf.Forms"
+             xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid" 
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <xcdg:DataGridCollectionViewSource  
+            x:Key="cvs_log" 
+            Source="{Binding WccTaskHandler.Logger.ExtendedLog, Mode=OneWay}"
+            
+            >
+            <xcdg:DataGridCollectionViewSource.GroupDescriptions>
+                <xcdg:DataGridGroupDescription PropertyName="WccFlag"/>
+            </xcdg:DataGridCollectionViewSource.GroupDescriptions>
+            
+        </xcdg:DataGridCollectionViewSource>
+    </UserControl.Resources>
+
+
+    <Grid>
+        <xcdg:DataGridControl 
+        x:Name="_extendedLogGrid"
+        ItemsSource="{Binding Source={StaticResource cvs_log}, Mode=OneWay}"
+        HorizontalAlignment="Stretch" 
+        HorizontalContentAlignment="Stretch"
+        >
+            <xcdg:DataGridControl.Columns>
+                <xcdg:Column FieldName="SystemFlag" Visible="False"/>
+                <xcdg:Column FieldName="Id" Visible="False"/>
+            </xcdg:DataGridControl.Columns>
+
+        </xcdg:DataGridControl>
+    </Grid>
+</UserControl>

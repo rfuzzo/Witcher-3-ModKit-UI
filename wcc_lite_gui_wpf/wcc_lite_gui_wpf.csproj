@@ -1,0 +1,283 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DB9A7C8A-05B4-49B1-A966-0CD804A916C9}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>wcc_lite_gui_wpf</RootNamespace>
+    <AssemblyName>wcc_lite_gui_wpf</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>wcc_lite_gui_wpf.App</StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="Xceed.Wpf.AvalonDock, Version=3.4.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>packages\Extended.Wpf.Toolkit.3.4.0\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero, Version=3.4.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>packages\Extended.Wpf.Toolkit.3.4.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=3.4.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>packages\Extended.Wpf.Toolkit.3.4.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010, Version=3.4.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>packages\Extended.Wpf.Toolkit.3.4.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2013, Version=2.9.0.1, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>packages\Xceed.Wpf.AvalonDock.Themes.VS2013.2.9.0.1\lib\net40-client\Xceed.Wpf.AvalonDock.Themes.VS2013.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.DataGrid, Version=3.4.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>packages\Extended.Wpf.Toolkit.3.4.0\lib\net40\Xceed.Wpf.DataGrid.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Toolkit, Version=3.4.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>packages\Extended.Wpf.Toolkit.3.4.0\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Commands\CommandBase.cs" />
+    <Compile Include="Commands\DelegateCommand.cs" />
+    <Compile Include="Commands\DelegateCommand{T}.cs" />
+    <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="CustomSettings.cs" />
+    <Compile Include="Forms\UCWorkflowView.xaml.cs">
+      <DependentUpon>UCWorkflowView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ObservableObject.cs" />
+    <Compile Include="ViewModels\CommandsViewModel.cs" />
+    <Compile Include="ViewModels\DockabaleViewModel.cs" />
+    <Compile Include="ViewModels\IViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Page Include="Forms\UCCommands.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\UCConsole.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\UCErrors.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\UCPipes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\UCWorkflowView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\UCCommands.xaml.cs">
+      <DependentUpon>UCCommands.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\UCConsole.xaml.cs">
+      <DependentUpon>UCConsole.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\UCErrors.xaml.cs">
+      <DependentUpon>UCErrors.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\UCPipes.xaml.cs">
+      <DependentUpon>UCPipes.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\AddFile_16x.png" />
+    <Resource Include="Resources\Icons\Add_16x.png" />
+    <Resource Include="Resources\Icons\Backward_16x.png" />
+    <Resource Include="Resources\Icons\CloseSolution_16x.png" />
+    <Resource Include="Resources\Icons\Close_16x.png" />
+    <Resource Include="Resources\Icons\CollapseAll_16x.png" />
+    <Resource Include="Resources\Icons\Console_16x.png" />
+    <Resource Include="Resources\Icons\Copy_16x.png" />
+    <Resource Include="Resources\Icons\Cut_16x.png" />
+    <Resource Include="Resources\Icons\ExpandAll_16x.png" />
+    <Resource Include="Resources\Icons\Files\bird.png" />
+    <Resource Include="Resources\Icons\Files\csv.png" />
+    <Resource Include="Resources\Icons\Files\detail.png" />
+    <Resource Include="Resources\Icons\Files\env.png" />
+    <Resource Include="Resources\Icons\Files\fev.png" />
+    <Resource Include="Resources\Icons\Files\journal.png" />
+    <Resource Include="Resources\Icons\Files\redgame.png" />
+    <Resource Include="Resources\Icons\Files\redswf.png" />
+    <Resource Include="Resources\Icons\Files\spawntree.png" />
+    <Resource Include="Resources\Icons\Files\swf.png" />
+    <Resource Include="Resources\Icons\Files\vbrush.png" />
+    <Resource Include="Resources\Icons\Files\w2ainfo.png" />
+    <Resource Include="Resources\Icons\Files\w2am.png" />
+    <Resource Include="Resources\Icons\Files\w2anim.png" />
+    <Resource Include="Resources\Icons\Files\w2animev.png" />
+    <Resource Include="Resources\Icons\Files\w2anims.png" />
+    <Resource Include="Resources\Icons\Files\w2beh.png" />
+    <Resource Include="Resources\Icons\Files\w2behtree.png" />
+    <Resource Include="Resources\Icons\Files\w2blb.png" />
+    <Resource Include="Resources\Icons\Files\w2brix.png" />
+    <Resource Include="Resources\Icons\Files\w2cent.png" />
+    <Resource Include="Resources\Icons\Files\w2comm.png" />
+    <Resource Include="Resources\Icons\Files\w2conv.png" />
+    <Resource Include="Resources\Icons\Files\w2cube.png" />
+    <Resource Include="Resources\Icons\Files\w2cutscene.png" />
+    <Resource Include="Resources\Icons\Files\w2ds.png" />
+    <Resource Include="Resources\Icons\Files\w2dset.png" />
+    <Resource Include="Resources\Icons\Files\w2ent.png" />
+    <Resource Include="Resources\Icons\Files\w2expr.png" />
+    <Resource Include="Resources\Icons\Files\w2f.png" />
+    <Resource Include="Resources\Icons\Files\w2faces.png" />
+    <Resource Include="Resources\Icons\Files\w2fnt.png" />
+    <Resource Include="Resources\Icons\Files\w2goalcrv.png" />
+    <Resource Include="Resources\Icons\Files\w2guidesc.png" />
+    <Resource Include="Resources\Icons\Files\w2je.png" />
+    <Resource Include="Resources\Icons\Files\w2job.png" />
+    <Resource Include="Resources\Icons\Files\w2l.png" />
+    <Resource Include="Resources\Icons\Files\w2mesh.png" />
+    <Resource Include="Resources\Icons\Files\w2mg.png" />
+    <Resource Include="Resources\Icons\Files\w2mi.png" />
+    <Resource Include="Resources\Icons\Files\w2p.png" />
+    <Resource Include="Resources\Icons\Files\w2phase.png" />
+    <Resource Include="Resources\Icons\Files\w2pr.png" />
+    <Resource Include="Resources\Icons\Files\w2ps.png" />
+    <Resource Include="Resources\Icons\Files\w2qlog.png" />
+    <Resource Include="Resources\Icons\Files\w2quest.png" />
+    <Resource Include="Resources\Icons\Files\w2rag.png" />
+    <Resource Include="Resources\Icons\Files\w2ragdoll.png" />
+    <Resource Include="Resources\Icons\Files\w2react.png" />
+    <Resource Include="Resources\Icons\Files\w2rig.png" />
+    <Resource Include="Resources\Icons\Files\w2rigm.png" />
+    <Resource Include="Resources\Icons\Files\w2sbnk.png" />
+    <Resource Include="Resources\Icons\Files\w2scene.png" />
+    <Resource Include="Resources\Icons\Files\w2spwn.png" />
+    <Resource Include="Resources\Icons\Files\w2steer.png" />
+    <Resource Include="Resources\Icons\Files\w2surf.png" />
+    <Resource Include="Resources\Icons\Files\w2w.png" />
+    <Resource Include="Resources\Icons\Files\worldmap.png" />
+    <Resource Include="Resources\Icons\FlatList_16x.png" />
+    <Resource Include="Resources\Icons\FolderOpen_16x.png" />
+    <Resource Include="Resources\Icons\Folder_16x.png" />
+    <Resource Include="Resources\Icons\Forward_16x.png" />
+    <Resource Include="Resources\Icons\GitHub-Mark-32px.png" />
+    <Resource Include="Resources\Icons\Library_16x.png" />
+    <Resource Include="Resources\Icons\NewFile_16x.png" />
+    <Resource Include="Resources\Icons\Nexus-Mark-32px.png" />
+    <Resource Include="Resources\Icons\OpenFile_16x.png" />
+    <Resource Include="Resources\Icons\Output_16x.png" />
+    <Resource Include="Resources\Icons\Paste_16x.png" />
+    <Resource Include="Resources\Icons\Property_16x.png" />
+    <Resource Include="Resources\Icons\Redo_16x.png" />
+    <Resource Include="Resources\Icons\RefreshScript_16x.png" />
+    <Resource Include="Resources\Icons\Refresh_16x.png" />
+    <Resource Include="Resources\Icons\Run_16x.png" />
+    <Resource Include="Resources\Icons\SaveAll_16x.png" />
+    <Resource Include="Resources\Icons\Save_16x.png" />
+    <Resource Include="Resources\Icons\Search_16x.png" />
+    <Resource Include="Resources\Icons\Settings_16x.png" />
+    <Resource Include="Resources\Icons\ShowAllFiles_16x.png" />
+    <Resource Include="Resources\Icons\StatusHelp_16x.png" />
+    <Resource Include="Resources\Icons\Subtract_16x.png" />
+    <Resource Include="Resources\Icons\TreeView_16x.png" />
+    <Resource Include="Resources\Icons\Undo_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\400751097372868608_icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Wcc_lite_core\Wcc_lite_core\Wcc_lite_core.csproj">
+      <Project>{9a1a410d-d826-4dd1-af00-2a89f6a3b6ef}</Project>
+      <Name>Wcc_lite_core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DataTemplates\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
