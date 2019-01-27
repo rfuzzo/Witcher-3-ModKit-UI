@@ -6,8 +6,9 @@ using System;
 using System.IO;
 using System.Windows;
 using Wcc_lite_core;
-using wcc_lite_gui_wpf.Forms;
+using wcc_lite_gui_wpf.Views;
 using wcc_lite_gui_wpf.ViewModels;
+using wcc_lite_gui_wpf;
 
 namespace wcc_lite_gui_wpf
 {
@@ -26,11 +27,13 @@ namespace wcc_lite_gui_wpf
 
         protected override void OnStartup(StartupEventArgs e)
         {
+            
+            InitAppSetting();
+
             base.OnStartup(e);
             MainWindow = Kernel.Get<MainWindow>();
             MainWindow.Show();
 
-            InitAppSetting();
         }
 
         private void InitAppSetting()
@@ -76,25 +79,12 @@ namespace wcc_lite_gui_wpf
         {
             Bind<MainViewModel>().ToSelf().InSingletonScope();
             Bind<MainWindow>().ToSelf().InSingletonScope();
-
             Bind<IViewModel>().To<MainViewModel>().WhenInjectedInto<MainWindow>();
-            Bind<IViewModel>().To<CommandsViewModel>().WhenInjectedInto<UCCommands>();
 
-           
 
+            //Bind<IViewModel>().To<AboutViewModel>().WhenInjectedInto<AboutView>();
         }
     }
 
-    /// <summary>
-    /// The main view provider for use with the kernel.
-    /// </summary>
-    /*public class MainViewProvider : Provider<MainWindow>
-    {
-        protected override MainWindow CreateInstance(IContext context)
-        {
-            var viewModel = context.Kernel.Get<MainViewModel>();
-            var view = new MainWindow(viewModel);
-            return view;
-        }
-    }*/
+   
 }

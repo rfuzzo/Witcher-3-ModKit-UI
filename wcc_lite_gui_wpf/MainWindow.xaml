@@ -5,14 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:System="clr-namespace:System;assembly=mscorlib"
         xmlns:ad="http://schemas.xceed.com/wpf/xaml/avalondock"
-        xmlns:frms="clr-namespace:wcc_lite_gui_wpf.Forms"
+        xmlns:Views="clr-namespace:wcc_lite_gui_wpf.Views"
         xmlns:ViewModels="clr-namespace:wcc_lite_gui_wpf.ViewModels"
         xmlns:local="clr-namespace:wcc_lite_gui_wpf" x:Class="wcc_lite_gui_wpf.MainWindow"
         mc:Ignorable="d"
         Title="Wcc_thicc"  
         Height="900" 
         Width="1600"
-        Name="Wcc_thicc" Icon="Resources/Icons/400751097372868608_icon.ico"
+        Name="Wcc_thicc"
+        Icon="Resources/Icons/modkitUIIcon.ico"
         >
     <Grid>
         <Grid.RowDefinitions>
@@ -28,7 +29,44 @@
 
         <!-- Menu Tray -->
         <Menu IsMainMenu="True" x:Name="_menu" Padding="3" Grid.Row="0">
-            <MenuItem Header="_File"/>
+            
+            <!-- File -->
+            <MenuItem Header="_File">
+                <MenuItem Header="Locate Modkit" Command="{Binding LocateWccCommand}">
+                    <MenuItem.Icon>
+                        <Image Source="/wcc_lite_gui_wpf;component/Resources/Icons/OpenFile_16x.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Exit" Command="{Binding ExitCommand}"/>
+            </MenuItem>
+
+            <!-- View -->
+            <MenuItem Header="_View">
+                <MenuItem Header="Commands" Command="{Binding ShowCommandsCommand}">
+                    <MenuItem.Icon>
+                        <Image Source="/wcc_lite_gui_wpf;component/Resources/Icons/TaskList_16x.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Error List" Command="{Binding ShowErrorsCommand}">
+                    <MenuItem.Icon>
+                        <Image Source="/wcc_lite_gui_wpf;component/Resources/Icons/BuildErrorList_16x.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Log" Command="{Binding ShowLogCommand}">
+                    <MenuItem.Icon>
+                        <Image Source="/wcc_lite_gui_wpf;component/Resources/Icons/Output_16x.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+
+            <!-- Help -->
+            <MenuItem Header="Help" DataContext="{Binding Utilities}">
+                <MenuItem Header="About Modkit UI" Command="{Binding OpenAboutCommand}">
+                    <MenuItem.Icon>
+                        <Image Source="Resources/Icons/StatusHelp_16x.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
         </Menu>
 
         <!-- ToolBars -->
@@ -44,96 +82,77 @@
                         </Style.Triggers>
                     </Style>
                 </ToolBar.Resources>
-                <Button ToolTip="Previous">
-                    <Image Source="/wcc_lite_gui_wpf;component/Resources/Icons/Backward_16x.png"/>
-                </Button>
-                <Button ToolTip="Next">
-                    <Image Source="/wcc_lite_gui_wpf;component/Resources/Icons/Forward_16x.png"/>
-                </Button>
-                <Separator/>
-                <Button ToolTip="New File">
-                    <Image Source="/wcc_lite_gui_wpf;component/Resources/Icons/NewFile_16x.png"/>
-                </Button>
-                <Button ToolTip="Open File">
+
+                <Button ToolTip="Locate Witcher 3 Modkit" Command="{Binding LocateWccCommand}">
                     <Image Source="/wcc_lite_gui_wpf;component/Resources/Icons/OpenFile_16x.png"/>
                 </Button>
                 <Button ToolTip="Save" Command="{Binding SaveFileCommand}">
                     <Image Source="/wcc_lite_gui_wpf;component/Resources/Icons/Save_16x.png"/>
                 </Button>
-                <Button ToolTip="Save All">
-                    <Image Source="/wcc_lite_gui_wpf;component/Resources/Icons/SaveAll_16x.png"/>
-                </Button>
-                <Separator/>
-                <Button ToolTip="Undo" Command="ApplicationCommands.Undo">
-                    <Image Source="/wcc_lite_gui_wpf;component/Resources/Icons/Undo_16x.png"/>
-                </Button>
-                <Button ToolTip="Redo" Command="ApplicationCommands.Redo">
-                    <Image Source="/wcc_lite_gui_wpf;component/Resources/Icons/Redo_16x.png"/>
-                </Button>
-                <Button ToolTip="Cut" Command="ApplicationCommands.Cut">
-                    <Image Source="/wcc_lite_gui_wpf;component/Resources/Icons/Cut_16x.png"/>
-                </Button>
-                <Button ToolTip="Copy" Command="ApplicationCommands.Copy">
-                    <Image Source="/wcc_lite_gui_wpf;component/Resources/Icons/Copy_16x.png"/>
-                </Button>
-                <Button ToolTip="Paste" Command="ApplicationCommands.Paste">
-                    <Image Source="/wcc_lite_gui_wpf;component/Resources/Icons/Paste_16x.png"/>
-                </Button>
-                <Separator/>
-                <Button ToolTip="Run" Command="{Binding RunWccCmdCommand}">
+                <Button ToolTip="Run Command" Command="{Binding RunWccCmdCommand}">
                     <Image Source="/wcc_lite_gui_wpf;component/Resources/Icons/Run_16x.png"/>
                 </Button>
+                
+                <Separator/>
+                
+                
             </ToolBar>
         </ToolBarTray>
 
         <!-- Dockabale Controls -->
         <ad:DockingManager Grid.Row="2"
-            x:Name="_manager"
-            ShowSystemMenu="True"
-            AllowMixedOrientation="True">
+                            x:Name="_manager"
+                            ShowSystemMenu="True"
+                            AllowMixedOrientation="True"
+                            FlowDirection="LeftToRight">
 
             <ad:DockingManager.Theme>
                 <ad:Vs2013DarkTheme/>
             </ad:DockingManager.Theme>
 
             <ad:LayoutRoot x:Name="_root">
-
-                <!-- A left side anchor strip -->
-                <ad:LayoutRoot.LeftSide>
-                    <ad:LayoutAnchorSide>
-                        <ad:LayoutAnchorGroup>
-                            <ad:LayoutAnchorable AutoHideMinWidth="200" Title="Commands" >
-                                <frms:UCCommands x:Name="_commandsView"/>
-                            </ad:LayoutAnchorable>
-                        </ad:LayoutAnchorGroup>
-                    </ad:LayoutAnchorSide>
-                </ad:LayoutRoot.LeftSide>
-
-
-                <!-- One Panel that goes from top to bottom -->
+                
+                <!-- Main Panel -->
                 <ad:LayoutPanel Orientation="Vertical">
 
-                    <!-- Just a Pane -->
+                    <!-- Empty Pane -->
+                    <!-- Workspace -->
                     <ad:LayoutDocumentPane>
                         <ad:LayoutAnchorable ContentId="workspace" Title="Workspace">
-                            <frms:UCWorkflowView x:Name="_workflowView"/>
+                            <Views:WorkspaceView/>
                         </ad:LayoutAnchorable>
                     </ad:LayoutDocumentPane>
 
 
-                    <!-- One Panel that goes from left to right -->
-                    <ad:LayoutPanel DockHeight="150" Orientation="Horizontal">
+                    <!-- Bottom Anchorables -->
+                    <!-- Error List and Log -->
+                    <ad:LayoutPanel DockHeight="300" Orientation="Horizontal">
                         <ad:LayoutAnchorablePane>
-                            <ad:LayoutAnchorable ContentId="errors" Title="Error List">
-                                <frms:UCErrors x:Name="_errorView"/>
+                            <ad:LayoutAnchorable ContentId="errors" Title="Error List" CanHide="False" CanClose="False">
+                                <Views:ErrorsView/>
                             </ad:LayoutAnchorable>
-                            <ad:LayoutAnchorable ContentId="output" Title="Console">
-                                <frms:UCConsole x:Name="_consoleView"/>
+                            <ad:LayoutAnchorable ContentId="log" Title="Log" CanHide="False" CanClose="False">
+                                <Views:ConsoleView/>
                             </ad:LayoutAnchorable>
                         </ad:LayoutAnchorablePane>
                     </ad:LayoutPanel>
                 </ad:LayoutPanel>
 
+                <!-- Left Anchorables -->
+                <!-- Commands -->
+                <ad:LayoutRoot.LeftSide>
+                    <ad:LayoutAnchorSide>
+                        <ad:LayoutAnchorGroup>
+                            <ad:LayoutAnchorable Title="Commands"
+                                    FloatingWidth="200"
+                                    AutoHideMinWidth="200"
+                                    AutoHideWidth="200" 
+                                    CanHide="False" CanClose="False">
+                                <Views:CommandsView/>
+                            </ad:LayoutAnchorable>
+                        </ad:LayoutAnchorGroup>
+                    </ad:LayoutAnchorSide>
+                </ad:LayoutRoot.LeftSide>
 
             </ad:LayoutRoot>
         </ad:DockingManager>
@@ -141,8 +160,49 @@
 
         <!-- Status bar  -->
         <StatusBar x:Name="_status" Grid.Row="3" Background="#007acc">
-            <StatusBarItem>
-                <TextBlock Text="test"/>
+            <StatusBar.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </ItemsPanelTemplate>
+            </StatusBar.ItemsPanel>
+
+            <!-- Status Label -->
+            <StatusBarItem Grid.Column="0">
+                <TextBlock Text="{Binding Logger.Status, 
+                    StringFormat='Status: {0}'}"/>
+            </StatusBarItem>
+
+            
+            <Separator Grid.Column="1" />
+
+            <!-- Progress Bar -->
+            <StatusBarItem Grid.Column="2">
+                <ProgressBar 
+                    Margin="0,0,0,0"
+                    Width="200" 
+                    Height="15" 
+                    Minimum="0" 
+                    Maximum="100" 
+                    Name="_progressBar" 
+                    Value="{Binding Logger.ProgressValue}" 
+                    IsIndeterminate="{Binding Logger.IsIndeterminate}" />
+            </StatusBarItem>
+
+            <Separator Grid.Column="3" />
+            
+            <!-- Wcc Path -->
+            <StatusBarItem Grid.Column="4">
+                <TextBlock 
+                    Margin="0,0,2,0"
+                    Text="{Binding WccTaskHandler.Wcc_path,StringFormat='ModKit: {0}'}"/>
             </StatusBarItem>
         </StatusBar>
 

@@ -1,0 +1,84 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:wcc_lite_gui_wpf.Views"
+             xmlns:ViewModels="clr-namespace:wcc_lite_gui_wpf.ViewModels" 
+             xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+             xmlns:dat="clr-namespace:System.Windows.Data;assembly=PresentationFramework"
+             xmlns:properties="clr-namespace:wcc_lite_gui_wpf.Properties"
+             x:Class="wcc_lite_gui_wpf.Views.CommandsView"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="200"
+    >
+
+    <UserControl.Resources>
+        <CollectionViewSource  
+            x:Key="cvs_cmd" 
+            Source="{Binding Commands, Mode=TwoWay}"
+            IsLiveGroupingRequested="True"
+            >
+            <!-- Sorting -->
+            <CollectionViewSource.SortDescriptions>
+                <scm:SortDescription PropertyName="Category"/>
+                <scm:SortDescription PropertyName="Name"/>
+            </CollectionViewSource.SortDescriptions>
+            
+            <!-- Grouping-->
+            <CollectionViewSource.GroupDescriptions>
+                <dat:PropertyGroupDescription PropertyName="Category" />
+            </CollectionViewSource.GroupDescriptions>
+
+        </CollectionViewSource>
+
+        <Style x:Key="ContainerStyle" TargetType="{x:Type GroupItem}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Expander Header="{Binding Name}" IsExpanded="True" >
+                            <ItemsPresenter/>
+                        </Expander>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+
+    <Grid>
+        <ListView x:Name="_commandsListView" 
+                  ItemsSource="{Binding Source={StaticResource cvs_cmd}, UpdateSourceTrigger=PropertyChanged}" 
+                  SelectedItem="{Binding ActiveCommand}"
+                   >
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Add to Favourites"
+                         Command="{Binding AddToFavouritesCommand}"
+                         CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu}, Path=PlacementTarget.SelectedItem}">
+                    </MenuItem>
+                    <MenuItem Header="Remove from Favourites"
+                         Command="{Binding RemoveFromfavouritesCommand}"
+                         CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu}, Path=PlacementTarget.SelectedItem}">
+                    </MenuItem>
+                </ContextMenu>
+            </ListView.ContextMenu>
+
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Command"/>
+                </GridView>
+            </ListView.View>
+
+            <ListView.GroupStyle>
+                <GroupStyle ContainerStyle="{StaticResource ContainerStyle}">
+                    <GroupStyle.HeaderTemplate>
+                        <DataTemplate>
+                            <TextBlock FontWeight="Bold" FontSize="14" Text="{Binding Name}"/>
+                        </DataTemplate>
+                    </GroupStyle.HeaderTemplate>
+                </GroupStyle>
+            </ListView.GroupStyle>
+        </ListView>
+    </Grid>
+</UserControl>

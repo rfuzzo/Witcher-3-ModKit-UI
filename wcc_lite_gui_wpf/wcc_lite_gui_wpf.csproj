@@ -46,6 +46,7 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -90,31 +91,38 @@
     <Compile Include="Commands\DelegateCommand{T}.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="CustomSettings.cs" />
-    <Compile Include="Forms\UCWorkflowView.xaml.cs">
-      <DependentUpon>UCWorkflowView.xaml</DependentUpon>
+    <Compile Include="ViewModels\UtilitiesViewModel.cs" />
+    <Compile Include="ViewModels\ViewModel.cs" />
+    <Compile Include="Views\AboutView.xaml.cs">
+      <DependentUpon>AboutView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkspaceView.xaml.cs">
+      <DependentUpon>WorkspaceView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ObservableObject.cs" />
-    <Compile Include="ViewModels\CommandsViewModel.cs" />
-    <Compile Include="ViewModels\DockabaleViewModel.cs" />
     <Compile Include="ViewModels\IViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
-    <Page Include="Forms\UCCommands.xaml">
+    <Page Include="Views\AboutView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Forms\UCConsole.xaml">
+    <Page Include="Views\CommandsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Forms\UCErrors.xaml">
+    <Page Include="Views\ConsoleView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Forms\UCPipes.xaml">
+    <Page Include="Views\ErrorsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Forms\UCWorkflowView.xaml">
+    <Page Include="Views\PipeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\WorkspaceView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -126,17 +134,17 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Forms\UCCommands.xaml.cs">
-      <DependentUpon>UCCommands.xaml</DependentUpon>
+    <Compile Include="Views\CommandsView.xaml.cs">
+      <DependentUpon>CommandsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Forms\UCConsole.xaml.cs">
-      <DependentUpon>UCConsole.xaml</DependentUpon>
+    <Compile Include="Views\ConsoleView.xaml.cs">
+      <DependentUpon>ConsoleView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Forms\UCErrors.xaml.cs">
-      <DependentUpon>UCErrors.xaml</DependentUpon>
+    <Compile Include="Views\ErrorsView.xaml.cs">
+      <DependentUpon>ErrorsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Forms\UCPipes.xaml.cs">
-      <DependentUpon>UCPipes.xaml</DependentUpon>
+    <Compile Include="Views\PipeView.xaml.cs">
+      <DependentUpon>PipeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -158,7 +166,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config" />
@@ -268,9 +276,6 @@
     <Resource Include="Resources\Icons\Undo_16x.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Icons\400751097372868608_icon.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\Wcc_lite_core\Wcc_lite_core\Wcc_lite_core.csproj">
       <Project>{9a1a410d-d826-4dd1-af00-2a89f6a3b6ef}</Project>
       <Name>Wcc_lite_core</Name>
@@ -278,6 +283,21 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DataTemplates\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\StatusCriticalError_16x.ico" />
+    <Resource Include="Resources\Icons\StatusInformation_16x.ico" />
+    <Resource Include="Resources\Icons\StatusWarning_16x.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\modkitUIIcon.ico" />
+    <Resource Include="Resources\Icons\modkitUIIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\BuildErrorList_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\TaskList_16x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
