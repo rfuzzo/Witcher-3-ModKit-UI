@@ -1,0 +1,54 @@
+﻿<ResourceDictionary x:Class="wcc_lite_gui_wpf.Templates.DataTemplates"
+                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:vm="clr-namespace:wcc_lite_gui_wpf.ViewModels"
+                    xmlns:v="clr-namespace:wcc_lite_gui_wpf.Views"
+                    xmlns:s="clr-namespace:System;assembly=mscorlib"
+                    >
+    
+    <DataTemplate DataType="{x:Type vm:CommandsListViewModel}">
+        <v:CommandsView>
+            
+        </v:CommandsView>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:WorkflowListViewModel}">
+        <v:WorkflowListView>
+
+        </v:WorkflowListView>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:ErrorListViewModel}">
+        <v:ErrorsView>
+
+        </v:ErrorsView>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:LogViewModel}">
+        <v:ConsoleView>
+
+        </v:ConsoleView>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:PropertiesViewModel}">
+        <v:PropertiesView>
+
+        </v:PropertiesView>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:VariablesViewModel}">
+        <v:VariablesView>
+
+        </v:VariablesView>
+    </DataTemplate>
+
+
+    <DataTemplate DataType="{x:Type vm:WorkspaceViewModel}">
+        <v:WorkspaceView>
+            
+        </v:WorkspaceView>
+    </DataTemplate>
+
+    
+
+</ResourceDictionary>

@@ -1,0 +1,104 @@
+﻿<UserControl x:Class="wcc_lite_gui_wpf.Views.VariablesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             
+             xmlns:dd="urn:gong-wpf-dragdrop"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             
+             xmlns:local="clr-namespace:wcc_lite_gui_wpf.Views"
+             xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+             xmlns:dat="clr-namespace:System.Windows.Data;assembly=PresentationFramework"
+             xmlns:dt="clr-namespace:wcc_lite_gui_wpf.Templates"
+             
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="450">
+    
+
+    
+    <UserControl.Resources>
+        <CollectionViewSource  
+            x:Key="cvs_var" 
+            Source="{Binding Variables, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            IsLiveGroupingRequested="False"
+            >
+            <!-- Sorting -->
+            <CollectionViewSource.SortDescriptions>
+                <scm:SortDescription PropertyName="Parent"/>
+                <scm:SortDescription PropertyName="Name"/>
+            </CollectionViewSource.SortDescriptions>
+
+            <!-- Grouping-->
+            <CollectionViewSource.GroupDescriptions>
+                <dat:PropertyGroupDescription PropertyName="Parent" />
+            </CollectionViewSource.GroupDescriptions>
+
+            
+        </CollectionViewSource>
+
+        <!-- Style for ListViewItems -->
+        <Style TargetType="ListBoxItem">
+            <Setter Property="Height" Value="36"/>
+        </Style>
+
+        <!-- Style for GroupItem -->
+        <Style x:Key="ContainerStyle" TargetType="{x:Type GroupItem}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Expander Header="{Binding Name}" IsExpanded="True" >
+                            <ItemsPresenter/>
+                        </Expander>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid >
+       
+        <ListBox x:Name="_variablesListView" 
+                  ItemsSource="{Binding Source={StaticResource cvs_var}, UpdateSourceTrigger=PropertyChanged}" 
+                  SelectedItem="{Binding ParentViewModel.ActiveProperty}"
+                  dd:DragDrop.IsDragSource="True"
+                  dd:DragDrop.IsDropTarget="False"
+                  dd:DragDrop.DropHandler="{Binding DataContext}" >
+
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <dt:DTVariable DataContext="{Binding}" Width="auto" Height="auto"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+
+            <ListBox.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Add new Variable"
+                         Command="{Binding AddVariableCommand}"
+                         CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu}, Path=PlacementTarget.SelectedItem}">
+                    </MenuItem>
+                    <MenuItem Header="RemoveVariable"
+                         Command="{Binding RemoveVariableCommand}"
+                         CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu}, Path=PlacementTarget.SelectedItem}">
+                    </MenuItem>
+                </ContextMenu>
+            </ListBox.ContextMenu>
+
+            <ListBox.GroupStyle>
+                <GroupStyle ContainerStyle="{StaticResource ContainerStyle}">
+                    <GroupStyle.HeaderTemplate>
+                        <DataTemplate>
+                            <TextBlock FontWeight="Bold" FontSize="14" Text="{Binding Name}"/>
+                        </DataTemplate>
+                    </GroupStyle.HeaderTemplate>
+                </GroupStyle>
+            </ListBox.GroupStyle>
+        </ListBox>
+    </Grid>
+</UserControl>

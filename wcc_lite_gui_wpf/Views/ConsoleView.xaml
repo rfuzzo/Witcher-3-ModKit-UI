@@ -9,7 +9,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
 
     <Grid>
-        <TextBox Text="{Binding Logger.Log, Mode=OneWay }"
+        <TextBox Text="{Binding ParentViewModel.Logger.Log, Mode=OneWay }"
                  Background="LightYellow"
                  IsReadOnly="True"
                  >

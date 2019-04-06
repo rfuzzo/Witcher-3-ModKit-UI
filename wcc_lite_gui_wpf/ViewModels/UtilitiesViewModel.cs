@@ -12,7 +12,7 @@ using wcc_lite_gui_wpf.Views;
 
 namespace wcc_lite_gui_wpf.ViewModels
 {
-    class UtilitiesViewModel : ViewModel
+    public class UtilitiesViewModel : ViewModel
     {
         public string URLGithub { get; }  = "https://github.com/rfuzzo/Witcher-3-ModKit-UI";
         public Version Version { get; set; }  = Assembly.GetExecutingAssembly().GetName().Version;

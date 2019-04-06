@@ -1,5 +1,5 @@
 ﻿using System.Windows.Controls;
-using Xceed.Wpf.DataGrid.Views;
+using Wcc_lite_core;
 
 namespace wcc_lite_gui_wpf.Views
 {
@@ -17,13 +17,16 @@ namespace wcc_lite_gui_wpf.Views
         public CommandsView()
         {
 
-            InitializeComponent();
-
-           
+            InitializeComponent();           
 
         }
 
-      
+        private void _commandsListView_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            dynamic viewModel = DataContext;
+            var senderAsList = ((ListView)sender);
+            viewModel.CommandDoubleClick((WorkflowItem)senderAsList.SelectedValue);
+        }
     }
 
 }

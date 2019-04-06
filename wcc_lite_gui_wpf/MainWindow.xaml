@@ -1,13 +1,16 @@
-﻿<Window
+﻿<Window x:Class="wcc_lite_gui_wpf.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:System="clr-namespace:System;assembly=mscorlib"
+        
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:ad="http://schemas.xceed.com/wpf/xaml/avalondock"
+    
+        xmlns:local="clr-namespace:wcc_lite_gui_wpf" 
         xmlns:Views="clr-namespace:wcc_lite_gui_wpf.Views"
         xmlns:ViewModels="clr-namespace:wcc_lite_gui_wpf.ViewModels"
-        xmlns:local="clr-namespace:wcc_lite_gui_wpf" x:Class="wcc_lite_gui_wpf.MainWindow"
+        
         mc:Ignorable="d"
         Title="Wcc_thicc"  
         Height="900" 
@@ -15,6 +18,11 @@
         Name="Wcc_thicc"
         Icon="Resources/Icons/modkitUIIcon.ico"
         >
+
+    <Window.Resources>
+        <ResourceDictionary Source="/wcc_lite_gui_wpf;component/Templates/DataTemplates.xaml"/>
+    </Window.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <!-- MenuBar -->
@@ -101,60 +109,75 @@
 
         <!-- Dockabale Controls -->
         <ad:DockingManager Grid.Row="2"
-                            x:Name="_manager"
-                            ShowSystemMenu="True"
-                            AllowMixedOrientation="True"
-                            FlowDirection="LeftToRight">
+            x:Name="_manager"
+            ShowSystemMenu="True"
+            AllowMixedOrientation="True"
+            AnchorablesSource="{Binding AnchorablesSource}"
+            DocumentsSource="{Binding DocumentsSource}"
+            ActiveContent="{Binding ActiveContent, Mode=TwoWay}"
+            
+            >
 
+            <!-- Theme -->
             <ad:DockingManager.Theme>
                 <ad:Vs2013DarkTheme/>
             </ad:DockingManager.Theme>
 
+            <!-- Update Strategy -->
+            <ad:DockingManager.LayoutUpdateStrategy>
+                <local:MainLayoutUpdateStrategy/>
+            </ad:DockingManager.LayoutUpdateStrategy>
+
+            <!-- Dockable Container Properties -->
+            <ad:DockingManager.LayoutItemContainerStyle>
+                <Style TargetType="{x:Type ad:LayoutItem}">
+                    <Setter Property="Title"        Value="{Binding Model.Title}"/>
+                    <Setter Property="ToolTip"      Value="{Binding Model.FilePath}"/>
+                    <Setter Property="CloseCommand" Value="{Binding Model.CloseCommand}"/>
+                    <Setter Property="ContentId"    Value="{Binding Model.ContentId, Mode=TwoWay}"/>
+                    <Setter Property="IsActive"     Value="{Binding Model.IsActive, Mode=TwoWay}"/>
+                    <Setter Property="IsSelected"   Value="{Binding Model.IsSelected, Mode=TwoWay}"/>
+                </Style>
+            </ad:DockingManager.LayoutItemContainerStyle>
+
+
+            <!-- ROOT LAYOUT -->
             <ad:LayoutRoot x:Name="_root">
                 
                 <!-- Main Panel -->
-                <ad:LayoutPanel Orientation="Vertical">
-
-                    <!-- Empty Pane -->
-                    <!-- Workspace -->
-                    <ad:LayoutDocumentPane>
-                        <ad:LayoutAnchorable ContentId="workspace" Title="Workspace">
-                            <Views:WorkspaceView/>
-                        </ad:LayoutAnchorable>
-                    </ad:LayoutDocumentPane>
-
-
-                    <!-- Bottom Anchorables -->
-                    <!-- Error List and Log -->
-                    <ad:LayoutPanel DockHeight="300" Orientation="Horizontal">
-                        <ad:LayoutAnchorablePane>
-                            <ad:LayoutAnchorable ContentId="errors" Title="Error List" CanHide="False" CanClose="False">
-                                <Views:ErrorsView/>
-                            </ad:LayoutAnchorable>
-                            <ad:LayoutAnchorable ContentId="log" Title="Log" CanHide="False" CanClose="False">
-                                <Views:ConsoleView/>
-                            </ad:LayoutAnchorable>
-                        </ad:LayoutAnchorablePane>
+                <ad:LayoutPanel Orientation="Horizontal">
+                    <!-- Left anchored pane -->
+                    <ad:LayoutAnchorablePane DockWidth="300" Name="leftPane" DockMinWidth="200"/>
+                    
+                    <!-- Middle Pane -->
+                    <ad:LayoutPanel Orientation="Vertical">
+                        <!-- Top: Workspace -->
+                        <ad:LayoutDocumentPane/>
+                        <!-- Bottom: ErrorList and Log -->
+                        <ad:LayoutAnchorablePane DockHeight="300" Name="bottomPane"/>
                     </ad:LayoutPanel>
+
+                    <!-- Left anchored pane -->
+                    <ad:LayoutAnchorablePane DockWidth="300" Name="rightPane" DockMinWidth="200"/>
+
                 </ad:LayoutPanel>
 
-                <!-- Left Anchorables -->
-                <!-- Commands -->
+                <!-- Left Hidden Side: CommandList -->
                 <ad:LayoutRoot.LeftSide>
                     <ad:LayoutAnchorSide>
-                        <ad:LayoutAnchorGroup>
-                            <ad:LayoutAnchorable Title="Commands"
-                                    FloatingWidth="200"
-                                    AutoHideMinWidth="200"
-                                    AutoHideWidth="200" 
-                                    CanHide="False" CanClose="False">
-                                <Views:CommandsView/>
-                            </ad:LayoutAnchorable>
-                        </ad:LayoutAnchorGroup>
+                        <ad:LayoutAnchorGroup/>
                     </ad:LayoutAnchorSide>
                 </ad:LayoutRoot.LeftSide>
 
+                <!-- Right Hidden Side: Properties -->
+                <ad:LayoutRoot.RightSide>
+                    <ad:LayoutAnchorSide>
+                        <ad:LayoutAnchorGroup/>
+                    </ad:LayoutAnchorSide>
+                </ad:LayoutRoot.RightSide>
+
             </ad:LayoutRoot>
+            
         </ad:DockingManager>
 
 
@@ -202,7 +225,7 @@
             <StatusBarItem Grid.Column="4">
                 <TextBlock 
                     Margin="0,0,2,0"
-                    Text="{Binding WccTaskHandler.Wcc_path,StringFormat='ModKit: {0}'}"/>
+                    Text="{Binding WccTaskHandler.Wcc_path, StringFormat='ModKit: {0}'}"/>
             </StatusBarItem>
         </StatusBar>
 

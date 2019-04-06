@@ -17,6 +17,7 @@ using System.Threading;
 using Microsoft.Win32;
 using Ninject;
 using Ninject.Infrastructure;
+using Radish_core;
 
 namespace wcc_lite_gui_wpf.ViewModels
 {
@@ -28,10 +29,6 @@ namespace wcc_lite_gui_wpf.ViewModels
     public class MainViewModel : ViewModel, IHaveKernel
     {
         #region Documents / Content / Anchorables
-
-        
-
-
         private object _activeContent;
         /// <summary>
         /// Holds the currently active content in the window.
@@ -51,25 +48,84 @@ namespace wcc_lite_gui_wpf.ViewModels
                 }
             }
         }
-        #endregion
 
-
-        #region Properties
-        private WccLite_Command _activeCommand;
+        private ICollection<WorkspaceViewModel> _documentsSource;
         /// <summary>
-        /// Holds the currently active Wcc Lite Command in the window.
+        /// Holds all the currently open documents in the project.
         /// </summary>
-        public WccLite_Command ActiveCommand
+        public ICollection<WorkspaceViewModel> DocumentsSource
         {
             get
             {
-                return _activeCommand;
+                return _documentsSource;
             }
             set
             {
-                if (_activeCommand != value)
+                if (_documentsSource != value)
                 {
-                    _activeCommand = value;
+                    _documentsSource = value;
+                    InvokePropertyChanged();
+                }
+            }
+        }
+
+        private object _activeDocument;
+        /// <summary>
+        /// Holds the currently active content in the window.
+        /// </summary>
+        public object ActiveDocument
+        {
+            get
+            {
+                return _activeDocument;
+            }
+            set
+            {
+                if (_activeDocument != value)
+                {
+                    _activeDocument = value;
+                    InvokePropertyChanged();
+                }
+            }
+        }
+
+        private ICollection<DockableViewModel> _anchorablesSource;
+        /// <summary>
+        /// Holds the anchorable panes for controls.
+        /// </summary>
+        public ICollection<DockableViewModel> AnchorablesSource
+        {
+            get
+            {
+                return _anchorablesSource;
+            }
+            set
+            {
+                if (_anchorablesSource != value)
+                {
+                    _anchorablesSource = value;
+                    InvokePropertyChanged();
+                }
+            }
+        }
+        #endregion
+
+        #region Properties
+        private object _activeProperty;
+        /// <summary>
+        /// Holds the currently active Wcc Lite Command in the window.
+        /// </summary>
+        public object ActiveProperty
+        {
+            get
+            {
+                return _activeProperty;
+            }
+            set
+            {
+                if (_activeProperty != value)
+                {
+                    _activeProperty = value;
                     InvokePropertyChanged();
                 }
             }
@@ -95,11 +151,11 @@ namespace wcc_lite_gui_wpf.ViewModels
             }
         }
 
-        private ObservableCollection<WccLite_Command> _commands;
+        private ObservableCollection<WorkflowItem> _commands;
         /// <summary>
         /// Holds the Wcc CommandsCollection stored in the Settings.
         /// </summary>
-        public ObservableCollection<WccLite_Command> Commands
+        public ObservableCollection<WorkflowItem> Commands
         {
             get
             {
@@ -115,7 +171,29 @@ namespace wcc_lite_gui_wpf.ViewModels
             }
         }
 
+        private ObservableCollection<Radish_Workflow> _workflows;
+        /// <summary>
+        /// Holds the Wcc Workflow collection
+        /// </summary>
+        public ObservableCollection<Radish_Workflow> Workflows
+        {
+            get
+            {
+                return _workflows;
+            }
+            set
+            {
+                if (_workflows != value)
+                {
+                    _workflows = value;
+                    InvokePropertyChanged();
+                }
+            }
+        }
+
         
+
+
 
         private IViewModel _utilities;
         public IViewModel Utilities
@@ -142,9 +220,7 @@ namespace wcc_lite_gui_wpf.ViewModels
         public ICommand RunWccCmdCommand { get; }
         public ICommand SaveFileCommand { get; }
         public ICommand LocateWccCommand { get; }
-        //FIXME in child View Model 
-        public ICommand AddToFavouritesCommand { get; }
-        public ICommand RemoveFromfavouritesCommand { get; }
+       
 
 
         #region Command Implementation
@@ -155,13 +231,20 @@ namespace wcc_lite_gui_wpf.ViewModels
 
         public bool CanRun()
         {
-            return ActiveCommand != null;
+            WorkspaceViewModel wvm = DocumentsSource.FirstOrDefault(x => x.ContentId == "workspace");
+            return wvm.Workflow.Any();
         }
         public void Run()
         {
-            StartWccComand(ActiveCommand);
+            WorkspaceViewModel wvm = DocumentsSource.FirstOrDefault(x => x.ContentId == "workspace");
+            var workflow = wvm.Workflow;
+            foreach (WccCommand cmd in workflow)
+            {
+                StartWccComand(cmd);
+            }
+
         }
-        public async void StartWccComand(WccLite_Command cmd)
+        public async void StartWccComand(WccCommand cmd)
         {
             await WccTaskHandler.RunCommand(cmd);
         }
@@ -192,23 +275,7 @@ namespace wcc_lite_gui_wpf.ViewModels
             }
         }
 
-        //FIXME in child View Model 
-        public bool CanAddToFavourites()
-        {
-            return ActiveCommand != null && ActiveCommand.Category != WccCommandCategory.Favourites;
-        }
-        public void AddToFavourites()
-        {
-            ActiveCommand.Category = WccCommandCategory.Favourites;
-        }
-        public bool CanRemoveFromfavourites()
-        {
-            return ActiveCommand != null && ActiveCommand.Category == WccCommandCategory.Favourites;
-        }
-        public void RemoveFromfavourites()
-        {
-            ActiveCommand.ResetCategory();
-        }
+        
 
 
 
@@ -233,17 +300,69 @@ namespace wcc_lite_gui_wpf.ViewModels
             SaveFileCommand = new RelayCommand(Save, CanSave);
             LocateWccCommand = new RelayCommand(LocateWcc, CanLocateWcc);
 
-            //FIXME in child View Model 
-            AddToFavouritesCommand = new RelayCommand(AddToFavourites, CanAddToFavourites);
-            RemoveFromfavouritesCommand = new RelayCommand(RemoveFromfavourites, CanRemoveFromfavourites);
             #endregion
 
+            // Layout
+            AnchorablesSource = new ObservableCollection<DockableViewModel>()
+            {
+                new CommandsListViewModel()
+                {
+                    Title = "Commands List",
+                    ContentId = "commandsList",
+                    ParentViewModel = this,
+                },
+                new WorkflowListViewModel()
+                {
+                    Title = "Workflow List",
+                    ContentId = "workflowList",
+                    ParentViewModel = this,
+                },
+                new ErrorListViewModel()
+                {
+                    Title = "Error List",
+                    ContentId = "errorList",
+                    ParentViewModel = this,
+                },
+                new LogViewModel()
+                {
+                    Title = "Log",
+                    ContentId = "log",
+                    ParentViewModel = this,
+                },
+                new PropertiesViewModel()
+                {
+                    Title = "Properties",
+                    ContentId = "properties",
+                    ParentViewModel = this,
+                },
+                new VariablesViewModel()
+                {
+                    Title = "Variables",
+                    ContentId = "variables",
+                    ParentViewModel = this,
+                },
+            };
+            DocumentsSource = new ObservableCollection<WorkspaceViewModel>
+            {
+                new WorkspaceViewModel()
+                {
+                    Title = "Workspace",
+                    ContentId = "workspace",
+                    ParentViewModel = this,
+                },
+                
 
-            WccTaskHandler = new WccTaskHandler(wcc_lite_gui_wpf.Properties.Settings.Default.WccPath);
-            Commands = wcc_lite_gui_wpf.Properties.Settings.Default.WccLite_Commands;
+            };
+            
+
+            // core logic
+            WccTaskHandler = new WccTaskHandler(Properties.Settings.Default.WccPath);
+            Commands = Properties.Settings.Default.WccLite_Commands;
+            Workflows = new RadishWorkflowCollection();
+
             Logger = WccTaskHandler.Logger;
 
-
+            
         }
 
        

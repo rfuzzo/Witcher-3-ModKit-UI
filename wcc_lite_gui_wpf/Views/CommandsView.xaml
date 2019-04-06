@@ -1,14 +1,15 @@
-﻿<UserControl
+﻿<UserControl x:Class="wcc_lite_gui_wpf.Views.CommandsView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:wcc_lite_gui_wpf.Views"
-             xmlns:ViewModels="clr-namespace:wcc_lite_gui_wpf.ViewModels" 
+    
+             xmlns:dd="urn:gong-wpf-dragdrop"
+               
              xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
              xmlns:dat="clr-namespace:System.Windows.Data;assembly=PresentationFramework"
-             xmlns:properties="clr-namespace:wcc_lite_gui_wpf.Properties"
-             x:Class="wcc_lite_gui_wpf.Views.CommandsView"
+             xmlns:local="clr-namespace:wcc_lite_gui_wpf.Views"
+             
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="200"
     >
@@ -16,7 +17,7 @@
     <UserControl.Resources>
         <CollectionViewSource  
             x:Key="cvs_cmd" 
-            Source="{Binding Commands, Mode=TwoWay}"
+            Source="{Binding ParentViewModel.Commands, Mode=TwoWay}"
             IsLiveGroupingRequested="True"
             >
             <!-- Sorting -->
@@ -50,7 +51,12 @@
         <ListView x:Name="_commandsListView" 
                   ItemsSource="{Binding Source={StaticResource cvs_cmd}, UpdateSourceTrigger=PropertyChanged}" 
                   SelectedItem="{Binding ActiveCommand}"
-                   >
+                  MouseDoubleClick="_commandsListView_MouseDoubleClick"
+                  dd:DragDrop.IsDragSource="True"
+                  dd:DragDrop.IsDropTarget="False"
+                  dd:DragDrop.DropHandler="{Binding ParentViewModel}" >
+                   
+            
             <ListView.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Add to Favourites"
@@ -79,6 +85,8 @@
                     </GroupStyle.HeaderTemplate>
                 </GroupStyle>
             </ListView.GroupStyle>
+
+     
         </ListView>
     </Grid>
 </UserControl>

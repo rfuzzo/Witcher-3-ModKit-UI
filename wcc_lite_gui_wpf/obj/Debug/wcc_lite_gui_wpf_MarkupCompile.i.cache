@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\App.xaml
-7-1345230589
+121580025413
 
-251559806542
-24254047981
-Views\AboutView.xaml;Views\CommandsView.xaml;Views\ConsoleView.xaml;Views\ErrorsView.xaml;Views\PipeView.xaml;Views\WorkspaceView.xaml;MainWindow.xaml;
+381493072358
+26873003293
+Templates\DataTemplates.xaml;Templates\DTVariable.xaml;Templates\DTWorkspaceCommand.xaml;Views\AboutView.xaml;Views\CommandsView.xaml;Views\ConsoleView.xaml;Views\ErrorsView.xaml;Views\PropertiesView.xaml;Views\VariablesView.xaml;Views\WorkflowListView.xaml;Views\WorkspaceView.xaml;MainWindow.xaml;
 
-False
+True
 

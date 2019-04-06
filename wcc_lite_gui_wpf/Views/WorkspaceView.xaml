@@ -3,57 +3,53 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:wcc_lite_gui_wpf.Views"
+             
+             xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+             xmlns:dat="clr-namespace:System.Windows.Data;assembly=PresentationFramework"
+             
+             xmlns:dd="urn:gong-wpf-dragdrop"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             
+             xmlns:local="clr-namespace:wcc_lite_gui_wpf.Views"
+             xmlns:dt="clr-namespace:wcc_lite_gui_wpf.Templates"
+             
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
     >
 
-    <Grid >
-        <!-- Lower Row -->
-        <Grid.ColumnDefinitions>
-            <!-- PropertyGrid -->
-            <ColumnDefinition Width="*"/>
-            <!-- Splitter-->
-            <ColumnDefinition Width="5"/>
-            <!-- ListView -->
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-
-
-        <!-- Left Side -->
+    <UserControl.Resources>
+        <CollectionViewSource  
+            x:Key="cvs_wf" 
+            Source="{Binding Workflow, Mode=OneWay}"
+            IsLiveGroupingRequested="True"
+            >
+  
+        </CollectionViewSource>
         
 
-        <!--Splitter-->
-        <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
+    </UserControl.Resources>
 
-        <!-- PropertyGrid Element -->
-        <xctk:PropertyGrid Grid.Column="2" 
-                            x:Name="PropertyGridMain" 
-                            SelectedObject="{Binding ActiveCommand, Mode=TwoWay}"
-                           
-                            >
-            
-            <!-- Custom Property Support: Paths-->
-            <xctk:PropertyGrid.EditorDefinitions>
+    <Grid>
+        <ListBox x:Name="_workspaceListView" 
+                  ItemsSource="{Binding Source={StaticResource cvs_wf}, UpdateSourceTrigger=PropertyChanged}" 
+                  dd:DragDrop.IsDragSource="True"
+                  dd:DragDrop.IsDropTarget="True"
+                  dd:DragDrop.DropHandler="{Binding}"  
+                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                  ScrollViewer.CanContentScroll="False">
 
-                <!-- CommandLine -->
-                <xctk:EditorDefinition>
-                    <xctk:EditorDefinition.PropertiesDefinitions>
-                        <xctk:PropertyDefinition Name="CommandLine" />
-                    </xctk:EditorDefinition.PropertiesDefinitions>
-                    <xctk:EditorDefinition.EditorTemplate>
-                        <DataTemplate>
-                            <TextBlock 
-                                Text="{Binding Value, Mode=OneWay}"
-                                TextWrapping="Wrap" 
-                                Background="LightYellow"
-                                />
-                        </DataTemplate>
-                    </xctk:EditorDefinition.EditorTemplate>
-                </xctk:EditorDefinition>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <dt:DTWorkspaceCommand DataContext="{Binding}" Width="auto"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
 
-            </xctk:PropertyGrid.EditorDefinitions>
-        </xctk:PropertyGrid>
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                </Style>
+            </ListBox.ItemContainerStyle>
+
+        </ListBox>
     </Grid>
 </UserControl>

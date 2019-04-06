@@ -81,10 +81,14 @@ namespace wcc_lite_gui_wpf
             Bind<MainWindow>().ToSelf().InSingletonScope();
             Bind<IViewModel>().To<MainViewModel>().WhenInjectedInto<MainWindow>();
 
-
+            //Bind<IViewModel>().To<CommandsListViewModel>().WhenInjectedInto<CommandsView>();
+            
             //Bind<IViewModel>().To<AboutViewModel>().WhenInjectedInto<AboutView>();
+
+        
+
         }
     }
 
-   
+
 }
