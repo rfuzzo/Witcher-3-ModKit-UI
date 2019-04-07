@@ -73,11 +73,14 @@ namespace wcc_lite_gui_wpf.ViewModels
         /// <summary>
         /// Holds the currently active content in the window.
         /// </summary>
+        /// //FIXME
         public object ActiveDocument
         {
             get
             {
                 return _activeDocument;
+                //var selectedDoc = DocumentsSource.FirstOrDefault(x => x.IsSelected);
+                //return selectedDoc;
             }
             set
             {
@@ -113,7 +116,7 @@ namespace wcc_lite_gui_wpf.ViewModels
         #region Properties
         private object _activeProperty;
         /// <summary>
-        /// Holds the currently active Wcc Lite Command in the window.
+        /// Holds the currently active object to display in the properties window.
         /// </summary>
         public object ActiveProperty
         {
@@ -171,11 +174,11 @@ namespace wcc_lite_gui_wpf.ViewModels
             }
         }
 
-        private ObservableCollection<Radish_Workflow> _workflows;
+        private ObservableCollection<RAD_Workflow> _workflows;
         /// <summary>
         /// Holds the Wcc Workflow collection
         /// </summary>
-        public ObservableCollection<Radish_Workflow> Workflows
+        public ObservableCollection<RAD_Workflow> Workflows
         {
             get
             {
@@ -238,16 +241,24 @@ namespace wcc_lite_gui_wpf.ViewModels
         {
             WorkspaceViewModel wvm = DocumentsSource.FirstOrDefault(x => x.ContentId == "workspace");
             var workflow = wvm.Workflow;
-            foreach (WccCommand cmd in workflow)
+            foreach (WorkflowItem item in workflow)
             {
-                StartWccComand(cmd);
+                //FIXME
+                switch (item.Run())
+                {
+                    case -1: {
+                            return;
+                        }
+                    default:
+                        break;
+                }
+
+                
+                
             }
 
         }
-        public async void StartWccComand(WccCommand cmd)
-        {
-            await WccTaskHandler.RunCommand(cmd);
-        }
+        
 
         public bool CanSave()
         {
@@ -335,12 +346,13 @@ namespace wcc_lite_gui_wpf.ViewModels
                     ContentId = "properties",
                     ParentViewModel = this,
                 },
-                new VariablesViewModel()
+                // FIXME on hold until I figure out how to drag and drop variables into a propertygrid
+                /*new VariablesViewModel()
                 {
                     Title = "Variables",
                     ContentId = "variables",
                     ParentViewModel = this,
-                },
+                },*/
             };
             DocumentsSource = new ObservableCollection<WorkspaceViewModel>
             {
@@ -350,7 +362,7 @@ namespace wcc_lite_gui_wpf.ViewModels
                     ContentId = "workspace",
                     ParentViewModel = this,
                 },
-                
+               
 
             };
             

@@ -35,6 +35,36 @@ namespace wcc_lite_gui_wpf.Properties {
             }
         }
 
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string GamePath
+        {
+            get
+            {
+                return ((string)(this["GamePath"]));
+            }
+            set
+            {
+                this["GamePath"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ToolsPath
+        {
+            get
+            {
+                return ((string)(this["ToolsPath"]));
+            }
+            set
+            {
+                this["ToolsPath"] = value;
+            }
+        }
+
         [global::System.Configuration.SettingsSerializeAs(System.Configuration.SettingsSerializeAs.Binary)]
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

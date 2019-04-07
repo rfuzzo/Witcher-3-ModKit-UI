@@ -33,7 +33,7 @@ namespace wcc_lite_gui_wpf.Views
         {
             dynamic viewModel = DataContext;
             var senderAsList = ((ListView)sender);
-            viewModel.CommandDoubleClick((Radish_Workflow)senderAsList.SelectedValue);
+            viewModel.CommandDoubleClick((RAD_Workflow)senderAsList.SelectedValue);
         }
     }
 }

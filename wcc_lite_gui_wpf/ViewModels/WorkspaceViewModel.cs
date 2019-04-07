@@ -10,6 +10,7 @@ using System.Windows;
 using System.Windows.Input;
 using Wcc_lite_core;
 using wcc_lite_gui_wpf.Commands;
+using Radish_core;
 
 namespace wcc_lite_gui_wpf.ViewModels
 {
@@ -20,52 +21,24 @@ namespace wcc_lite_gui_wpf.ViewModels
     /// </summary>
     public class WorkspaceViewModel : DockableViewModel, IDropTarget
     {
-        /// <summary>
-        /// File path to the to-serialize xml
-        /// </summary>
-        #region FilePath
-        private string _filePath;
-        public string FilePath
+        #region Properties
+        private RAD_Settings _settings;
+        public RAD_Settings Settings
         {
             get
             {
-                return _filePath;
+                return _settings;
             }
             set
             {
-                if (_filePath != value)
+                if (_settings != value)
                 {
-                    _filePath = value;
+                    _settings = value;
                     InvokePropertyChanged();
-                    InvokePropertyChanged(nameof(Title));
                 }
             }
         }
-        #endregion
 
-        /// <summary>
-        /// 
-        /// </summary>
-        #region Title
-        public override string Title
-        {
-            get
-            {
-                if (String.IsNullOrEmpty(FilePath))
-                {
-                    return base.Title;
-                }
-                if (HasUnsavedChanges)
-                {
-                    return String.Format("{0}*", Path.GetFileName(FilePath));
-                }
-                return Path.GetFileName(FilePath);
-            }
-        }
-       
-        #endregion
-
-        #region HasUnsavedChanges
         private bool _hasUnsavedChanges;
         public bool HasUnsavedChanges
         {
@@ -79,13 +52,11 @@ namespace wcc_lite_gui_wpf.ViewModels
                 {
                     _hasUnsavedChanges = value;
                     InvokePropertyChanged();
-                    InvokePropertyChanged(nameof(Title));
                 }
             }
         }
-        #endregion
 
-        #region IsSelected
+
         private bool _isSelected;
         public bool IsSelected
         {
@@ -99,10 +70,13 @@ namespace wcc_lite_gui_wpf.ViewModels
                 {
                     _isSelected = value;
                     InvokePropertyChanged();
+
+                    ParentViewModel.ActiveDocument = ParentViewModel.DocumentsSource.FirstOrDefault(x => x.IsSelected);
+
                 }
             }
         }
-        #endregion
+       
 
         private ObservableCollection<WorkflowItem> _workflow;
         /// <summary>
@@ -123,7 +97,7 @@ namespace wcc_lite_gui_wpf.ViewModels
                 }
             }
         }
-
+        #endregion
 
 
         public ICommand CloseCommand { get; }
@@ -155,7 +129,7 @@ namespace wcc_lite_gui_wpf.ViewModels
         }
 
 
-        public void DeleteWorkflowItem(WccCommand item)
+        public void DeleteWorkflowItem(WorkflowItem item)
         {
             _workflow.Remove(item);
         }

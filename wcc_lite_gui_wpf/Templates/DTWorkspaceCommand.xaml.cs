@@ -63,7 +63,7 @@ namespace wcc_lite_gui_wpf.Templates
         {
             dynamic view = ((Image)sender).DataContext;
             dynamic viewModel = view.DataContext;
-            WccCommand item = (WccCommand)DataContext;
+            WorkflowItem item = (WorkflowItem)DataContext;
             if (item != null && viewModel != null && view != null)
             {
                 viewModel.DeleteWorkflowItem(item);

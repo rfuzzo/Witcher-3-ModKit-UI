@@ -47,6 +47,7 @@
         <ListView x:Name="_workflowsListView" 
                   ItemsSource="{Binding Source={StaticResource cvs_wfs}, UpdateSourceTrigger=PropertyChanged}" 
                   MouseDoubleClick="_workflowsListView_MouseDoubleClick"
+                  SelectedItem="{Binding ParentViewModel.ActiveProperty}"
                    >
 
 

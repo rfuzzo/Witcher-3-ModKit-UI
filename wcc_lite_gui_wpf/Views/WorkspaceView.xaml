@@ -15,6 +15,7 @@
              
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
+             
     >
 
     <UserControl.Resources>
@@ -36,7 +37,9 @@
                   dd:DragDrop.IsDropTarget="True"
                   dd:DragDrop.DropHandler="{Binding}"  
                   ScrollViewer.VerticalScrollBarVisibility="Auto"
-                  ScrollViewer.CanContentScroll="False">
+                  ScrollViewer.CanContentScroll="False"
+                  
+                 >
 
             <ListBox.ItemTemplate>
                 <DataTemplate>

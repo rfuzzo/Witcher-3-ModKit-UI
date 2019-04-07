@@ -11,7 +11,7 @@
         <!-- PropertyGrid Element -->
         <xctk:PropertyGrid Grid.Column="2" 
                             x:Name="PropertyGridMain" 
-                            SelectedObject="{Binding ParentViewModel.ActiveProperty, Mode=TwoWay}"
+                            SelectedObject="{Binding ParentViewModel.ActiveDocument.Settings, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                            
                             >
 

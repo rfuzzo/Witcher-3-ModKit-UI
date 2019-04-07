@@ -92,7 +92,6 @@ namespace wcc_lite_gui_wpf
 
             /// Radish Commands
             Add(new Encode_env());
-            Add(new Encode_lipsync());
             Add(new Encode_quest());
             Add(new Encode_scene());
             Add(new Encode_speech());
@@ -112,12 +111,17 @@ namespace wcc_lite_gui_wpf
     /// <summary>
     /// Holds all Radish Workflows
     /// </summary>
-    public class RadishWorkflowCollection : ObservableCollection<Radish_Workflow>
+    public class RadishWorkflowCollection : ObservableCollection<RAD_Workflow>
     {
         public RadishWorkflowCollection()
         {
             /// Commmom Conmmands
-            Add(new RW_BuildAll());
+            Add(new RAD_Workflow_BuildAll());
+
+
+
+            //dbg
+            Add(new RAD_Workflow_BuildAll());
 
             #endregion
         }

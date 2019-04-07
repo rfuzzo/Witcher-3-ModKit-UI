@@ -50,7 +50,7 @@
     <Grid>
         <ListView x:Name="_commandsListView" 
                   ItemsSource="{Binding Source={StaticResource cvs_cmd}, UpdateSourceTrigger=PropertyChanged}" 
-                  SelectedItem="{Binding ActiveCommand}"
+                  SelectedItem="{Binding ActiveProperty}"
                   MouseDoubleClick="_commandsListView_MouseDoubleClick"
                   dd:DragDrop.IsDragSource="True"
                   dd:DragDrop.IsDropTarget="False"

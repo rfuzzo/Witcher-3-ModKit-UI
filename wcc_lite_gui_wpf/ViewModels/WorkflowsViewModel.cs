@@ -12,11 +12,11 @@ namespace wcc_lite_gui_wpf.ViewModels
 {
     class WorkflowListViewModel : DockableViewModel
     {
-        private Radish_Workflow _activeWorkflow;
+        private RAD_Workflow _activeWorkflow;
         /// <summary>
-        /// Holds variables usable in workflows
+        /// 
         /// </summary>
-        public Radish_Workflow ActiveWorkflow
+        public RAD_Workflow ActiveWorkflow
         {
             get
             {
@@ -54,26 +54,29 @@ namespace wcc_lite_gui_wpf.ViewModels
             ActiveWorkflow.ResetCategory();
         }
 
-        public void CommandDoubleClick(Radish_Workflow sender)
+        /// <summary>
+        /// initializes a new viewmodel and document with a list of workflowitems
+        /// </summary>
+        public void CommandDoubleClick(RAD_Workflow sender)
         {
-            var docs = ParentViewModel.DocumentsSource;
-            
-            docs.Add(new WorkspaceViewModel()
+            string ContentId = "workspace_" + (ParentViewModel.DocumentsSource.Count + 1).ToString();
+
+            //FIXME handle open new doc
+            ParentViewModel.DocumentsSource.Add(new WorkspaceViewModel()
             {
                 Title = sender.Name,
-                ContentId = "file1", 
+                ContentId = ContentId, 
                 ParentViewModel = ParentViewModel,
-            });
-
-            //FIXME handle open docs
-            //WorkspaceViewModel currentDoc = ParentViewModel.DocumentsSource.FirstOrDefault(x => x.ContentId == "file1");
-            WorkspaceViewModel currentDoc = ParentViewModel.DocumentsSource.FirstOrDefault(x => x.IsSelected);
+                Settings = new RAD_Settings(Properties.Settings.Default.GamePath, Properties.Settings.Default.WccPath, Properties.Settings.Default.ToolsPath)
+            });            
+            WorkspaceViewModel currentDoc = ParentViewModel.DocumentsSource.FirstOrDefault(x => x.ContentId == ContentId);
 
             //add copies of all workflowitems from the radishWorkflow class to the workflow
             List<WorkflowItem> steps = sender.Steps;
             foreach (WorkflowItem item in steps)
             {
                 WorkflowItem emptyCopy = (WorkflowItem)Activator.CreateInstance(item.GetType());
+                emptyCopy.Parent = currentDoc.Settings;
                 currentDoc.Workflow.Add(emptyCopy);
             }
         }

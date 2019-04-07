@@ -16,7 +16,7 @@ namespace wcc_lite_gui_wpf.ViewModels
 {
     public class DockableViewModel : ViewModel
     {
-        #region Title
+        #region Properties
         private string _title;
         public virtual string Title
         {
@@ -33,9 +33,7 @@ namespace wcc_lite_gui_wpf.ViewModels
                 }
             }
         }
-        #endregion
 
-        #region ContentId
         private string _contentId;
         public string ContentId
         {
@@ -52,9 +50,7 @@ namespace wcc_lite_gui_wpf.ViewModels
                 }
             }
         }
-        #endregion
 
-        #region IsActive
         private bool _isActive;
         public bool IsActive
         {
@@ -71,9 +67,7 @@ namespace wcc_lite_gui_wpf.ViewModels
                 }
             }
         }
-        #endregion
 
-        #region ViewModel
         private MainViewModel _parentViewModel;
         public MainViewModel ParentViewModel
         {
