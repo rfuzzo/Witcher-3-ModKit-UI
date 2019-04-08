@@ -7,8 +7,8 @@
     <ProjectGuid>{8C1E1DC3-3EE4-4AE1-A5FE-CC62A9DF3F51}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>w3.workflow</RootNamespace>
-    <AssemblyName>w3.workflow</AssemblyName>
+    <RootNamespace>w3tools.common</RootNamespace>
+    <AssemblyName>w3tools.common</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="enums.cs" />
+    <Compile Include="logger.cs" />
     <Compile Include="workflowitem.cs" />
     <Compile Include="ObservableObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

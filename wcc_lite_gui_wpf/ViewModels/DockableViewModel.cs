@@ -1,4 +1,4 @@
-﻿using wcc_lite_gui_wpf.Commands;
+﻿using w3tools.UI.Commands;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -12,7 +12,7 @@ using System.Windows.Media.Imaging;
 using Ninject;
 using Ninject.Infrastructure;
 
-namespace wcc_lite_gui_wpf.ViewModels
+namespace w3tools.UI.ViewModels
 {
     public class DockableViewModel : ViewModel
     {

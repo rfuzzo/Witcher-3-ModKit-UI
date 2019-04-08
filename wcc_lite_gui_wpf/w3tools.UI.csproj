@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{DB9A7C8A-05B4-49B1-A966-0CD804A916C9}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>wcc_lite_gui_wpf</RootNamespace>
-    <AssemblyName>wcc_lite_gui_wpf</AssemblyName>
+    <RootNamespace>w3tools.UI</RootNamespace>
+    <AssemblyName>w3tools.UI</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -37,7 +37,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>wcc_lite_gui_wpf.App</StartupObject>
+    <StartupObject>w3tools.UI.App</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="GongSolutions.Wpf.DragDrop, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -332,13 +332,13 @@
       <Project>{067072d6-da16-4ab0-8b55-aa31c358dd4d}</Project>
       <Name>Xceed.wpf.PropertyGrid.Extensions</Name>
     </ProjectReference>
-    <ProjectReference Include="..\w3.tools\w3.tools.csproj">
+    <ProjectReference Include="..\w3.tools\w3tools.csproj">
       <Project>{8cac32e6-ba2c-4a47-b9ab-9e7291015978}</Project>
-      <Name>w3.tools</Name>
+      <Name>w3tools</Name>
     </ProjectReference>
-    <ProjectReference Include="..\w3.workflow\w3.workflow.csproj">
+    <ProjectReference Include="..\w3.workflow\w3tools.common.csproj">
       <Project>{8c1e1dc3-3ee4-4ae1-a5fe-cc62a9df3f51}</Project>
-      <Name>w3.workflow</Name>
+      <Name>w3tools.common</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

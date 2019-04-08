@@ -5,12 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using w3.tools;
-using w3.workflow;
+using w3tools;
+using w3tools.common;
 using wcc.core;
-using wcc_lite_gui_wpf.Commands;
+using w3tools.UI.Commands;
 
-namespace wcc_lite_gui_wpf.ViewModels
+namespace w3tools.UI.ViewModels
 {
     class WorkflowListViewModel : DockableViewModel
     {
@@ -69,7 +69,7 @@ namespace wcc_lite_gui_wpf.ViewModels
                 Title = sender.Name,
                 ContentId = ContentId, 
                 ParentViewModel = ParentViewModel,
-                Settings = new RAD_Settings(Properties.Settings.Default.GamePath, Properties.Settings.Default.WccPath, Properties.Settings.Default.ToolsPath)
+                Settings = new RAD_Settings(Properties.Settings.Default.GamePath, Properties.Settings.Default.WccPath, Properties.Settings.Default.ToolsPath, ParentViewModel.Logger)
             });            
             WorkspaceViewModel currentDoc = ParentViewModel.DocumentsSource.FirstOrDefault(x => x.ContentId == ContentId);
 

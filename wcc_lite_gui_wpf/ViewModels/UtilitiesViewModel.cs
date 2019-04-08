@@ -7,10 +7,10 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using wcc_lite_gui_wpf.Commands;
-using wcc_lite_gui_wpf.Views;
+using w3tools.UI.Commands;
+using w3tools.UI.Views;
 
-namespace wcc_lite_gui_wpf.ViewModels
+namespace w3tools.UI.ViewModels
 {
     public class UtilitiesViewModel : ViewModel
     {

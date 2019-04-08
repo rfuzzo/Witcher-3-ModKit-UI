@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace wcc_lite_gui_wpf.Views
+namespace w3tools.UI.Views
 {
     /// <summary>
     /// Interaction logic for PropertiesView.xaml

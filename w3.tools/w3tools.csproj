@@ -7,8 +7,8 @@
     <ProjectGuid>{8CAC32E6-BA2C-4A47-B9AB-9E7291015978}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>w3.tools</RootNamespace>
-    <AssemblyName>w3.tools</AssemblyName>
+    <RootNamespace>w3tools</RootNamespace>
+    <AssemblyName>w3tools</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -65,9 +65,9 @@
       <Project>{067072d6-da16-4ab0-8b55-aa31c358dd4d}</Project>
       <Name>Xceed.wpf.PropertyGrid.Extensions</Name>
     </ProjectReference>
-    <ProjectReference Include="..\w3.workflow\w3.workflow.csproj">
+    <ProjectReference Include="..\w3.workflow\w3tools.common.csproj">
       <Project>{8c1e1dc3-3ee4-4ae1-a5fe-cc62a9df3f51}</Project>
-      <Name>w3.workflow</Name>
+      <Name>w3tools.common</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

@@ -3,10 +3,10 @@ using System.IO;
 using System.Text;
 using System.Windows;
 using System.Xml;
-using wcc_lite_gui_wpf.ViewModels;
+using w3tools.UI.ViewModels;
 using Xceed.Wpf.AvalonDock.Layout.Serialization;
 
-namespace wcc_lite_gui_wpf
+namespace w3tools.UI
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

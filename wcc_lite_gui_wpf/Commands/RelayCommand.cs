@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace wcc_lite_gui_wpf.Commands
+namespace w3tools.UI.Commands
 {
     public class RelayCommand : CommandBase
     {

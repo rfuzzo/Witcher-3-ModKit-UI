@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace wcc_lite_gui_wpf.Commands
+namespace w3tools.UI.Commands
 {
     public class DelegateCommand : DelegateCommand<object>
     {

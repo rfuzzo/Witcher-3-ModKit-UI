@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace wcc_lite_gui_wpf.Templates
+namespace w3tools.UI.Templates
 {
     /// <summary>
     /// Interaction logic for DTVariable.xaml

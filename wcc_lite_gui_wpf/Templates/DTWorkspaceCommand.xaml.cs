@@ -12,18 +12,18 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using w3.workflow;
+using w3tools.common;
 using wcc.core;
 
-namespace wcc_lite_gui_wpf.Templates
+namespace w3tools.UI.Templates
 {
     /// <summary>
     /// Interaction logic for DTWorkspaceCommand.xaml
     /// </summary>
     public partial class DTWorkspaceCommand : UserControl
     {
-        const string ExpandedPackUri = "pack://application:,,,/wcc_lite_gui_wpf;component/Resources/Icons/CollapseChevronDown_bold_blueNoHalo_16x.png";
-        const string CollapsedPackUri = "pack://application:,,,/wcc_lite_gui_wpf;component/Resources/Icons/CollapseChevronRight_bold_blueNoHalo_16x.png";
+        const string ExpandedPackUri = "pack://application:,,,/w3tools.UI;component/Resources/Icons/CollapseChevronDown_bold_blueNoHalo_16x.png";
+        const string CollapsedPackUri = "pack://application:,,,/w3tools.UI;component/Resources/Icons/CollapseChevronRight_bold_blueNoHalo_16x.png";
 
         public DTWorkspaceCommand()
         {

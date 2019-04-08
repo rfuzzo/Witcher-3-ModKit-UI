@@ -4,9 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using w3.workflow;
+using w3tools.common;
 
-namespace w3.tools.Commands
+namespace w3tools.Commands
 {
     /// <summary>
     /// Abstract Radish Batch Command Parentclass

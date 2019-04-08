@@ -7,10 +7,10 @@ using wcc.core;
 using wcc.core.Commands;
 using radish.core.Commands;
 using System.ComponentModel;
-using w3.workflow;
-using w3.tools.Commands;
+using w3tools.common;
+using w3tools.Commands;
 
-namespace w3.tools
+namespace w3tools
 {
     [Serializable]
     public abstract class RAD_Workflow : ObservableObject

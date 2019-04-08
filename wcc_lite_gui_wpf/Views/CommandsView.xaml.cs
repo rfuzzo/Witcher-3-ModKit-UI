@@ -1,8 +1,8 @@
 ﻿using System.Windows.Controls;
-using w3.workflow;
+using w3tools.common;
 using wcc.core;
 
-namespace wcc_lite_gui_wpf.Views
+namespace w3tools.UI.Views
 {
     /// <summary>
     /// Interaction logic for UCCommands.xaml

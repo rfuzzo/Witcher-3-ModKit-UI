@@ -1,9 +1,9 @@
 ﻿using System.Windows.Controls;
 using System.Windows.Data;
+using w3tools.common;
 using wcc.core;
-using static wcc.core.WccExtendedLogger;
 
-namespace wcc_lite_gui_wpf.Views
+namespace w3tools.UI.Views
 {
     /// <summary>
     /// Interaction logic for UCErrors.xaml

@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using wcc.core;
-using wcc_lite_gui_wpf.Commands;
+using w3tools.UI.Commands;
 using radish.core;
-using w3.tools;
-using w3.workflow;
+using w3tools;
+using w3tools.common;
 using wcc.core.Commands;
 
-namespace wcc_lite_gui_wpf.ViewModels
+namespace w3tools.UI.ViewModels
 {
     /// <summary>
     /// SUMMARY: viewmodel for wcc lite workflows

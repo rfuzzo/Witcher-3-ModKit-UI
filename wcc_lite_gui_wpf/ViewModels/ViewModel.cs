@@ -4,9 +4,9 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using w3.workflow;
+using w3tools.common;
 
-namespace wcc_lite_gui_wpf.ViewModels
+namespace w3tools.UI.ViewModels
 {
     /// <summary>
     /// Base abstract class for all viewmodels.

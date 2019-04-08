@@ -1,0 +1,17 @@
+C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3.tools\bin\Debug\w3tools.dll
+C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3.tools\bin\Debug\w3tools.pdb
+C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3.tools\bin\Debug\radish.core.dll
+C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3.tools\bin\Debug\w3tools.common.dll
+C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3.tools\bin\Debug\wcc.core.dll
+C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3.tools\bin\Debug\Xceed.wpf.PropertyGrid.Extensions.dll
+C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3.tools\bin\Debug\Xceed.Wpf.Toolkit.dll
+C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3.tools\bin\Debug\WPFFolderBrowser.dll
+C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3.tools\bin\Debug\radish.core.pdb
+C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3.tools\bin\Debug\wcc.core.pdb
+C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3.tools\bin\Debug\Xceed.wpf.PropertyGrid.Extensions.pdb
+C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3.tools\bin\Debug\w3tools.common.pdb
+C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3.tools\obj\Debug\w3tools.csprojAssemblyReference.cache
+C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3.tools\obj\Debug\w3tools.csproj.CoreCompileInputs.cache
+C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3.tools\obj\Debug\w3tools.csproj.CopyComplete
+C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3.tools\obj\Debug\w3tools.dll
+C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3.tools\obj\Debug\w3tools.pdb

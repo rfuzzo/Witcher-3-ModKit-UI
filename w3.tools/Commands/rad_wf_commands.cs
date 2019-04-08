@@ -3,11 +3,11 @@ using System.IO;
 using System.Linq;
 using radish.core;
 using radish.core.Commands;
-using w3.workflow;
-using w3.tools;
-using w3.tools.Commands;
+using w3tools.common;
+using w3tools;
+using w3tools.Commands;
 
-namespace w3.tools.Commands
+namespace w3tools.Commands
 {
     /// <summary>
     /// ENCODING WORLD
@@ -33,6 +33,10 @@ namespace w3.tools.Commands
 
         private WFR _Encode_world(RAD_Settings settings)
         {
+            settings.LOGGER.LogString($"--------------------------------------------------------------------------");
+            settings.LOGGER.LogString($"-- ENCODING WORLD pm: {settings.PATCH_MODE}");
+            settings.LOGGER.LogString($"--------------------------------------------------------------------------");
+
             try
             {
                 if (!Directory.Exists(settings.DIR_OUTPUT_WORLD()))
@@ -52,6 +56,7 @@ namespace w3.tools.Commands
                 for (int i = 0; i < files.Length; i++)
                 {
                     string filename = files[i];
+                    settings.LOGGER.LogString($"encoding: {filename}...");
 
                     string arg = $"--repo-dir {settings.dir_repo_worlds()} " +
                         $"--output-dir {settings.DIR_OUTPUT_WORLD()}  " +
@@ -60,7 +65,7 @@ namespace w3.tools.Commands
                         $"--encode {filename} " +
                         $"{settings.EnumToArg(settings.LOG_LEVEL)}";
                     //call encoder //FIXME
-                    RAD_Task th = new RAD_Task(settings.DIR_ENCODER);
+                    RAD_Task th = new RAD_Task(settings.DIR_ENCODER, settings.LOGGER);
                     var encoder = new w3world() { Args = arg };
                     WFR result = th.RunArgsSync(encoder.ToString(), encoder.Args);
                     if (result == WFR.WFR_Error)
@@ -79,15 +84,16 @@ namespace w3.tools.Commands
                     settings.WCC_COLLISIONCACHE = true;
                     settings.WCC_REPACK_DLC = true;
                 }
-            }
-            catch (Exception)
-            {
-                //FIXME
-                return WFR.WFR_Error;
-                throw;
-            }
 
-            return WFR.WFR_Finished;
+                settings.LOGGER.LogString("done.");
+                return WFR.WFR_Finished;
+            }
+            catch (Exception ex)
+            {
+                settings.LOGGER.LogString(ex.ToString());
+                return WFR.WFR_Error; //FIXME
+                throw ex;
+            }
         }
     }
 
@@ -114,6 +120,10 @@ namespace w3.tools.Commands
 
         private WFR _Encode_env(RAD_Settings settings)
         {
+            settings.LOGGER.LogString($"--------------------------------------------------------------------------");
+            settings.LOGGER.LogString($"-- ENCODING ENVS pm: {settings.PATCH_MODE}");
+            settings.LOGGER.LogString($"--------------------------------------------------------------------------");
+
             try
             {
                 if (!Directory.Exists(settings.DIR_OUTPUT_ENVS()))
@@ -129,32 +139,35 @@ namespace w3.tools.Commands
                 for (int i = 0; i < files.Length; i++)
                 {
                     string filename = files[i];
+                    settings.LOGGER.LogString($"encoding: {filename}...");
+
                     string arg = $"--output-dir {settings.DIR_OUTPUT_ENVS()}  " +
                         $"--encode {filename} " +
                         $"{settings.EnumToArg(settings.LOG_LEVEL)}";
                     //call encoder //FIXME
-                    RAD_Task th = new RAD_Task(settings.DIR_ENCODER);
+                    RAD_Task th = new RAD_Task(settings.DIR_ENCODER, settings.LOGGER);
                     var encoder = new w3env() { Args = arg };
                     WFR result = th.RunArgsSync(encoder.ToString(), encoder.Args);
                     if (result == WFR.WFR_Error)
                         return WFR.WFR_Error;
                 }
+
+                settings.LOGGER.LogString("done.");
                 return WFR.WFR_Finished;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //FIXME
-                return WFR.WFR_Error;
-                throw;
+                settings.LOGGER.LogString(ex.ToString());
+                return WFR.WFR_Error; //FIXME
+                throw ex;
             }
-
-           
         }
     }
 
     /// <summary>
     /// ENCODING SCENES
     /// </summary>
+    /// //FIXME
     [Serializable]
     public class Encode_scene : RAD_wf_Command
     {
@@ -176,6 +189,10 @@ namespace w3.tools.Commands
 
         private WFR _Encode_scene(RAD_Settings settings)
         {
+            settings.LOGGER.LogString($"--------------------------------------------------------------------------");
+            settings.LOGGER.LogString($"-- ENCODING SCENES pm: {settings.PATCH_MODE}");
+            settings.LOGGER.LogString($"--------------------------------------------------------------------------");
+
             try
             {
                 if (!Directory.Exists(settings.DIR_OUTPUT_SCENES()))
@@ -190,22 +207,24 @@ namespace w3.tools.Commands
 
                 for (int i = 0; i < files.Length; i++)
                 {
-                    string filename = files[i];
-                    SCENEID = $"{filename}:{settings.SCENE_DEF_PREFIX}="; //FIXME
-                    string SCENENAME = filename;
-                    //PUSHD %DIR_DEF_SCENES%
+                    string file = files[i];
+                    string SCENENAME = Path.GetFileNameWithoutExtension(file);
+                    string SCENEID = SCENENAME.Split(new string[] { settings.SCENE_DEF_PREFIX }, StringSplitOptions.None).Last();
+                    settings.LOGGER.LogString($"encoding scene: {SCENEID}...");
 
+                    //FIXME paths
                     string arg = $"--repo-dir {settings.dir_repo_scenes()}" + 
                         $"--output-dir {settings.DIR_OUTPUT_SCENES()}  " +
                         $"--encode {SCENENAME} " +
                         $"{settings.EnumToArg(settings.LOG_LEVEL)}";
                     //call encoder //FIXME
-                    RAD_Task th = new RAD_Task(settings.DIR_ENCODER);
+                    RAD_Task th = new RAD_Task(settings.DIR_ENCODER, settings.LOGGER);
                     var encoder = new w2scene() { Args = arg };
                     if (th.RunArgsSync(encoder.ToString(), encoder.Args) == WFR.WFR_Error)
                         return WFR.WFR_Error;
 
                     //rename scene.<sceneid>.w2scene to <sceneid>.w2scene
+                    settings.LOGGER.LogString($"renaming scene to {SCENEID}.w2scene.");
                     string GENERATED_SCENE_FILE = Path.Combine(settings.DIR_OUTPUT_SCENES(), $"{SCENENAME}.w2scene");
                     File.Move(GENERATED_SCENE_FILE, Path.Combine(settings.DIR_OUTPUT_SCENES(), $"{SCENEID}.w2scene"));
 
@@ -223,13 +242,15 @@ namespace w3.tools.Commands
                     settings.WCC_COOK = true;
                     settings.WCC_REPACK_DLC = true;
                 }
+
+                settings.LOGGER.LogString("done.");
                 return WFR.WFR_Finished;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //FIXME
-                return WFR.WFR_Error;
-                throw;
+                settings.LOGGER.LogString(ex.ToString());
+                return WFR.WFR_Error; //FIXME
+                throw ex;
             }
         }
     }
@@ -256,6 +277,10 @@ namespace w3.tools.Commands
 
         private WFR _Encode_quest(RAD_Settings settings)
         {
+            settings.LOGGER.LogString($"--------------------------------------------------------------------------");
+            settings.LOGGER.LogString($"-- ENCODING QUESTS pm: {settings.PATCH_MODE}");
+            settings.LOGGER.LogString($"--------------------------------------------------------------------------");
+
             try
             {
                 if (!Directory.Exists(settings.DIR_OUTPUT_QUEST()))
@@ -269,12 +294,14 @@ namespace w3.tools.Commands
                 for (int i = 0; i < files.Length; i++)
                 {
                     string filename = files[i];
+                    settings.LOGGER.LogString($"encoding quest: {filename}...");
+
                     string arg = $"--repo-dir {settings.dir_repo_quests()}" +
                             $"--output-dir {settings.DIR_OUTPUT_QUEST()}  " +
                             $"--encode {filename} " +
                             $"{settings.EnumToArg(settings.LOG_LEVEL)}";
                     //call encoder //FIXME
-                    RAD_Task th = new RAD_Task(settings.DIR_ENCODER);
+                    RAD_Task th = new RAD_Task(settings.DIR_ENCODER, settings.LOGGER);
                     var encoder = new w2quest() { Args = arg };
                     if (th.RunArgsSync(encoder.ToString(), encoder.Args) == WFR.WFR_Error)
                         return WFR.WFR_Error;
@@ -294,13 +321,15 @@ namespace w3.tools.Commands
                     settings.WCC_COOK = true;
                     settings.WCC_REPACK_DLC = true;
                 }
+
+                settings.LOGGER.LogString("done.");
                 return WFR.WFR_Finished;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //FIXME
-                return WFR.WFR_Error;
-                throw;
+                settings.LOGGER.LogString(ex.ToString());
+                return WFR.WFR_Error; //FIXME
+                throw ex;
             }
         }
     }
@@ -326,6 +355,10 @@ namespace w3.tools.Commands
 
         private WFR _Encode_strings(RAD_Settings settings)
         {
+            settings.LOGGER.LogString($"--------------------------------------------------------------------------");
+            settings.LOGGER.LogString($"-- ENCODING STRINGS pm: {settings.PATCH_MODE}");
+            settings.LOGGER.LogString($"--------------------------------------------------------------------------");
+
             try
             {
                 //if (!Directory.Exists(settings.DIR_OUTPUT_STRINGS()))
@@ -334,7 +367,7 @@ namespace w3.tools.Commands
                     Directory.CreateDirectory(settings.DIR_DLC_CONTENT());
 
                 // collect snippets into one csv file
-
+                settings.LOGGER.LogString($"merging strings.csv parts...");
                 string STRINGS_FILE_COMBINED = Path.Combine(settings.DIR_STRINGS(), "all.en.strings.csv");
                 string W3_STRINGS_FILE = $"{STRINGS_FILE_COMBINED}.w3strings";
 
@@ -349,6 +382,8 @@ namespace w3.tools.Commands
                     for (int i = 0; i < files.Length; i++)
                     {
                         string filename = files[i];
+                        settings.LOGGER.LogString($"merging: {filename}");
+
                         using (Stream srcStream = File.OpenRead(filename))
                         {
                             srcStream.CopyTo(destStream);
@@ -359,17 +394,20 @@ namespace w3.tools.Commands
                 // --- encode csv to w3strings
                 if (File.Exists(STRINGS_FILE_COMBINED))
                 {
+                    settings.LOGGER.LogString($"encoding to w3strings...");
+
                     string arg = $"--encode {STRINGS_FILE_COMBINED} " +
                          $"--id-space {settings.idspace}" + 
                          $"--auto-generate-missing-ids" +
                         $"{settings.EnumToArg(settings.LOG_LEVEL)}";
                     //call encoder //FIXME
-                    RAD_Task th = new RAD_Task(settings.DIR_ENCODER);
+                    RAD_Task th = new RAD_Task(settings.DIR_ENCODER, settings.LOGGER);
                     var encoder = new w3strings() { Args = arg };
                     if (th.RunArgsSync(encoder.ToString(), encoder.Args) == WFR.WFR_Error)
                         return WFR.WFR_Error;
                 }
                 // COPYING W3STRINGS INTO DLC FOLDER
+                settings.LOGGER.LogString($"COPYING W3STRINGS INTO DLC FOLDER");
                 if (File.Exists(W3_STRINGS_FILE))
                     File.Copy(W3_STRINGS_FILE,Path.Combine(settings.DIR_DLC_CONTENT(), "en.w3strings"));
 
@@ -379,13 +417,14 @@ namespace w3.tools.Commands
                 if (File.Exists($"{W3_STRINGS_FILE}.ws"))
                     File.Delete($"{W3_STRINGS_FILE}.ws");
 
+                settings.LOGGER.LogString("done.");
                 return WFR.WFR_Finished;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //FIXME
-                return WFR.WFR_Error;
-                throw;
+                settings.LOGGER.LogString(ex.ToString());
+                return WFR.WFR_Error; //FIXME
+                throw ex;
             }
         }
     }
@@ -411,11 +450,17 @@ namespace w3.tools.Commands
 
         private WFR _Encode_speech(RAD_Settings settings)
         {
+            settings.LOGGER.LogString($"--------------------------------------------------------------------------");
+            settings.LOGGER.LogString($"-- ENCODING SPEECH pm: {settings.PATCH_MODE}");
+            settings.LOGGER.LogString($"--------------------------------------------------------------------------");
+
             try
             {
                 // GENERATING LIPSYNC ANIMATIONS
                 if (Directory.Exists(settings.DIR_PHONEMES()))
                 {
+                    settings.LOGGER.LogString($"GENERATING LIPSYNC ANIMATIONS");
+
                     string file = Directory.GetFiles(settings.DIR_PHONEMES(), "*.phonemes", SearchOption.AllDirectories).First();
 
                     string arg = $"--create-lipsync {file} " +
@@ -423,7 +468,7 @@ namespace w3.tools.Commands
                                 $"--repo-dir {settings.dir_repo_lipsync()}" +
                                $"{settings.EnumToArg(settings.LOG_LEVEL)}";
                     //call encoder FIXME
-                    RAD_Task th = new RAD_Task(settings.DIR_ENCODER);
+                    RAD_Task th = new RAD_Task(settings.DIR_ENCODER, settings.LOGGER);
                     var encoder = new w3speech_lipsync_creator() { Args = arg };
                     if (th.RunArgsSync(encoder.ToString(), encoder.Args) == WFR.WFR_Error)
                         return WFR.WFR_Error;
@@ -432,10 +477,12 @@ namespace w3.tools.Commands
                 // ENCODING LIPSYNC ANIMATIONS TO CR2W
                 if (Directory.Exists(settings.DIR_AUDIO_WEM()))
                 {
+                    settings.LOGGER.LogString($"ENCODING LIPSYNC ANIMATIONS TO CR2W");
+
                     string arg = $"--encode-cr2w {settings.DIR_AUDIO_WEM()} " +
                               $"{settings.EnumToArg(settings.LOG_LEVEL)}";
                     //call encoder FIXME
-                    RAD_Task th = new RAD_Task(settings.DIR_ENCODER);
+                    RAD_Task th = new RAD_Task(settings.DIR_ENCODER, settings.LOGGER);
                     var encoder = new w3speech() { Args = arg };
                     if (th.RunArgsSync(encoder.ToString(), encoder.Args) == WFR.WFR_Error)
                         return WFR.WFR_Error;
@@ -444,18 +491,23 @@ namespace w3.tools.Commands
                 // CREATING W3SPEECH FILE
                 if (Directory.Exists(settings.DIR_AUDIO_WEM()))
                 {
+                    settings.LOGGER.LogString($"CREATING W3SPEECH FILE");
+
                     string arg = $"--pack-w3speech {settings.DIR_AUDIO_WEM()} " +
                                 $"--output-dir {settings.DIR_DLC_CONTENT()}" +
                                 $"--language {settings.language}" +
                               $"{settings.EnumToArg(settings.LOG_LEVEL)}";
                     //call encoder FIXME
-                    RAD_Task th = new RAD_Task(settings.DIR_ENCODER);
+                    RAD_Task th = new RAD_Task(settings.DIR_ENCODER, settings.LOGGER);
                     var encoder = new w3speech() { Args = arg };
                     if (th.RunArgsSync(encoder.ToString(), encoder.Args) == WFR.WFR_Error)
                         return WFR.WFR_Error;
                 }
 
                 // UPDATING DLC W3SPEECH FILE
+                settings.LOGGER.LogString($"UPDATING DLC W3SPEECH FILE");
+
+
                 string speech_packed_file = Path.Combine(settings.DIR_DLC_CONTENT(), $"speech.{settings.language}.w3speech.packed");
                 string speech_final_file = Path.Combine(settings.DIR_DLC_CONTENT(), $"{settings.language}pc.w3speech");
 
@@ -463,13 +515,14 @@ namespace w3.tools.Commands
                     File.Delete(speech_final_file);
                 File.Move(speech_packed_file, speech_final_file);
 
+                settings.LOGGER.LogString("done.");
                 return WFR.WFR_Finished;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //FIXME
-                return WFR.WFR_Error;
-                throw;
+                settings.LOGGER.LogString(ex.ToString());
+                return WFR.WFR_Error; //FIXME
+                throw ex;
             }
         }
     }

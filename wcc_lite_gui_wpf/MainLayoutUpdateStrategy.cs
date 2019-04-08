@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using wcc_lite_gui_wpf.ViewModels;
+using w3tools.UI.ViewModels;
 using Xceed.Wpf.AvalonDock.Layout;
 
-namespace wcc_lite_gui_wpf
+namespace w3tools.UI
 {
 
     // This is temporary.

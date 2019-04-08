@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace w3.workflow
+namespace w3tools.common
 {
     /// <summary>
     /// Workflow Result

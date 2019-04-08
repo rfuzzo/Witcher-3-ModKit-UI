@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Input;
-using wcc_lite_gui_wpf.Commands;
+using w3tools.UI.Commands;
 using wcc.core;
 using System.ComponentModel;
 using System.Threading;
@@ -18,10 +18,10 @@ using Microsoft.Win32;
 using Ninject;
 using Ninject.Infrastructure;
 using radish.core;
-using w3.workflow;
-using w3.tools;
+using w3tools.common;
+using w3tools;
 
-namespace wcc_lite_gui_wpf.ViewModels
+namespace w3tools.UI.ViewModels
 {
     
 
@@ -269,7 +269,7 @@ namespace wcc_lite_gui_wpf.ViewModels
         }
         public void Save()
         {
-            wcc_lite_gui_wpf.Properties.Settings.Default.Save();
+            w3tools.UI.Properties.Settings.Default.Save();
         }
         public bool CanLocateWcc()
         {
@@ -280,7 +280,7 @@ namespace wcc_lite_gui_wpf.ViewModels
             var fd = new OpenFileDialog
             {
                 Title = "Select wcc_lite.exe.",
-                FileName = wcc_lite_gui_wpf.Properties.Settings.Default.WccPath,
+                FileName = w3tools.UI.Properties.Settings.Default.WccPath,
                 Filter = "wcc_lite.exe|wcc_lite.exe"
             };
             if (fd.ShowDialog() == true && fd.CheckFileExists)

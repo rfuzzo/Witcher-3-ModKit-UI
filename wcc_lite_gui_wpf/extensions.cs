@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using wcc.core;
 using Xceed.wpf.PropertyGrid.Extensions.EditorTemplates;
 
-namespace wcc_lite_gui_wpf
+namespace w3tools.UI
 {
     
 

@@ -13,10 +13,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using w3.tools;
+using w3tools;
 using wcc.core;
 
-namespace wcc_lite_gui_wpf.Views
+namespace w3tools.UI.Views
 {
     /// <summary>
     /// Interaction logic for WorkflowList.xaml

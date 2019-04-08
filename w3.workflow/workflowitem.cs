@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace w3.workflow
+namespace w3tools.common
 {
 
     /// <summary>
@@ -36,14 +36,6 @@ namespace w3.workflow
         [BrowsableAttribute(false)]
         public WccCommandCategory DefaultCategory { get; set; }
 
-
-        public WorkflowItem(WccCommandCategory defaultCategory = WccCommandCategory.Default)
-        {
-            DefaultCategory = defaultCategory;
-            Category = defaultCategory;
-        }
-
-
         // need a way to access the workflow settings that are stored
         // in command > list<commands> > workflow > workflowViewModel < settings
         [BrowsableAttribute(false)]
@@ -51,6 +43,12 @@ namespace w3.workflow
 
 
 
+
+        public WorkflowItem(WccCommandCategory defaultCategory = WccCommandCategory.Default)
+        {
+            DefaultCategory = defaultCategory;
+            Category = defaultCategory;
+        }
 
 
 

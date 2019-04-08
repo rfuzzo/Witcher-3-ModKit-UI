@@ -4,16 +4,18 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using w3.workflow;
+using w3tools.common;
 
-namespace w3.tools.Commands
+namespace w3tools.Commands
 {
     /// <summary>
     /// 
     /// </summary>
     [Serializable]
-    public abstract class WIN_wf_Command : RAD_wf_Command
+    public abstract class WIN_wf_Command : WorkflowItem
     {
+        //fixme bind to settings
+        public bool Enabled { get; set; } = true;
 
         public WIN_wf_Command(WccCommandCategory defaultCategory = WccCommandCategory.WF_Windows)
         {

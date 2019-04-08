@@ -5,10 +5,10 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using w3.workflow;
+using w3tools.common;
 using Xceed.wpf.PropertyGrid.Extensions.EditorTemplates;
 
-namespace w3.tools
+namespace w3tools
 {
     /// <summary>
     /// Radish Workflow Global Settings
@@ -16,11 +16,12 @@ namespace w3.tools
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public class RAD_Settings : ObservableObject
     {
-        public RAD_Settings(string w3, string modkit, string encoder)
+        public RAD_Settings(string w3, string modkit, string encoder, WccExtendedLogger logger)
         {
             DIR_W3 = w3; //game path
             DIR_MODKIT = modkit; //wcc_lite.exe path
             DIR_ENCODER = encoder; //path to directory with encoder binaries
+            LOGGER = logger; 
 
             //LastResult = WFR.WFR_Finished; // first setup is good
         }
@@ -36,6 +37,8 @@ namespace w3.tools
         [BrowsableAttribute(false)]
         [Editor(typeof(PropertyGridFolderPicker), typeof(PropertyGridFolderPicker))]
         public string DIR_ENCODER { get; set; }
+        [BrowsableAttribute(false)]
+        public WccExtendedLogger LOGGER { get; set; }
 
         // User Settings
         [CategoryAttribute("1 Settings")]
@@ -379,17 +382,25 @@ namespace w3.tools
             bool test_MODNAME = !String.IsNullOrEmpty(this.MODNAME);
             bool test_idspace = this.idspace > 0 && this.idspace < 9999;
 
-
             if (!(test_DIR_W3 && test_DIR_MODKIT && test_DIR_ENCODER))
             {
                 // check global settings
                 // FIXME Error Message
+                LOGGER.LogString($"--------------------------------------------------------------------------");
+                LOGGER.LogString($"-- FATAL -- test_DIR_W3: {test_DIR_W3} && test_DIR_MODKIT: {test_DIR_MODKIT} && test_DIR_ENCODER: {test_DIR_ENCODER}");
+                LOGGER.LogString($"--------------------------------------------------------------------------");
+
                 return false;
             }
             else if (!(test_DIR_PROJECT_BASE && test_MODNAME && test_idspace))
             {
                 //check mod settings
                 // FIXME Error Message
+                LOGGER.LogString($"--------------------------------------------------------------------------");
+                LOGGER.LogString($"-- FATAL -- test_DIR_PROJECT_BASE: {test_DIR_PROJECT_BASE} && test_MODNAME: {test_MODNAME} && test_idspace: {test_idspace}");
+                LOGGER.LogString($"--------------------------------------------------------------------------");
+
+
                 return false;
             }
             else

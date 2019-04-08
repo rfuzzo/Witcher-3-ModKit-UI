@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System;
 
-namespace w3.workflow
+namespace w3tools.common
 {
     /// <summary>
     /// Represents an abstract object that provides notifications when properties are changed or are changing.

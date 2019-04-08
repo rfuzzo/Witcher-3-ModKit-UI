@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="wcc_lite_gui_wpf.Views.VariablesView"
+﻿<UserControl x:Class="w3tools.UI.Views.VariablesView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -7,10 +7,10 @@
              xmlns:dd="urn:gong-wpf-dragdrop"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              
-             xmlns:local="clr-namespace:wcc_lite_gui_wpf.Views"
+             xmlns:local="clr-namespace:w3tools.UI.Views"
              xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
              xmlns:dat="clr-namespace:System.Windows.Data;assembly=PresentationFramework"
-             xmlns:dt="clr-namespace:wcc_lite_gui_wpf.Templates"
+             xmlns:dt="clr-namespace:w3tools.UI.Templates"
              
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="450">

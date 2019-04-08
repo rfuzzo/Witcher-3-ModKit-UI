@@ -13,9 +13,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using wcc_lite_gui_wpf.ViewModels;
+using w3tools.UI.ViewModels;
 
-namespace wcc_lite_gui_wpf.Views
+namespace w3tools.UI.Views
 {
     /// <summary>
     /// Interaction logic for AboutView.xaml

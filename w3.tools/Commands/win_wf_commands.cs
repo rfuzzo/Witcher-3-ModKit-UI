@@ -4,9 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using w3.workflow;
+using w3tools.common;
 
-namespace w3.tools.Commands
+namespace w3tools.Commands
 {
    
 
@@ -31,22 +31,37 @@ namespace w3.tools.Commands
 
         private WFR _CleanupFolder(RAD_Settings settings)
         {
+            settings.LOGGER.LogString($"--------------------------------------------------------------------------");
+            settings.LOGGER.LogString($"-- CLEANUP OF UNCOOKED, COOKED, DLC TARGET FOLDERS pm: {settings.PATCH_MODE}");
+            settings.LOGGER.LogString($"--------------------------------------------------------------------------");
+
             try
             {
+                settings.LOGGER.LogString($"deleting: {settings.DIR_UNCOOKED()}");
                 Cleanup(settings.DIR_UNCOOKED());
+
+                settings.LOGGER.LogString($"deleting: {settings.DIR_COOKED_DLC()}");
                 Cleanup(settings.DIR_COOKED_DLC());
+
+                settings.LOGGER.LogString($"deleting: {settings.DIR_DLC()}");
                 Cleanup(settings.DIR_DLC());
+
+                settings.LOGGER.LogString($"deleting: {settings.DIR_MOD()}");
                 Cleanup(settings.DIR_MOD());
+
+                settings.LOGGER.LogString($"deleting: {settings.DIR_UNCOOKED()}");
                 Cleanup(settings.DIR_UNCOOKED());
+
+                settings.LOGGER.LogString($"deleting: {settings.DIR_TMP()}");
                 Cleanup(settings.DIR_TMP());
 
                 return WFR.WFR_Finished;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //FIXME
-                return WFR.WFR_Error;
-                throw;
+                settings.LOGGER.LogString(ex.ToString());
+                return WFR.WFR_Error; //FIXME
+                throw ex;
             }
         }
 
@@ -73,8 +88,14 @@ namespace w3.tools.Commands
 
         private WFR _DeployModScripts(RAD_Settings settings)
         {
+            settings.LOGGER.LogString($"--------------------------------------------------------------------------");
+            settings.LOGGER.LogString($"-- DEPLOYING MOD pm: {settings.PATCH_MODE}");
+            settings.LOGGER.LogString($"--------------------------------------------------------------------------");
+
             try
             {
+                settings.LOGGER.LogString($"deleting ALL files in {settings.DIR_MOD_CONTENT()}\\scripts");
+
                 if (Directory.Exists(settings.DIR_MOD()))
                 {
                     // deleting ALL files in %DIR_MOD_CONTENT%\scripts
@@ -86,10 +107,12 @@ namespace w3.tools.Commands
                     else
                     {
                         Cleanup($"{settings.DIR_MOD_CONTENT()}\\scripts");
+                        settings.LOGGER.LogString($"ALL FILES DELETED");
                     }
                 }
 
                 // copying files to %DIR_MOD%
+                settings.LOGGER.LogString($"copying files to {settings.DIR_MOD_CONTENT()}");
                 DirectoryInfo dirInfo = new DirectoryInfo(settings.DIR_MOD_SCRIPTS());
                 FileInfo[] fileInfos = dirInfo.GetFiles();
                 foreach (FileInfo file in fileInfos)
@@ -97,13 +120,14 @@ namespace w3.tools.Commands
                     File.Copy(file.FullName, Path.Combine(settings.DIR_MOD_CONTENT(), @"\scripts\" + file.Name), true);
                 }
 
+                settings.LOGGER.LogString($"mod deployed.");
                 return WFR.WFR_Finished;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //FIXME
-                return WFR.WFR_Error;
-                throw;
+                settings.LOGGER.LogString(ex.ToString());
+                return WFR.WFR_Error; //FIXME
+                throw ex;
             }
         }
 
@@ -130,9 +154,15 @@ namespace w3.tools.Commands
 
         private WFR _DeployTmpModScripts(RAD_Settings settings)
         {
+            settings.LOGGER.LogString($"--------------------------------------------------------------------------");
+            settings.LOGGER.LogString($"-- DEPLOYING TMP MOD pm: {settings.PATCH_MODE}");
+            settings.LOGGER.LogString($"--------------------------------------------------------------------------");
+
             try
             {
-                if (Directory.Exists(settings.DIR_MOD()))
+                settings.LOGGER.LogString($"deleting ALL files in {settings.DIR_TMP_MOD()}\\scripts");
+
+                if (Directory.Exists(settings.DIR_TMP_MOD()))
                 {
                     // deleting ALL files in %DIR_TMP_MOD%
                     if (!settings.auto_delete_mod)
@@ -143,10 +173,12 @@ namespace w3.tools.Commands
                     else
                     {
                         Cleanup(settings.DIR_TMP_MOD());
+                        settings.LOGGER.LogString($"ALL FILES DELETED");
                     }
                 }
 
                 // copying files to %DIR_TMP_MOD%
+                settings.LOGGER.LogString($"copying files to {settings.DIR_TMP_MOD()}");
                 DirectoryInfo dirInfo = new DirectoryInfo(settings.DIR_TMP_MOD_SCRIPTS());
                 FileInfo[] fileInfos = dirInfo.GetFiles();
                 foreach (FileInfo file in fileInfos)
@@ -154,13 +186,14 @@ namespace w3.tools.Commands
                     File.Copy(file.FullName, Path.Combine(settings.DIR_TMP_MOD_CONTENT(), @"\scripts\" + file.Name), true);
                 }
 
+                settings.LOGGER.LogString($"tmp-mod deployed.");
                 return WFR.WFR_Finished;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //FIXME
-                return WFR.WFR_Error;
-                throw;
+                settings.LOGGER.LogString(ex.ToString());
+                return WFR.WFR_Error; //FIXME
+                throw ex;
             }
         }
     }
@@ -186,18 +219,23 @@ namespace w3.tools.Commands
 
         private WFR _PrepareCooking(RAD_Settings settings)
         {
+            settings.LOGGER.LogString($"--------------------------------------------------------------------------");
+            settings.LOGGER.LogString($"-- PREPARE COOKING: CLEANUP OF UNCOOKED CONTENT");
+            settings.LOGGER.LogString($"--------------------------------------------------------------------------");
+
             try
             {
                 if (!Directory.Exists(settings.DIR_TMP()))
                     Directory.CreateDirectory(settings.DIR_TMP());
 
+                settings.LOGGER.LogString("done.");
                 return WFR.WFR_Finished;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //FIXME
-                return WFR.WFR_Error;
-                throw;
+                settings.LOGGER.LogString(ex.ToString());
+                return WFR.WFR_Error; //FIXME
+                throw ex;
             }
         }
     }
@@ -223,6 +261,10 @@ namespace w3.tools.Commands
 
         private WFR _PreparePackaging(RAD_Settings settings)
         {
+            settings.LOGGER.LogString($"--------------------------------------------------------------------------");
+            settings.LOGGER.LogString($"-- PREPARE PACKING: COPY ADDITIONAL DATA");
+            settings.LOGGER.LogString($"--------------------------------------------------------------------------");
+
             try
             {
                 // LOG copying files to %DIR_COOKED_DLC%
@@ -237,13 +279,14 @@ namespace w3.tools.Commands
                 //copy additonal files
                 Directory.Move(Path.Combine(settings.DIR_PROJECT_BASE, "additional"), settings.DIR_COOKED_DLC());
 
+                settings.LOGGER.LogString("done.");
                 return WFR.WFR_Finished;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //FIXME
-                return WFR.WFR_Error;
-                throw;
+                settings.LOGGER.LogString(ex.ToString());
+                return WFR.WFR_Error; //FIXME
+                throw ex;
             }
         }
     }

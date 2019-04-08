@@ -3,13 +3,13 @@ using System.IO;
 using System.Linq;
 using radish.core;
 using radish.core.Commands;
-using w3.workflow;
-using w3.tools;
-using w3.tools.Commands;
+using w3tools.common;
+using w3tools;
+using w3tools.Commands;
 using wcc.core;
 using wcc.core.Commands;
 
-namespace w3.tools.Commands
+namespace w3tools.Commands
 {
     /// <summary>
     /// WCC_LITE: IMPORT MODELS
@@ -35,6 +35,10 @@ namespace w3.tools.Commands
 
         private WFR _WCC_import(RAD_Settings settings)
         {
+            settings.LOGGER.LogString($"--------------------------------------------------------------------------");
+            settings.LOGGER.LogString($"-- WCC_LITE: IMPORTING MODELS pm: {settings.PATCH_MODE}");
+            settings.LOGGER.LogString($"--------------------------------------------------------------------------");
+
             try
             {
                 //get all files with specified filter
@@ -45,14 +49,13 @@ namespace w3.tools.Commands
 
                 for (int i = 0; i < files.Length; i++)
                 {
-                    //LOG WCC_LITE: IMPORT MODEL FOR !MODELNAME!
-
                     string filename = files[i]; //path
                     MODELNAME = Path.GetFileNameWithoutExtension(filename);
                     MODELNAME = MODELNAME.Split(new string[] { MODEL_PREFIX }, StringSplitOptions.None).Last();
+                    settings.LOGGER.LogString($"importing: {MODELNAME}...");
 
                     //call wcc_lite
-                    WCC_Task th = new WCC_Task(settings.DIR_MODKIT);
+                    WCC_Task th = new WCC_Task(settings.DIR_MODKIT, settings.LOGGER);
                     WccCommand cmd = new import() {
                         Depot = $"{settings.DIR_MODKIT_DEPOT()}",
                         File = filename,
@@ -76,13 +79,15 @@ namespace w3.tools.Commands
                     settings.WCC_COOK = true;
                     settings.WCC_REPACK_DLC = true;
                 }
+
+                settings.LOGGER.LogString("done.");
                 return WFR.WFR_Finished;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //FIXME
-                return WFR.WFR_Error;
-                throw;
+                settings.LOGGER.LogString(ex.ToString());
+                return WFR.WFR_Error; //FIXME
+                throw ex;
             }
         }
     }
@@ -108,6 +113,10 @@ namespace w3.tools.Commands
 
         private WFR _WCC_occlusion(RAD_Settings settings)
         {
+            settings.LOGGER.LogString($"--------------------------------------------------------------------------");
+            settings.LOGGER.LogString($"-- WCC_LITE: COOK OCCLUSION pm: {settings.PATCH_MODE}");
+            settings.LOGGER.LogString($"--------------------------------------------------------------------------");
+
             try
             {
                 //get all folders inside the levels directory
@@ -118,6 +127,7 @@ namespace w3.tools.Commands
                 {
                     string level = levels[i]; //path
                     string worldname = Path.GetDirectoryName(level);
+                    settings.LOGGER.LogString($"generate occlusiondata for: {worldname}...");
 
                     //check i w2w file in subfolder?
                     string worldfile = Path.Combine(levelDir, worldname, $"{worldname}.w2w");
@@ -126,7 +136,7 @@ namespace w3.tools.Commands
                         //LOG WCC_LITE: GENERATE OCCLUSIONDATA FOR !WORLDNAME!
 
                         //call wcc_lite
-                        WCC_Task th = new WCC_Task(settings.DIR_MODKIT);
+                        WCC_Task th = new WCC_Task(settings.DIR_MODKIT, settings.LOGGER);
                         WccCommand cmd = new cookocclusion()
                         {
                             WorldFile = worldfile
@@ -136,13 +146,15 @@ namespace w3.tools.Commands
                             return WFR.WFR_Error;
                     }
                 }
+
+                settings.LOGGER.LogString("done.");
                 return WFR.WFR_Finished;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //FIXME
-                return WFR.WFR_Error;
-                throw;
+                settings.LOGGER.LogString(ex.ToString());
+                return WFR.WFR_Error; //FIXME
+                throw ex;
             }
         }
     }
@@ -153,7 +165,6 @@ namespace w3.tools.Commands
     [Serializable]
     public class WCC_analyze : WCC_wf_Command
     {
-
         public override WFR Run()
         {
             // check if any higher level detects any error
@@ -168,6 +179,10 @@ namespace w3.tools.Commands
 
         private WFR _WCC_analyze(RAD_Settings settings)
         {
+            settings.LOGGER.LogString($"--------------------------------------------------------------------------");
+            settings.LOGGER.LogString($"-- WCC_LITE: ANALYZE FILES pm: {settings.PATCH_MODE}");
+            settings.LOGGER.LogString($"--------------------------------------------------------------------------");
+
             try
             {
                 if (!Directory.Exists(settings.DIR_TMP()))
@@ -184,6 +199,7 @@ namespace w3.tools.Commands
                     {
                         string level = levels[i]; //path
                         string worldname = Path.GetDirectoryName(level);
+                        settings.LOGGER.LogString($"analyze world for: {worldname}...");
 
                         //check i w2w file in subfolder?
                         string worldfile = Path.Combine(levelDir, worldname, $"{worldname}.w2w");
@@ -192,7 +208,7 @@ namespace w3.tools.Commands
                             //LOG WCC_LITE: ANALYZE WORLD FOR !WORLDNAME!
 
                             //call wcc_lite
-                            WCC_Task th = new WCC_Task(settings.DIR_MODKIT);
+                            WCC_Task th = new WCC_Task(settings.DIR_MODKIT, settings.LOGGER);
                             WccCommand cmd = new analyze()
                             {
                                 Analyzer = analyzers.world,
@@ -213,7 +229,7 @@ namespace w3.tools.Commands
                     {
                         //LOG WCC_LITE: ANALYZE DLC
                         //call wcc_lite
-                        WCC_Task th = new WCC_Task(settings.DIR_MODKIT);
+                        WCC_Task th = new WCC_Task(settings.DIR_MODKIT, settings.LOGGER);
                         WccCommand cmd = new analyze()
                         {
                             Analyzer = analyzers.r4dlc,
@@ -223,13 +239,15 @@ namespace w3.tools.Commands
                         return th.RunCommandSync(cmd);
                     }
                 }
+
+                settings.LOGGER.LogString("done.");
                 return WFR.WFR_Finished;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //FIXME
-                return WFR.WFR_Error;
-                throw;
+                settings.LOGGER.LogString(ex.ToString());
+                return WFR.WFR_Error; //FIXME
+                throw ex;
             }
         }
     }
@@ -240,7 +258,6 @@ namespace w3.tools.Commands
     [Serializable]
     public class WCC_GenerateNavData : WCC_wf_Command
     {
-
         public override WFR Run()
         {
             // check if any higher level detects any error
@@ -255,21 +272,27 @@ namespace w3.tools.Commands
 
         private WFR _WCC_GenerateNavData(RAD_Settings settings)
         {
+            settings.LOGGER.LogString($"--------------------------------------------------------------------------");
+            settings.LOGGER.LogString($"-- WCC_LITE: GENERATE NAVDATA pm: {settings.PATCH_MODE}");
+            settings.LOGGER.LogString($"--------------------------------------------------------------------------");
+
             try
             {
-                WCC_Task th = new WCC_Task(settings.DIR_MODKIT);
+                WCC_Task th = new WCC_Task(settings.DIR_MODKIT, settings.LOGGER);
                 WccCommand cmd = new pathlib()
                 {
                     RootSearchDir = settings.DIR_WCC_DEPOT_WORLDS(),
                     FilePattern = "*.w2w"
                 };
+
+                settings.LOGGER.LogString("done.");
                 return th.RunCommandSync(cmd);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //FIXME
-                return WFR.WFR_Error;
-                throw;
+                settings.LOGGER.LogString(ex.ToString());
+                return WFR.WFR_Error; //FIXME
+                throw ex;
             }
         }
     }
@@ -297,6 +320,10 @@ namespace w3.tools.Commands
 
         private WFR _WCC_CookData(RAD_Settings settings)
         {
+            settings.LOGGER.LogString($"--------------------------------------------------------------------------");
+            settings.LOGGER.LogString($"-- WCC_LITE: COOK pm: {settings.PATCH_MODE}");
+            settings.LOGGER.LogString($"--------------------------------------------------------------------------");
+
             try
             {
                 WFR result = WFR.WFR_Error;
@@ -310,7 +337,7 @@ namespace w3.tools.Commands
                 }
                 // Note: trimdir MUST be lowercased!
 
-                WCC_Task th = new WCC_Task(settings.DIR_MODKIT);
+                WCC_Task th = new WCC_Task(settings.DIR_MODKIT, settings.LOGGER);
                 
 
                 WccCommand cmd = new cook()
@@ -323,7 +350,7 @@ namespace w3.tools.Commands
                 // run as arguments because of multiple seedfiles
                 string args = cmd.CommandLine;
                 args += $" {WCC_SEEDFILES}";
-                result = th.RunArgsSync(args);
+                result = th.RunArgsSync(args, cmd.Name);
 
                 //cleanup
                 if (Directory.Exists(settings.DIR_COOKED_FILES_DB()))
@@ -332,13 +359,14 @@ namespace w3.tools.Commands
                 if (File.Exists(Path.Combine(settings.DIR_COOKED_DLC(), "cook.db")))
                     File.Move(Path.Combine(settings.DIR_COOKED_DLC(), "cook.db"), Path.Combine(settings.DIR_COOKED_FILES_DB(), "cook.db"));
 
+                settings.LOGGER.LogString("done.");
                 return result;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //FIXME
-                return WFR.WFR_Error;
-                throw;
+                settings.LOGGER.LogString(ex.ToString());
+                return WFR.WFR_Error; //FIXME
+                throw ex;
             }
         }
     }
@@ -364,12 +392,16 @@ namespace w3.tools.Commands
 
         private WFR _WCC_PackDLCAndCreateMetadatastore(RAD_Settings settings)
         {
+            settings.LOGGER.LogString($"--------------------------------------------------------------------------");
+            settings.LOGGER.LogString($"-- WCC_LITE: PACK + METADATASTORE DLC pm: {settings.PATCH_MODE}");
+            settings.LOGGER.LogString($"--------------------------------------------------------------------------");
+
             try
             {
                 WFR result_pack = WFR.WFR_Error;
                 WFR result_meta = WFR.WFR_Error;
 
-                WCC_Task th = new WCC_Task(settings.DIR_MODKIT);
+                WCC_Task th = new WCC_Task(settings.DIR_MODKIT, settings.LOGGER);
                 WccCommand pack = new pack()
                 {
                     Directory=settings.DIR_COOKED_DLC(),
@@ -387,13 +419,14 @@ namespace w3.tools.Commands
                 if (result_meta == WFR.WFR_Error)
                     return WFR.WFR_Error;
 
+                settings.LOGGER.LogString("done.");
                 return WFR.WFR_Finished;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //FIXME
-                return WFR.WFR_Error;
-                throw;
+                settings.LOGGER.LogString(ex.ToString());
+                return WFR.WFR_Error; //FIXME
+                throw ex;
             }
         }
     }
@@ -419,12 +452,16 @@ namespace w3.tools.Commands
 
         private WFR _WCC_PackMODAndCreateMetadatastore(RAD_Settings settings)
         {
+            settings.LOGGER.LogString($"--------------------------------------------------------------------------");
+            settings.LOGGER.LogString($"-- WCC_LITE: PACK + METADATASTORE MOD pm: {settings.PATCH_MODE}");
+            settings.LOGGER.LogString($"--------------------------------------------------------------------------");
+
             try
             {
                 WFR result_pack = WFR.WFR_Error;
                 WFR result_meta = WFR.WFR_Error;
 
-                WCC_Task th = new WCC_Task(settings.DIR_MODKIT);
+                WCC_Task th = new WCC_Task(settings.DIR_MODKIT, settings.LOGGER);
                 WccCommand pack = new pack()
                 {
                     Directory = settings.DIR_COOKED_MOD(),
@@ -442,13 +479,14 @@ namespace w3.tools.Commands
                 if (result_meta == WFR.WFR_Error)
                     return WFR.WFR_Error;
 
+                settings.LOGGER.LogString("done.");
                 return WFR.WFR_Finished;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //FIXME
-                return WFR.WFR_Error;
-                throw;
+                settings.LOGGER.LogString(ex.ToString());
+                return WFR.WFR_Error; //FIXME
+                throw ex;
             }
         }
     }
@@ -474,9 +512,13 @@ namespace w3.tools.Commands
 
         private WFR _WCC_GenerateTextureCache(RAD_Settings settings)
         {
+            settings.LOGGER.LogString($"--------------------------------------------------------------------------");
+            settings.LOGGER.LogString($"-- WCC_LITE: GENERATE TEXTURE CACHE pm: {settings.PATCH_MODE}");
+            settings.LOGGER.LogString($"--------------------------------------------------------------------------");
+
             if (!Directory.Exists(Path.Combine(settings.DIR_UNCOOKED_TEXTURES(), settings.DIR_DLC_GAMEPATH())))
             {
-                // LOG WARN: no textures found in "%DIR_UNCOOKED_TEXTURES%\%DIR_DLC_GAMEPATH%"
+                settings.LOGGER.LogString($"WARNING: no textures found in {Path.Combine(settings.DIR_UNCOOKED_TEXTURES(), settings.DIR_DLC_GAMEPATH())}");
                 return WFR.WFR_Error;
             }
 
@@ -489,7 +531,7 @@ namespace w3.tools.Commands
                     Directory.Delete(settings.DIR_COOKED_TEXTURES_DB());
     
                 // cook textures
-                WCC_Task th = new WCC_Task(settings.DIR_MODKIT);
+                WCC_Task th = new WCC_Task(settings.DIR_MODKIT, settings.LOGGER);
                 WccCommand cook = new cook()
                 {
                     Platform=platform.pc,
@@ -518,13 +560,14 @@ namespace w3.tools.Commands
                 if (result_cache == WFR.WFR_Error)
                     return WFR.WFR_Error;
 
+                settings.LOGGER.LogString("done.");
                 return WFR.WFR_Finished;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //FIXME
-                return WFR.WFR_Error;
-                throw;
+                settings.LOGGER.LogString(ex.ToString());
+                return WFR.WFR_Error; //FIXME
+                throw ex;
             }
         }
     }
@@ -550,9 +593,13 @@ namespace w3.tools.Commands
 
         private WFR _WCC_GenerateCollisionCache(RAD_Settings settings)
         {
+            settings.LOGGER.LogString($"--------------------------------------------------------------------------");
+            settings.LOGGER.LogString($"-- WCC_LITE: GENERATE COLLISION CACHE pm: {settings.PATCH_MODE}");
+            settings.LOGGER.LogString($"--------------------------------------------------------------------------");
+
             try
             {
-                WCC_Task th = new WCC_Task(settings.DIR_MODKIT);
+                WCC_Task th = new WCC_Task(settings.DIR_MODKIT, settings.LOGGER);
                 WccCommand buildcache = new buildcache()
                 {
                     builder = cachebuilder.physics,
@@ -561,13 +608,15 @@ namespace w3.tools.Commands
                     Out = Path.Combine(settings.DIR_DLC_CONTENT(), "collision.cache"),
                     Platform = platform.pc
                 };
+
+                settings.LOGGER.LogString("done.");
                 return th.RunCommandSync(buildcache);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //FIXME
-                return WFR.WFR_Error;
-                throw;
+                settings.LOGGER.LogString(ex.ToString());
+                return WFR.WFR_Error; //FIXME
+                throw ex;
             }
         }
     }

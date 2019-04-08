@@ -3,9 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:wcc_lite_gui_wpf.Templates"
+             xmlns:local="clr-namespace:w3tools.UI.Templates"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-             xmlns:Views="clr-namespace:wcc_lite_gui_wpf.Views" x:Class="wcc_lite_gui_wpf.Templates.DTWorkspaceCommand"
+             xmlns:Views="clr-namespace:w3tools.UI.Views" x:Class="w3tools.UI.Templates.DTWorkspaceCommand"
              mc:Ignorable="d" 
              d:DesignHeight="250" d:DesignWidth="600"
              >
@@ -29,13 +29,13 @@
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
 
-                <Image Grid.Column="0" x:Name="_expandIcon" Source="/wcc_lite_gui_wpf;component/Resources/Icons/CollapseChevronDown_bold_blueNoHalo_16x.png" Margin="0,0,0,0" 
+                <Image Grid.Column="0" x:Name="_expandIcon" Source="/w3tools.UI;component/Resources/Icons/CollapseChevronDown_bold_blueNoHalo_16x.png" Margin="0,0,0,0" 
                    MouseDown="Toggle_MouseDown" 
                    MouseEnter="Toggle_MouseEnter"
                    MouseLeave="Toggle_MouseLeave"/>
-                <Image Grid.Column="1" Source="/wcc_lite_gui_wpf;component/Resources/Icons/witcher3_101.ico" Margin="10,0,0,0"/>
+                <Image Grid.Column="1" Source="/w3tools.UI;component/Resources/Icons/witcher3_101.ico" Margin="10,0,0,0"/>
                 <TextBlock Grid.Column="2" Text="{Binding Name}" FontWeight="Bold" Margin="10,0,0,0"/>
-                <Image Grid.Column="3" Source="/wcc_lite_gui_wpf;component/Resources/Icons/Close_16x.png" Margin="0,0,0,0" 
+                <Image Grid.Column="3" Source="/w3tools.UI;component/Resources/Icons/Close_16x.png" Margin="0,0,0,0" 
                    MouseDown="Close_MouseDown" 
                    MouseEnter="Close_MouseEnter"
                    MouseLeave="Close_MouseLeave" 
