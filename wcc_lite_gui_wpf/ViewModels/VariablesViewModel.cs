@@ -41,7 +41,7 @@ namespace wcc_lite_gui_wpf.ViewModels
                 if (_variables != value)
                 {
                     _variables = value;
-                    InvokePropertyChanged();
+                    OnPropertyChanged();
                 }
             }
         }

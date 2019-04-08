@@ -8,9 +8,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using Wcc_lite_core;
+using wcc.core;
 using wcc_lite_gui_wpf.Commands;
-using Radish_core;
+using radish.core;
+using w3.tools;
+using w3.workflow;
+using wcc.core.Commands;
 
 namespace wcc_lite_gui_wpf.ViewModels
 {
@@ -34,7 +37,7 @@ namespace wcc_lite_gui_wpf.ViewModels
                 if (_settings != value)
                 {
                     _settings = value;
-                    InvokePropertyChanged();
+                    OnPropertyChanged();
                 }
             }
         }
@@ -51,7 +54,7 @@ namespace wcc_lite_gui_wpf.ViewModels
                 if (_hasUnsavedChanges != value)
                 {
                     _hasUnsavedChanges = value;
-                    InvokePropertyChanged();
+                    OnPropertyChanged();
                 }
             }
         }
@@ -69,7 +72,7 @@ namespace wcc_lite_gui_wpf.ViewModels
                 if (_isSelected != value)
                 {
                     _isSelected = value;
-                    InvokePropertyChanged();
+                    OnPropertyChanged();
 
                     ParentViewModel.ActiveDocument = ParentViewModel.DocumentsSource.FirstOrDefault(x => x.IsSelected);
 
@@ -93,7 +96,7 @@ namespace wcc_lite_gui_wpf.ViewModels
                 if (_workflow != value)
                 {
                     _workflow = value;
-                    InvokePropertyChanged();
+                    OnPropertyChanged();
                 }
             }
         }

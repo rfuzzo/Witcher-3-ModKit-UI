@@ -1,7 +1,7 @@
 ﻿using System.Windows.Controls;
 using System.Windows.Data;
-using Wcc_lite_core;
-using static Wcc_lite_core.WccExtendedLogger;
+using wcc.core;
+using static wcc.core.WccExtendedLogger;
 
 namespace wcc_lite_gui_wpf.Views
 {

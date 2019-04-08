@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using w3.workflow;
 
 namespace wcc_lite_gui_wpf.ViewModels
 {
@@ -20,7 +21,7 @@ namespace wcc_lite_gui_wpf.ViewModels
                 return false;
             }
             field = value;
-            InvokePropertyChanged(propertyName);
+            OnPropertyChanged(propertyName);
             return true;
         }
         #endregion

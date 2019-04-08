@@ -1,5 +1,6 @@
 ﻿using System.Windows.Controls;
-using Wcc_lite_core;
+using w3.workflow;
+using wcc.core;
 
 namespace wcc_lite_gui_wpf.Views
 {

@@ -5,10 +5,11 @@ using Ninject.Modules;
 using System;
 using System.IO;
 using System.Windows;
-using Wcc_lite_core;
+using wcc.core;
 using wcc_lite_gui_wpf.Views;
 using wcc_lite_gui_wpf.ViewModels;
 using wcc_lite_gui_wpf;
+using w3.tools;
 
 namespace wcc_lite_gui_wpf
 {

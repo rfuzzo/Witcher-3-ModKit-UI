@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Wcc_lite_core;
+using wcc.core;
 using Xceed.wpf.PropertyGrid.Extensions.EditorTemplates;
 
 namespace wcc_lite_gui_wpf

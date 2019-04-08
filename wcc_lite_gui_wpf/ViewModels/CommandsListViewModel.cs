@@ -6,7 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Wcc_lite_core;
+using w3.workflow;
+using wcc.core;
+using wcc.core.Commands;
 using wcc_lite_gui_wpf.Commands;
 
 namespace wcc_lite_gui_wpf.ViewModels
@@ -29,7 +31,7 @@ namespace wcc_lite_gui_wpf.ViewModels
                 if (_activeCommand != value)
                 {
                     _activeCommand = value;
-                    InvokePropertyChanged();
+                    OnPropertyChanged();
                 }
             }
         }

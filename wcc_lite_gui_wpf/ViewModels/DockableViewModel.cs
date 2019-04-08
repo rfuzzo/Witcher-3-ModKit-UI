@@ -29,7 +29,7 @@ namespace wcc_lite_gui_wpf.ViewModels
                 if(_title != value)
                 {
                     _title = value;
-                    InvokePropertyChanged();
+                    OnPropertyChanged();
                 }
             }
         }
@@ -46,7 +46,7 @@ namespace wcc_lite_gui_wpf.ViewModels
                 if (_contentId != value)
                 {
                     _contentId = value;
-                    InvokePropertyChanged();
+                    OnPropertyChanged();
                 }
             }
         }
@@ -63,7 +63,7 @@ namespace wcc_lite_gui_wpf.ViewModels
                 if (_isActive != value)
                 {
                     _isActive = value;
-                    InvokePropertyChanged();
+                    OnPropertyChanged();
                 }
             }
         }
@@ -80,7 +80,7 @@ namespace wcc_lite_gui_wpf.ViewModels
                 if (_parentViewModel != value)
                 {
                     _parentViewModel = value;
-                    InvokePropertyChanged();
+                    OnPropertyChanged();
                 }
             }
         }

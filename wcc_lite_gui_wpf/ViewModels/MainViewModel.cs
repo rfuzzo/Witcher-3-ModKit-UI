@@ -11,13 +11,15 @@ using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Input;
 using wcc_lite_gui_wpf.Commands;
-using Wcc_lite_core;
+using wcc.core;
 using System.ComponentModel;
 using System.Threading;
 using Microsoft.Win32;
 using Ninject;
 using Ninject.Infrastructure;
-using Radish_core;
+using radish.core;
+using w3.workflow;
+using w3.tools;
 
 namespace wcc_lite_gui_wpf.ViewModels
 {
@@ -44,7 +46,7 @@ namespace wcc_lite_gui_wpf.ViewModels
                 if (_activeContent != value)
                 {
                     _activeContent = value;
-                    InvokePropertyChanged();
+                    OnPropertyChanged();
                 }
             }
         }
@@ -64,7 +66,7 @@ namespace wcc_lite_gui_wpf.ViewModels
                 if (_documentsSource != value)
                 {
                     _documentsSource = value;
-                    InvokePropertyChanged();
+                    OnPropertyChanged();
                 }
             }
         }
@@ -87,7 +89,7 @@ namespace wcc_lite_gui_wpf.ViewModels
                 if (_activeDocument != value)
                 {
                     _activeDocument = value;
-                    InvokePropertyChanged();
+                    OnPropertyChanged();
                 }
             }
         }
@@ -107,7 +109,7 @@ namespace wcc_lite_gui_wpf.ViewModels
                 if (_anchorablesSource != value)
                 {
                     _anchorablesSource = value;
-                    InvokePropertyChanged();
+                    OnPropertyChanged();
                 }
             }
         }
@@ -129,7 +131,7 @@ namespace wcc_lite_gui_wpf.ViewModels
                 if (_activeProperty != value)
                 {
                     _activeProperty = value;
-                    InvokePropertyChanged();
+                    OnPropertyChanged();
                 }
             }
         }
@@ -149,7 +151,7 @@ namespace wcc_lite_gui_wpf.ViewModels
                 if (_logger != value)
                 {
                     _logger = value;
-                    InvokePropertyChanged();
+                    OnPropertyChanged();
                 }
             }
         }
@@ -169,7 +171,7 @@ namespace wcc_lite_gui_wpf.ViewModels
                 if (_commands != value)
                 {
                     _commands = value;
-                    InvokePropertyChanged();
+                    OnPropertyChanged();
                 }
             }
         }
@@ -189,7 +191,7 @@ namespace wcc_lite_gui_wpf.ViewModels
                 if (_workflows != value)
                 {
                     _workflows = value;
-                    InvokePropertyChanged();
+                    OnPropertyChanged();
                 }
             }
         }
@@ -210,7 +212,7 @@ namespace wcc_lite_gui_wpf.ViewModels
                 if (_utilities != value)
                 {
                     _utilities = value;
-                    InvokePropertyChanged();
+                    OnPropertyChanged();
                 }
             }
         }

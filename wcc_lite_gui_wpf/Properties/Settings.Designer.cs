@@ -68,11 +68,11 @@ namespace wcc_lite_gui_wpf.Properties {
         [global::System.Configuration.SettingsSerializeAs(System.Configuration.SettingsSerializeAs.Binary)]
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.ObjectModel.ObservableCollection<Wcc_lite_core.WorkflowItem> WccLite_Commands
+        public System.Collections.ObjectModel.ObservableCollection<w3.workflow.WorkflowItem> WccLite_Commands
         {
             get
             {
-                return ((System.Collections.ObjectModel.ObservableCollection<Wcc_lite_core.WorkflowItem>)(this["WccLite_Commands"]));
+                return ((System.Collections.ObjectModel.ObservableCollection<w3.workflow.WorkflowItem>)(this["WccLite_Commands"]));
             }
             set
             {

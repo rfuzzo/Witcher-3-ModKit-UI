@@ -12,7 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Wcc_lite_core;
+using w3.workflow;
+using wcc.core;
 
 namespace wcc_lite_gui_wpf.Templates
 {

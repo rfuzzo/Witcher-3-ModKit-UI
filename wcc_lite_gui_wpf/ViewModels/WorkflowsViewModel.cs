@@ -1,11 +1,13 @@
-﻿using Radish_core;
+﻿using radish.core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Wcc_lite_core;
+using w3.tools;
+using w3.workflow;
+using wcc.core;
 using wcc_lite_gui_wpf.Commands;
 
 namespace wcc_lite_gui_wpf.ViewModels
@@ -27,7 +29,7 @@ namespace wcc_lite_gui_wpf.ViewModels
                 if (_activeWorkflow != value)
                 {
                     _activeWorkflow = value;
-                    InvokePropertyChanged();
+                    OnPropertyChanged();
                 }
             }
         }

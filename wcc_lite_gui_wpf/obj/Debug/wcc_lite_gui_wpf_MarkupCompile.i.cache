@@ -12,8 +12,8 @@ DEBUG;TRACE
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\App.xaml
 121580025413
 
-381493072358
-26873003293
+361913373457
+28850989416
 Templates\DataTemplates.xaml;Templates\DTVariable.xaml;Templates\DTWorkspaceCommand.xaml;Views\AboutView.xaml;Views\CommandsView.xaml;Views\ConsoleView.xaml;Views\ErrorsView.xaml;Views\PropertiesView.xaml;Views\VariablesView.xaml;Views\WorkflowListView.xaml;Views\WorkspaceView.xaml;MainWindow.xaml;
 
 True

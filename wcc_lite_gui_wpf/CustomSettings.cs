@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Wcc_lite_core;
+using wcc.core;
 
 namespace wcc_lite_gui_wpf
 {
@@ -21,11 +21,11 @@ namespace wcc_lite_gui_wpf
         [global::System.Configuration.SettingsSerializeAs(System.Configuration.SettingsSerializeAs.Binary)]
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.ObjectModel.ObservableCollection<Wcc_lite_core.WorkflowItem> WccLite_Commands
+        public System.Collections.ObjectModel.ObservableCollection<wcc.core.WorkflowItem> WccLite_Commands
         {
             get
             {
-                return ((System.Collections.ObjectModel.ObservableCollection<Wcc_lite_core.WorkflowItem>)(this["WccLite_Commands"]));
+                return ((System.Collections.ObjectModel.ObservableCollection<wcc.core.WorkflowItem>)(this["WccLite_Commands"]));
             }
             set
             {
