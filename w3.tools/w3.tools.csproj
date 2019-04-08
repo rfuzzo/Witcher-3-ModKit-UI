@@ -43,6 +43,9 @@
   <ItemGroup>
     <Compile Include="Commands\rad_wf_command.cs" />
     <Compile Include="Commands\rad_wf_commands.cs" />
+    <Compile Include="Commands\wcc_wf_command.cs" />
+    <Compile Include="Commands\wcc_wf_commands.cs" />
+    <Compile Include="Commands\win_wf_command.cs" />
     <Compile Include="Commands\win_wf_commands.cs" />
     <Compile Include="core.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

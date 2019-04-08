@@ -9,16 +9,16 @@ using w3.workflow;
 namespace w3.tools.Commands
 {
     /// <summary>
-    /// Abstract Radish Batch Command Parentclass
+    /// Abstract Wcc_lite Batch Command Parentclass
     /// </summary>
     [Serializable]
-    public abstract class RAD_wf_Command : WorkflowItem
+    public abstract class WCC_wf_Command : WorkflowItem
     {
         //fixme bind to settings
         public bool Enabled { get; set; } = true;
-       
 
-        public RAD_wf_Command(WccCommandCategory defaultCategory = WccCommandCategory.WF_Radish)
+
+        public WCC_wf_Command(WccCommandCategory defaultCategory = WccCommandCategory.WF_Radish)
         {
             base.Category = defaultCategory;
             base.DefaultCategory = defaultCategory;

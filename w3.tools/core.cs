@@ -10,6 +10,9 @@ using w3.tools.Commands;
 namespace w3.tools
 {
     
+
+
+
     /*
     /// <summary>
     /// Holds all referenced icons
@@ -35,8 +38,11 @@ namespace w3.tools
     {
         public WccCommandsCollection()
         {
+            /// TOOL Commands
+            #region Tools
+            //Wcc
+            #region Wcc
             /// Commmom Conmmands
-
             Add(new uncook(WccCommandCategory.Favourites));
             Add(new unbundle(WccCommandCategory.Favourites));
             Add(new export(WccCommandCategory.Favourites));
@@ -51,7 +57,7 @@ namespace w3.tools
 
 
             /// Uncommon Conmmands
-            /// Add(new package();
+            Add(new package());
             Add(new swfimport());
             Add(new swfdump());
             Add(new analyze());
@@ -89,23 +95,43 @@ namespace w3.tools
             Add(new cookertest());
             Add(new testmem());
             Add(new voconvert());
+            #endregion
 
-
-            /// Radish Commands
+            // Radish Commands
+            #region radish
             Add(new w3env());
             Add(new w2quest());
             Add(new w2scene());
             Add(new w3speech());
             Add(new w3strings());
             Add(new w3world());
+            #endregion
+            #endregion
 
-            /// Windows Commands
+            /// Workflow Commands
+            #region Workflow Commands
+            // Windows Commands
+            #region Win
             Add(new CleanupFolder());
             Add(new DeployModScripts());
             Add(new DeployTmpModScripts());
+            #endregion
 
+            // Radish Steps
+            #region radish
+            Add(new Encode_env());
+            Add(new Encode_quest());
+            Add(new Encode_scene());
+            Add(new Encode_speech());
+            Add(new Encode_strings());
+            Add(new Encode_world());
+            #endregion
 
+            // Wcc Steps
+            #region wcc
 
+            #endregion
+            #endregion
         }
     }
 

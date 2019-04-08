@@ -14,9 +14,11 @@ namespace w3.workflow
     public enum WccCommandCategory
     {
         Favourites,
-        Modkit,
+        Wcc,
         Radish,
-        Windows,
+        WF_Windows,
+        WF_Radish,
+        WF_Wcc,
         Default,
     }
 
@@ -67,12 +69,12 @@ namespace w3.workflow
         #endregion
 
 
-        public virtual int Run()
+        public virtual WFR Run()
         {
 
 
-
-            return -1;
+            //FIXME
+            return WFR.WFR_Finished;
         }
 
 

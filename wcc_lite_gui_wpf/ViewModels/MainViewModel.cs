@@ -243,20 +243,21 @@ namespace wcc_lite_gui_wpf.ViewModels
         {
             WorkspaceViewModel wvm = DocumentsSource.FirstOrDefault(x => x.ContentId == "workspace");
             var workflow = wvm.Workflow;
+
+            // FIXME tasks?
+            // FIXME logging
+            // FIXME error handling
             foreach (WorkflowItem item in workflow)
             {
-                //FIXME
-                switch (item.Run())
+                WFR completed = item.Run();
+                if (completed == WFR.WFR_Error)
                 {
-                    case -1: {
-                            return;
-                        }
-                    default:
-                        break;
+                    break;
                 }
-
-                
-                
+                else
+                {
+                    continue;
+                }
             }
 
         }

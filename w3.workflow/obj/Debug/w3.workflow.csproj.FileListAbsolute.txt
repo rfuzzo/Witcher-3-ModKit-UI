@@ -1,6 +1,6 @@
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3.workflow\bin\Debug\w3.workflow.dll
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3.workflow\bin\Debug\w3.workflow.pdb
-C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3.workflow\obj\Debug\w3.workflow.csprojAssemblyReference.cache
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3.workflow\obj\Debug\w3.workflow.csproj.CoreCompileInputs.cache
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3.workflow\obj\Debug\w3.workflow.dll
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3.workflow\obj\Debug\w3.workflow.pdb
+C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3.workflow\obj\Debug\w3.workflow.csprojAssemblyReference.cache

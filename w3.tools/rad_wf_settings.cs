@@ -5,42 +5,28 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using w3.workflow;
 using Xceed.wpf.PropertyGrid.Extensions.EditorTemplates;
 
 namespace w3.tools
 {
-    public enum ERL
-    {
-        empty,
-        verbose,
-        veryverbose
-    }
-
-    
-
-
+    /// <summary>
+    /// Radish Workflow Global Settings
+    /// </summary>
     [TypeConverter(typeof(ExpandableObjectConverter))]
-    public class RAD_Settings
+    public class RAD_Settings : ObservableObject
     {
-
-        public string enumToArg(ERL v)
-        {
-            switch (v)
-            {
-                case ERL.verbose: return "--verbose";
-                case ERL.veryverbose: return "--very-verbose";
-                case ERL.empty: 
-                default: return "";
-            }
-        }
-
         public RAD_Settings(string w3, string modkit, string encoder)
         {
-            DIR_W3 = w3;
+            DIR_W3 = w3; //game path
             DIR_MODKIT = modkit; //wcc_lite.exe path
-            DIR_ENCODER = encoder;
+            DIR_ENCODER = encoder; //path to directory with encoder binaries
+
+            //LastResult = WFR.WFR_Finished; // first setup is good
         }
 
+        #region Properties
+        // Editor Settings
         [BrowsableAttribute(false)]
         [Editor(typeof(PropertyGridFolderPicker), typeof(PropertyGridFolderPicker))]
         public string DIR_W3 { get; set; }
@@ -51,11 +37,7 @@ namespace w3.tools
         [Editor(typeof(PropertyGridFolderPicker), typeof(PropertyGridFolderPicker))]
         public string DIR_ENCODER { get; set; }
 
-
-
-
-
-        // requires user input
+        // User Settings
         [CategoryAttribute("1 Settings")]
         [Editor(typeof(PropertyGridFolderPicker), typeof(PropertyGridFolderPicker))]
         public string DIR_PROJECT_BASE { get; set; }
@@ -68,84 +50,108 @@ namespace w3.tools
         [CategoryAttribute("1 Settings")]
         public ERL LOG_LEVEL { get; set; }
 
-        // default flags for build steps: do nothing
-        #region FLAGS
-
-
-
-
+        // User Flags
         [CategoryAttribute("2 Flags")]
         public bool PATCH_MODE { get; set; }
         [CategoryAttribute("2 Flags")]
         public bool FULL_REBUILD { get; set; }
-        //[CategoryAttribute("2 Flags")]
-        //public bool SKIP_WORLD_GENERATION { get; set; }
-        //[CategoryAttribute("2 Flags")]
-        //public bool SKIP_FOLIAGE_GENERATION { get; set; }
-        
-        [CategoryAttribute("2 Flags")]
-        public string MODELNAME { get; set; }
 
-        [CategoryAttribute("3 Flags")]
+        // Hidden Settings
+        #region HIDDEN
+        [BrowsableAttribute(false)]
+        [CategoryAttribute("3 Hidden")]
         public bool ENCODE_WORLD { get; set; }
-        [CategoryAttribute("3 Flags")]
+        [BrowsableAttribute(false)]
+        [CategoryAttribute("3 Hidden")]
         public bool ENCODE_ENVS { get; set; }
-        [CategoryAttribute("3 Flags")]
+        [BrowsableAttribute(false)]
+        [CategoryAttribute("3 Hidden")]
         public bool ENCODE_SCENES { get; set; }
-        [CategoryAttribute("3 Flags")]
+        [BrowsableAttribute(false)]
+        [CategoryAttribute("3 Hidden")]
         public bool ENCODE_QUEST { get; set; }
-        [CategoryAttribute("3 Flags")]
+        [BrowsableAttribute(false)]
+        [CategoryAttribute("3 Hidden")]
         public bool ENCODE_STRINGS { get; set; }
-        [CategoryAttribute("3 Flags")]
+        [BrowsableAttribute(false)]
+        [CategoryAttribute("3 Hidden")]
         public bool ENCODE_SPEECH { get; set; }
 
 
-        [CategoryAttribute("3 Flags")]
+        [BrowsableAttribute(false)]
+        [CategoryAttribute("3 Hidden")]
         public bool WCC_IMPORT_MODELS { get; set; }
-        [CategoryAttribute("3 Flags")]
+        [BrowsableAttribute(false)]
+        [CategoryAttribute("3 Hidden")]
         public bool WCC_SEEDFILES { get; set; }
-        [CategoryAttribute("3 Flags")]
+        [BrowsableAttribute(false)]
+        [CategoryAttribute("3 Hidden")]
         public bool WCC_COOK { get; set; }
-        [CategoryAttribute("3 Flags")]
+        [BrowsableAttribute(false)]
+        [CategoryAttribute("3 Hidden")]
         public bool WCC_OCCLUSIONDATA { get; set; }
-        [CategoryAttribute("3 Flags")]
+        [BrowsableAttribute(false)]
+        [CategoryAttribute("3 Hidden")]
         public bool WCC_NAVDATA { get; set; }
-        [CategoryAttribute("3 Flags")]
+        [BrowsableAttribute(false)]
+        [CategoryAttribute("3 Hidden")]
         public bool WCC_TEXTURECACHE { get; set; }
-        [CategoryAttribute("3 Flags")]
+        [BrowsableAttribute(false)]
+        [CategoryAttribute("3 Hidden")]
         public bool WCC_COLLISIONCACHE { get; set; }
-        //[CategoryAttribute("3 Flags")]
+        //[BrowsableAttribute(false)]
+        //[CategoryAttribute("3 Hidden")]
         //public bool WCC_SHADERCACHE { get; set; }
-        //[CategoryAttribute("3 Flags")]
+        // [BrowsableAttribute(false)]
+        //[CategoryAttribute("3 Hidden")]
         //public bool WCC_DEPCACHE { get; set; }
-        [CategoryAttribute("3 Flags")]
+        [BrowsableAttribute(false)]
+        [CategoryAttribute("3 Hidden")]
         public bool WCC_ANALYZE { get; set; }
-        [CategoryAttribute("3 Flags")]
+        [BrowsableAttribute(false)]
+        [CategoryAttribute("3 Hidden")]
         public bool WCC_ANALYZE_WORLD { get; set; }
-        [CategoryAttribute("3 Flags")]
+        [BrowsableAttribute(false)]
+        [CategoryAttribute("3 Hidden")]
         public bool WCC_REPACK_DLC { get; set; }
-        [CategoryAttribute("3 Flags")]
+        [BrowsableAttribute(false)]
+        [CategoryAttribute("3 Hidden")]
         public bool WCC_REPACK_MOD { get; set; }
 
 
 
 
-        [CategoryAttribute("3 Flags")]
+        [BrowsableAttribute(false)]
+        [CategoryAttribute("3 Hidden")]
         public bool DEPLOY_SCRIPTS { get; set; }
-        [CategoryAttribute("3 Flags")]
+        [BrowsableAttribute(false)]
+        [CategoryAttribute("3 Hidden")]
         public bool DEPLOY_TMP_SCRIPTS { get; set; }
-        [CategoryAttribute("3 Flags")]
+        [BrowsableAttribute(false)]
+        [CategoryAttribute("3 Hidden")]
         public bool START_GAME { get; set; }
-
-
-
-        //public int ENVID { get; set; }
-        //public int SCENEID { get; set; }
-        //public string MODELNAME { get; set; }
-
         #endregion
 
-        // auto generated properties
+        //Constants
+        [BrowsableAttribute(false)]
+        [CategoryAttribute("4 Constants")]
+        public string WORLD_DEF_PREFIX {get;} = "world";
+        [BrowsableAttribute(false)]
+        [CategoryAttribute("4 Constants")]
+        public string ENV_DEF_PREFIX { get; } = "env";
+        [BrowsableAttribute(false)]
+        [CategoryAttribute("4 Constants")]
+        public string SCENE_DEF_PREFIX { get; } = "scene";
+        [BrowsableAttribute(false)]
+        [CategoryAttribute("4 Constants")]
+        public string STRINGS_PART_PREFIX { get; } = "strings";
+        [BrowsableAttribute(false)]
+        [CategoryAttribute("4 Constants")]
+        public string SEEDFILE_PREFIX { get; } = "seed";
+        #endregion
+
+
+        // auto generated
         #region AUTO
 
 
@@ -311,7 +317,7 @@ namespace w3.tools
         {
             return Path.Combine(DIR_PROJECT_BASE, @"\definition.quest");
         }
-        public const string SEEDFILE_PREFIX = "seed";
+        
 
         // w3speech settings
         [CategoryAttribute("1 Settings")]
@@ -352,7 +358,7 @@ namespace w3.tools
         {
             return Path.Combine(DIR_PROJECT_BASE, @"\models");
         }
-        public const string MODEL_PREFIX = "model";
+        
 
         // game relative path to worlds for scanning depot
         public string DIR_WCC_DEPOT_WORLDS()
@@ -362,9 +368,54 @@ namespace w3.tools
 
         #endregion
 
+        /// <summary>
+        /// checks the settings for errors
+        /// </summary>
+        /// <returns></returns>
+        public bool CheckSelf()
+        {
+            bool test_DIR_W3 = Directory.Exists(this.DIR_W3);
+            bool test_DIR_MODKIT = Directory.Exists(this.DIR_MODKIT);
+            bool test_DIR_ENCODER = Directory.Exists(this.DIR_ENCODER);
 
-        //const?
-        //FIXME
+            bool test_DIR_PROJECT_BASE = Directory.Exists(this.DIR_PROJECT_BASE);
+            bool test_MODNAME = !String.IsNullOrEmpty(this.MODNAME);
+            bool test_idspace = this.idspace > 0 && this.idspace < 9999;
 
+
+            if (!(test_DIR_W3 && test_DIR_MODKIT && test_DIR_ENCODER))
+            {
+                // check global settings
+                // FIXME Error Message
+                return false;
+            }
+            else if (!(test_DIR_PROJECT_BASE && test_MODNAME && test_idspace))
+            {
+                //check mod settings
+                // FIXME Error Message
+                return false;
+            }
+            else
+            {
+                // all true
+                return true;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="v"></param>
+        /// <returns></returns>
+        public string EnumToArg(ERL v)
+        {
+            switch (v)
+            {
+                case ERL.ERL_verbose: return "--verbose";
+                case ERL.ERL_veryverbose: return "--very-verbose";
+                case ERL.ERL_empty:
+                default: return "";
+            }
+        }
     }
 }

@@ -4,61 +4,11 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using wcc.core;
 using w3.workflow;
 
 namespace w3.tools.Commands
 {
-    [Serializable]
-    public abstract class WIN_wf_Command : RAD_wf_Command
-    {
-
-        public WIN_wf_Command(WccCommandCategory defaultCategory = WccCommandCategory.Windows)
-        {
-            base.Category = defaultCategory;
-            base.DefaultCategory = defaultCategory;
-        }
-
-
-        public override int Run()
-        {
-            return base.Run();
-        }
-
-
-
-
-
-
-        public void Cleanup(string v)
-        {
-            if (Directory.Exists(v))
-            {
-                ClearFolder(v);
-            }
-            else
-            {
-                Directory.CreateDirectory(v);
-            }
-        }
-
-        public void ClearFolder(string FolderName)
-        {
-            DirectoryInfo dir = new DirectoryInfo(FolderName);
-
-            foreach (FileInfo fi in dir.GetFiles())
-            {
-                fi.Delete();
-            }
-
-            foreach (DirectoryInfo di in dir.GetDirectories())
-            {
-                ClearFolder(di.FullName);
-                di.Delete();
-            }
-        }
-    }
-
+   
 
     /// <summary>
     /// CLEANUP OF UNCOOKED, COOKED, DLC TARGET FOLDERS
@@ -66,22 +16,22 @@ namespace w3.tools.Commands
     [Serializable]
     public class CleanupFolder : WIN_wf_Command
     {
-        public override int Run()
+        public override WFR Run()
         {
-            //check if any higher level detects any error and if yes, break
-            if (base.Run() != 1)
-            {
-                return -1;
-            }
+            // check if any higher level detects any error
+            if (base.Run() != WFR.WFR_Error)
+                return WFR.WFR_Error;
+            // check if step is disabled
+            RAD_Settings settings = (RAD_Settings)base.Parent;
+            if (!settings.FULL_REBUILD)
+                return (int)WFR.WFR_NotRun;
 
-            //execute the actual function
-            return _CleanupFolder();
+            WFR result = _CleanupFolder(settings);
+            return result;
         }
 
-        private int _CleanupFolder()
+        private WFR _CleanupFolder(RAD_Settings settings)
         {
-            RAD_Settings settings = (RAD_Settings)base.Parent;
-
             try
             {
                 Cleanup(settings.DIR_UNCOOKED());
@@ -94,11 +44,11 @@ namespace w3.tools.Commands
             catch (Exception)
             {
                 //FIXME
-                return -1;
+                return WFR.WFR_Error;
                 throw;
             }
 
-            return 1;
+            return WFR.WFR_Finished;
         }
 
     }
@@ -109,22 +59,22 @@ namespace w3.tools.Commands
     [Serializable]
     public class DeployModScripts : WIN_wf_Command
     {
-        public override int Run()
+        public override WFR Run()
         {
-            //check if any higher level detects any error and if yes, break
-            if (base.Run() != 1)
-            {
-                return -1;
-            }
+            // check if any higher level detects any error
+            if (base.Run() != WFR.WFR_Error)
+                return WFR.WFR_Error;
+            // check if step is disabled
+            RAD_Settings settings = (RAD_Settings)base.Parent;
+            if (!settings.DEPLOY_SCRIPTS)
+                return (int)WFR.WFR_NotRun;
 
-            //execute the actual function
-            return _DeployModScripts();
+            WFR result = _DeployModScripts(settings);
+            return result;
         }
 
-        private int _DeployModScripts()
+        private WFR _DeployModScripts(RAD_Settings settings)
         {
-            RAD_Settings settings = (RAD_Settings)base.Parent;
-
             try
             {
                 if (Directory.Exists(settings.DIR_MOD()))
@@ -153,11 +103,11 @@ namespace w3.tools.Commands
             catch (Exception)
             {
                 //FIXME
-                return -1;
+                return WFR.WFR_Error;
                 throw;
             }
 
-            return 1;
+            return WFR.WFR_Finished;
         }
 
     }
@@ -168,22 +118,22 @@ namespace w3.tools.Commands
     [Serializable]
     public class DeployTmpModScripts : WIN_wf_Command
     {
-        public override int Run()
+        public override WFR Run()
         {
-            //check if any higher level detects any error and if yes, break
-            if (base.Run() != 1)
-            {
-                return -1;
-            }
+            // check if any higher level detects any error
+            if (base.Run() != WFR.WFR_Error)
+                return WFR.WFR_Error;
+            // check if step is disabled
+            RAD_Settings settings = (RAD_Settings)base.Parent;
+            if (!settings.DEPLOY_TMP_SCRIPTS)
+                return (int)WFR.WFR_NotRun;
 
-            //execute the actual function
-            return _DeployTmpModScripts();
+            WFR result = _DeployTmpModScripts(settings);
+            return result;
         }
 
-        private int _DeployTmpModScripts()
+        private WFR _DeployTmpModScripts(RAD_Settings settings)
         {
-            RAD_Settings settings = (RAD_Settings)base.Parent;
-
             try
             {
                 if (Directory.Exists(settings.DIR_MOD()))
@@ -212,11 +162,97 @@ namespace w3.tools.Commands
             catch (Exception)
             {
                 //FIXME
-                return -1;
+                return WFR.WFR_Error;
                 throw;
             }
 
-            return 1;
+            return WFR.WFR_Finished;
+        }
+    }
+
+    /// <summary>
+    /// PREPARE COOKING: CLEANUP OF UNCOOKED CONTENT
+    /// </summary>
+    [Serializable]
+    public class PrepareCooking : WIN_wf_Command
+    {
+        public override WFR Run()
+        {
+            // check if any higher level detects any error
+            if (base.Run() != WFR.WFR_Error)
+                return WFR.WFR_Error;
+            // check if step is disabled
+            RAD_Settings settings = (RAD_Settings)base.Parent;
+            if (!settings.WCC_COOK)
+                return (int)WFR.WFR_NotRun;
+
+            WFR result = _PrepareCooking(settings);
+            return result;
+        }
+
+        private WFR _PrepareCooking(RAD_Settings settings)
+        {
+            try
+            {
+                if (!Directory.Exists(settings.DIR_TMP()))
+                    Directory.CreateDirectory(settings.DIR_TMP());
+            }
+            catch (Exception)
+            {
+                //FIXME
+                return WFR.WFR_Error;
+                throw;
+            }
+
+            return WFR.WFR_Finished;
+        }
+    }
+
+    /// <summary>
+    /// PREPARE PACKING: COPY ADDITIONAL DATA
+    /// </summary>
+    [Serializable]
+    public class PreparePackaging : WIN_wf_Command
+    {
+        public override WFR Run()
+        {
+            // check if any higher level detects any error
+            if (base.Run() != WFR.WFR_Error)
+                return WFR.WFR_Error;
+            // check if step is disabled
+            RAD_Settings settings = (RAD_Settings)base.Parent;
+            if (!settings.WCC_REPACK_DLC)
+                return (int)WFR.WFR_NotRun;
+
+            WFR result = _PreparePackaging(settings);
+            return result;
+        }
+
+        private WFR _PreparePackaging(RAD_Settings settings)
+        {
+            try
+            {
+                // LOG copying files to %DIR_COOKED_DLC%
+                var files = Directory.GetFiles(Path.Combine(settings.DIR_OUTPUT_QUEST(), "dlc"), "*.w3hub", SearchOption.TopDirectoryOnly);
+                foreach (var item in files)
+                {
+                    string filename = Path.GetFileName(item);
+                    string newpath = Path.Combine(settings.DIR_COOKED_DLC(), "dlc",filename);
+                    File.Copy(item, newpath);
+                }
+
+                //copy additonal files
+                Directory.Move(Path.Combine(settings.DIR_PROJECT_BASE, "additional"), settings.DIR_COOKED_DLC());
+                
+            }
+            catch (Exception)
+            {
+                //FIXME
+                return WFR.WFR_Error;
+                throw;
+            }
+
+            return WFR.WFR_Finished;
         }
     }
 }

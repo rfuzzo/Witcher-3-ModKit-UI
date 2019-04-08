@@ -1,5 +1,3 @@
-C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3.tools\obj\Debug\w3.tools.csprojAssemblyReference.cache
-C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3.tools\obj\Debug\w3.tools.csproj.CoreCompileInputs.cache
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3.tools\bin\Debug\w3.tools.dll
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3.tools\bin\Debug\w3.tools.pdb
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3.tools\bin\Debug\radish.core.dll
@@ -12,6 +10,8 @@ C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3.tools\bin\Debug\radish.core.pdb
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3.tools\bin\Debug\wcc.core.pdb
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3.tools\bin\Debug\Xceed.wpf.PropertyGrid.Extensions.pdb
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3.tools\bin\Debug\w3.workflow.pdb
+C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3.tools\obj\Debug\w3.tools.csprojAssemblyReference.cache
+C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3.tools\obj\Debug\w3.tools.csproj.CoreCompileInputs.cache
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3.tools\obj\Debug\w3.tools.csproj.CopyComplete
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3.tools\obj\Debug\w3.tools.dll
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3.tools\obj\Debug\w3.tools.pdb

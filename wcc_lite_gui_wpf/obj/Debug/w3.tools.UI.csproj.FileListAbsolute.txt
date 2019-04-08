@@ -3,6 +3,10 @@ C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\bin\Debug\wcc_lite_gui_wp
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\bin\Debug\wcc_lite_gui_wpf.pdb
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\bin\Debug\GongSolutions.Wpf.DragDrop.dll
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\bin\Debug\Ninject.dll
+C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\bin\Debug\radish.core.dll
+C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\bin\Debug\w3.tools.dll
+C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\bin\Debug\w3.workflow.dll
+C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\bin\Debug\wcc.core.dll
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\bin\Debug\Xceed.Wpf.AvalonDock.dll
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\bin\Debug\Xceed.Wpf.AvalonDock.Themes.Aero.dll
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\bin\Debug\Xceed.Wpf.AvalonDock.Themes.Metro.dll
@@ -11,7 +15,11 @@ C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\bin\Debug\Xceed.Wpf.Avalo
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\bin\Debug\Xceed.wpf.PropertyGrid.Extensions.dll
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\bin\Debug\Xceed.Wpf.Toolkit.dll
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\bin\Debug\WPFFolderBrowser.dll
+C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\bin\Debug\radish.core.pdb
+C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\bin\Debug\wcc.core.pdb
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\bin\Debug\Xceed.wpf.PropertyGrid.Extensions.pdb
+C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\bin\Debug\w3.tools.pdb
+C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\bin\Debug\w3.workflow.pdb
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\bin\Debug\GongSolutions.Wpf.DragDrop.pdb
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\bin\Debug\GongSolutions.Wpf.DragDrop.xml
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\bin\Debug\Ninject.xml
@@ -61,11 +69,3 @@ C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\w3.tools.UI.csp
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\w3.tools.UI.csproj.CopyComplete
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\wcc_lite_gui_wpf.exe
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\wcc_lite_gui_wpf.pdb
-C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\bin\Debug\radish.core.dll
-C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\bin\Debug\w3.tools.dll
-C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\bin\Debug\w3.workflow.dll
-C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\bin\Debug\wcc.core.dll
-C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\bin\Debug\radish.core.pdb
-C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\bin\Debug\wcc.core.pdb
-C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\bin\Debug\w3.tools.pdb
-C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\bin\Debug\w3.workflow.pdb

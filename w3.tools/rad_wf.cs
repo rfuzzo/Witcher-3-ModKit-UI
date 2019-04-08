@@ -69,7 +69,9 @@ namespace w3.tools
             Steps.Add(new DeployTmpModScripts());
 
             Steps.Add(new Encode_world());
+
             // route output to cooked folder if cooking is not flagged //FIXME
+
             Steps.Add(new Encode_env());
             Steps.Add(new Encode_scene());
             Steps.Add(new Encode_quest());
@@ -77,10 +79,14 @@ namespace w3.tools
             Steps.Add(new import());
             Steps.Add(new pathlib());
             Steps.Add(new cookocclusion());
-            // prepare cooking
+
+            Steps.Add(new PrepareCooking());
+
             Steps.Add(new analyze());
             Steps.Add(new cook());
-            // prepare packing
+
+            Steps.Add(new PreparePackaging());
+
             Steps.Add(new pack()); //mod
             Steps.Add(new metadatastore()); //mod
             Steps.Add(new pack()); //dlc
