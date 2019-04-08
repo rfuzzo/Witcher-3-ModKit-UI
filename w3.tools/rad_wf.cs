@@ -76,27 +76,25 @@ namespace w3.tools
             Steps.Add(new Encode_scene());
             Steps.Add(new Encode_quest());
 
-            Steps.Add(new import());
-            Steps.Add(new pathlib());
-            Steps.Add(new cookocclusion());
+            Steps.Add(new WCC_import());
+            Steps.Add(new WCC_GenerateNavData());
+            Steps.Add(new WCC_occlusion());
 
             Steps.Add(new PrepareCooking());
 
-            Steps.Add(new analyze());
-            Steps.Add(new cook());
+            Steps.Add(new WCC_analyze());
+            Steps.Add(new WCC_CookData());
 
             Steps.Add(new PreparePackaging());
 
-            Steps.Add(new pack()); //mod
-            Steps.Add(new metadatastore()); //mod
-            Steps.Add(new pack()); //dlc
-            Steps.Add(new metadatastore()); //dlc
+            Steps.Add(new WCC_PackDLCAndCreateMetadatastore());
+            Steps.Add(new WCC_PackMODAndCreateMetadatastore());
 
             Steps.Add(new Encode_strings());
             Steps.Add(new Encode_speech());
 
-            Steps.Add(new buildcache()); //texture
-            Steps.Add(new buildcache()); //collision
+            Steps.Add(new WCC_GenerateTextureCache()); //texture
+            Steps.Add(new WCC_GenerateCollisionCache()); //collision
 
         }
 

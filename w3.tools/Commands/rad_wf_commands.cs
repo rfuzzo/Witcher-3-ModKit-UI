@@ -28,8 +28,7 @@ namespace w3.tools.Commands
             if (!settings.ENCODE_WORLD)
                 return (int)WFR.WFR_NotRun;
 
-            WFR result = _Encode_world(settings);
-            return result;
+            return _Encode_world(settings);
         }
 
         private WFR _Encode_world(RAD_Settings settings)
@@ -37,16 +36,12 @@ namespace w3.tools.Commands
             try
             {
                 if (!Directory.Exists(settings.DIR_OUTPUT_WORLD()))
-                {
                     Directory.CreateDirectory(settings.DIR_OUTPUT_WORLD());
-                }
                 if (!Directory.Exists(settings.DIR_TMP()))
-                {
                     Directory.CreateDirectory(settings.DIR_TMP());
-                }
 
-                string WILDCARD = $"{settings.WORLD_DEF_PREFIX}*.yml";
-                var files = Directory.GetFiles(settings.DIR_DEF_WORLD(), WILDCARD, SearchOption.AllDirectories);
+                string sp = $"{settings.WORLD_DEF_PREFIX}*.yml";
+                var files = Directory.GetFiles(settings.DIR_DEF_WORLD(), sp, SearchOption.AllDirectories);
 
                 string SKIP_PARAM = "";
                 if (SKIP_WORLD_GENERATION)
@@ -67,15 +62,13 @@ namespace w3.tools.Commands
                     //call encoder //FIXME
                     RAD_Task th = new RAD_Task(settings.DIR_ENCODER);
                     var encoder = new w3world() { Args = arg };
-                    th.RunArgsSync(encoder.ToString(), encoder.Args);
+                    WFR result = th.RunArgsSync(encoder.ToString(), encoder.Args);
+                    if (result == WFR.WFR_Error)
+                        return WFR.WFR_Error;
                 }
 
                 //set dependencies
-                if (settings.PATCH_MODE)
-                {
-
-                }
-                else
+                if (!settings.PATCH_MODE)
                 {
                     settings.WCC_ANALYZE = true;
                     settings.WCC_ANALYZE_WORLD = true;
@@ -86,7 +79,6 @@ namespace w3.tools.Commands
                     settings.WCC_COLLISIONCACHE = true;
                     settings.WCC_REPACK_DLC = true;
                 }
-
             }
             catch (Exception)
             {
@@ -117,8 +109,7 @@ namespace w3.tools.Commands
             if (!settings.ENCODE_ENVS)
                 return (int)WFR.WFR_NotRun;
 
-            WFR result = _Encode_env(settings);
-            return result;
+            return _Encode_env(settings);
         }
 
         private WFR _Encode_env(RAD_Settings settings)
@@ -144,8 +135,11 @@ namespace w3.tools.Commands
                     //call encoder //FIXME
                     RAD_Task th = new RAD_Task(settings.DIR_ENCODER);
                     var encoder = new w3env() { Args = arg };
-                    th.RunArgsSync(encoder.ToString(), encoder.Args);
+                    WFR result = th.RunArgsSync(encoder.ToString(), encoder.Args);
+                    if (result == WFR.WFR_Error)
+                        return WFR.WFR_Error;
                 }
+                return WFR.WFR_Finished;
             }
             catch (Exception)
             {
@@ -154,7 +148,7 @@ namespace w3.tools.Commands
                 throw;
             }
 
-            return WFR.WFR_Finished;
+           
         }
     }
 
@@ -177,8 +171,7 @@ namespace w3.tools.Commands
             if (!settings.ENCODE_SCENES)
                 return (int)WFR.WFR_NotRun;
 
-            WFR result = _Encode_scene(settings);
-            return result;
+            return _Encode_scene(settings);
         }
 
         private WFR _Encode_scene(RAD_Settings settings)
@@ -209,7 +202,8 @@ namespace w3.tools.Commands
                     //call encoder //FIXME
                     RAD_Task th = new RAD_Task(settings.DIR_ENCODER);
                     var encoder = new w2scene() { Args = arg };
-                    th.RunArgsSync(encoder.ToString(), encoder.Args);
+                    if (th.RunArgsSync(encoder.ToString(), encoder.Args) == WFR.WFR_Error)
+                        return WFR.WFR_Error;
 
                     //rename scene.<sceneid>.w2scene to <sceneid>.w2scene
                     string GENERATED_SCENE_FILE = Path.Combine(settings.DIR_OUTPUT_SCENES(), $"{SCENENAME}.w2scene");
@@ -222,11 +216,14 @@ namespace w3.tools.Commands
                         File.Move(GENERATED_STRINGS_CSV, STRINGS_PART_CSV);
                 }
 
-                //dependencies
-                   /*SET ENCODE_STRINGS = 1
-                   SET WCC_COOK = 1
-                   SET WCC_REPACK_DLC = 1*/
-         
+                //set dependencies
+                if (!settings.PATCH_MODE)
+                {
+                    settings.ENCODE_STRINGS = true;
+                    settings.WCC_COOK = true;
+                    settings.WCC_REPACK_DLC = true;
+                }
+                return WFR.WFR_Finished;
             }
             catch (Exception)
             {
@@ -234,8 +231,6 @@ namespace w3.tools.Commands
                 return WFR.WFR_Error;
                 throw;
             }
-
-            return WFR.WFR_Finished;
         }
     }
 
@@ -256,8 +251,7 @@ namespace w3.tools.Commands
             if (!settings.ENCODE_QUEST)
                 return (int)WFR.WFR_NotRun;
 
-            WFR result = _Encode_quest(settings);
-            return result;
+            return _Encode_quest(settings);
         }
 
         private WFR _Encode_quest(RAD_Settings settings)
@@ -282,7 +276,8 @@ namespace w3.tools.Commands
                     //call encoder //FIXME
                     RAD_Task th = new RAD_Task(settings.DIR_ENCODER);
                     var encoder = new w2quest() { Args = arg };
-                    th.RunArgsSync(encoder.ToString(), encoder.Args);
+                    if (th.RunArgsSync(encoder.ToString(), encoder.Args) == WFR.WFR_Error)
+                        return WFR.WFR_Error;
 
                     //put generated strings into strings dir for later concatenation
                     string GENERATED_STRINGS_CSV = Path.Combine(settings.DIR_OUTPUT_QUEST(), "queststrings.csv");
@@ -291,14 +286,15 @@ namespace w3.tools.Commands
                         File.Move(GENERATED_STRINGS_CSV, STRINGS_PART_CSV);
 
                 }
-                //dependencies
-                /*
-                 * SET ENCODE_STRINGS=1
-                    SET WCC_ANALYZE=1
-                    SET WCC_COOK=1
-                    SET WCC_REPACK_DLC=1
-                    */
-
+                //set dependencies
+                if (!settings.PATCH_MODE)
+                {
+                    settings.ENCODE_STRINGS = true;
+                    settings.WCC_ANALYZE = true;
+                    settings.WCC_COOK = true;
+                    settings.WCC_REPACK_DLC = true;
+                }
+                return WFR.WFR_Finished;
             }
             catch (Exception)
             {
@@ -306,8 +302,6 @@ namespace w3.tools.Commands
                 return WFR.WFR_Error;
                 throw;
             }
-
-            return WFR.WFR_Finished;
         }
     }
 
@@ -327,8 +321,7 @@ namespace w3.tools.Commands
             if (!settings.ENCODE_STRINGS)
                 return (int)WFR.WFR_NotRun;
 
-            WFR result = _Encode_strings(settings);
-            return result;
+            return _Encode_strings(settings);
         }
 
         private WFR _Encode_strings(RAD_Settings settings)
@@ -348,8 +341,8 @@ namespace w3.tools.Commands
                 if (File.Exists(STRINGS_FILE_COMBINED))
                     File.Delete(STRINGS_FILE_COMBINED);
 
-                string WILDCARD = $"{settings.STRINGS_PART_PREFIX}*.csv";
-                var files = Directory.GetFiles(settings.DIR_STRINGS(), WILDCARD, SearchOption.AllDirectories);
+                string sp = $"{settings.STRINGS_PART_PREFIX}*.csv";
+                var files = Directory.GetFiles(settings.DIR_STRINGS(), sp, SearchOption.AllDirectories);
 
                 using (Stream destStream = File.OpenWrite(STRINGS_FILE_COMBINED))
                 {
@@ -373,13 +366,12 @@ namespace w3.tools.Commands
                     //call encoder //FIXME
                     RAD_Task th = new RAD_Task(settings.DIR_ENCODER);
                     var encoder = new w3strings() { Args = arg };
-                    th.RunArgsSync(encoder.ToString(), encoder.Args);
+                    if (th.RunArgsSync(encoder.ToString(), encoder.Args) == WFR.WFR_Error)
+                        return WFR.WFR_Error;
                 }
                 // COPYING W3STRINGS INTO DLC FOLDER
                 if (File.Exists(W3_STRINGS_FILE))
-                {
                     File.Copy(W3_STRINGS_FILE,Path.Combine(settings.DIR_DLC_CONTENT(), "en.w3strings"));
-                }
 
                 // cleanup
                 if (File.Exists(W3_STRINGS_FILE))
@@ -387,6 +379,7 @@ namespace w3.tools.Commands
                 if (File.Exists($"{W3_STRINGS_FILE}.ws"))
                     File.Delete($"{W3_STRINGS_FILE}.ws");
 
+                return WFR.WFR_Finished;
             }
             catch (Exception)
             {
@@ -394,8 +387,6 @@ namespace w3.tools.Commands
                 return WFR.WFR_Error;
                 throw;
             }
-
-            return WFR.WFR_Finished;
         }
     }
 
@@ -415,8 +406,7 @@ namespace w3.tools.Commands
             if (!settings.ENCODE_SPEECH)
                 return (int)WFR.WFR_NotRun;
 
-            WFR result = _Encode_speech(settings);
-            return result;
+            return _Encode_speech(settings);
         }
 
         private WFR _Encode_speech(RAD_Settings settings)
@@ -435,7 +425,8 @@ namespace w3.tools.Commands
                     //call encoder FIXME
                     RAD_Task th = new RAD_Task(settings.DIR_ENCODER);
                     var encoder = new w3speech_lipsync_creator() { Args = arg };
-                    th.RunArgsSync(encoder.ToString(), encoder.Args);
+                    if (th.RunArgsSync(encoder.ToString(), encoder.Args) == WFR.WFR_Error)
+                        return WFR.WFR_Error;
                 }
 
                 // ENCODING LIPSYNC ANIMATIONS TO CR2W
@@ -446,7 +437,8 @@ namespace w3.tools.Commands
                     //call encoder FIXME
                     RAD_Task th = new RAD_Task(settings.DIR_ENCODER);
                     var encoder = new w3speech() { Args = arg };
-                    th.RunArgsSync(encoder.ToString(), encoder.Args);
+                    if (th.RunArgsSync(encoder.ToString(), encoder.Args) == WFR.WFR_Error)
+                        return WFR.WFR_Error;
                 }
 
                 // CREATING W3SPEECH FILE
@@ -459,7 +451,8 @@ namespace w3.tools.Commands
                     //call encoder FIXME
                     RAD_Task th = new RAD_Task(settings.DIR_ENCODER);
                     var encoder = new w3speech() { Args = arg };
-                    th.RunArgsSync(encoder.ToString(), encoder.Args);
+                    if (th.RunArgsSync(encoder.ToString(), encoder.Args) == WFR.WFR_Error)
+                        return WFR.WFR_Error;
                 }
 
                 // UPDATING DLC W3SPEECH FILE
@@ -470,6 +463,7 @@ namespace w3.tools.Commands
                     File.Delete(speech_final_file);
                 File.Move(speech_packed_file, speech_final_file);
 
+                return WFR.WFR_Finished;
             }
             catch (Exception)
             {
@@ -477,8 +471,6 @@ namespace w3.tools.Commands
                 return WFR.WFR_Error;
                 throw;
             }
-
-            return WFR.WFR_Finished;
         }
     }
 

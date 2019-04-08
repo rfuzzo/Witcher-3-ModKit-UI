@@ -83,9 +83,6 @@ namespace w3.tools
         public bool WCC_IMPORT_MODELS { get; set; }
         [BrowsableAttribute(false)]
         [CategoryAttribute("3 Hidden")]
-        public bool WCC_SEEDFILES { get; set; }
-        [BrowsableAttribute(false)]
-        [CategoryAttribute("3 Hidden")]
         public bool WCC_COOK { get; set; }
         [BrowsableAttribute(false)]
         [CategoryAttribute("3 Hidden")]

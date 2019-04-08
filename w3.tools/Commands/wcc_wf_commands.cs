@@ -30,8 +30,7 @@ namespace w3.tools.Commands
             if (!settings.WCC_IMPORT_MODELS)
                 return (int)WFR.WFR_NotRun;
 
-            WFR result = _WCC_import(settings);
-            return result;
+            return _WCC_import(settings);
         }
 
         private WFR _WCC_import(RAD_Settings settings)
@@ -59,15 +58,13 @@ namespace w3.tools.Commands
                         File = filename,
                         Out = Path.Combine(settings.DIR_OUTPUT_MESHES(),$"{MODELNAME}.w2mesh"),
                     };
-                    th.RunCommandSync(cmd);
+                    WFR result = th.RunCommandSync(cmd);
+                    if (result == WFR.WFR_Error)
+                        return WFR.WFR_Error;
                 }
 
                 //set dependencies
-                if (settings.PATCH_MODE)
-                {
-
-                }
-                else
+                if (!settings.PATCH_MODE)
                 {
                     string sp = $"{settings.WORLD_DEF_PREFIX}*.yml";
                     if (Directory.GetFiles(settings.DIR_DEF_WORLD(),sp, SearchOption.AllDirectories).Any())
@@ -79,7 +76,7 @@ namespace w3.tools.Commands
                     settings.WCC_COOK = true;
                     settings.WCC_REPACK_DLC = true;
                 }
-
+                return WFR.WFR_Finished;
             }
             catch (Exception)
             {
@@ -87,8 +84,6 @@ namespace w3.tools.Commands
                 return WFR.WFR_Error;
                 throw;
             }
-
-            return WFR.WFR_Finished;
         }
     }
 
@@ -98,7 +93,6 @@ namespace w3.tools.Commands
     [Serializable]
     public class WCC_occlusion : WCC_wf_Command
     {
-
         public override WFR Run()
         {
             // check if any higher level detects any error
@@ -109,8 +103,7 @@ namespace w3.tools.Commands
             if (!settings.WCC_OCCLUSIONDATA)
                 return (int)WFR.WFR_NotRun;
 
-            WFR result = _WCC_occlusion(settings);
-            return result;
+            return _WCC_occlusion(settings);
         }
 
         private WFR _WCC_occlusion(RAD_Settings settings)
@@ -138,20 +131,12 @@ namespace w3.tools.Commands
                         {
                             WorldFile = worldfile
                         };
-                        th.RunCommandSync(cmd);
+                        WFR result = th.RunCommandSync(cmd);
+                        if (result == WFR.WFR_Error)
+                            return WFR.WFR_Error;
                     }
                 }
-
-                //set dependencies
-                if (settings.PATCH_MODE)
-                {
-
-                }
-                else
-                {
-                   
-                }
-
+                return WFR.WFR_Finished;
             }
             catch (Exception)
             {
@@ -159,13 +144,11 @@ namespace w3.tools.Commands
                 return WFR.WFR_Error;
                 throw;
             }
-
-            return WFR.WFR_Finished;
         }
     }
 
     /// <summary>
-    /// WCC_LITE: GENERATE OCCLUSIONDATA
+    /// WCC_LITE: ANALYZE files
     /// </summary>
     [Serializable]
     public class WCC_analyze : WCC_wf_Command
@@ -181,9 +164,7 @@ namespace w3.tools.Commands
             if (!settings.WCC_ANALYZE)
                 return (int)WFR.WFR_NotRun;
 
-            WFR result = _WCC_analyze(settings);
-            return result;
-        }
+            return _WCC_analyze(settings);        }
 
         private WFR _WCC_analyze(RAD_Settings settings)
         {
@@ -218,7 +199,11 @@ namespace w3.tools.Commands
                                 Object = Path.Combine(settings.DIR_DLC_GAMEPATH(), "levels", worldname, $"{worldname}.w2w"),
                                 Out = Path.Combine(settings.DIR_TMP(), $"{settings.SEEDFILE_PREFIX}world.{worldname}.files")
                             };
-                            th.RunCommandSync(cmd);
+                            WFR result = th.RunCommandSync(cmd);
+
+                            //if any wcc operation fails return
+                            if (result == WFR.WFR_Error)
+                                return WFR.WFR_Error;
                         }
                     }
                 }
@@ -235,21 +220,10 @@ namespace w3.tools.Commands
                             reddlc = Path.Combine(settings.DIR_DLC_GAMEPATH(), $"dlc{settings.MODNAME}.reddlc"),
                             Out = Path.Combine(settings.DIR_TMP(), $"{settings.SEEDFILE_PREFIX}dlc{settings.MODNAME}.files")
                         };
-                        th.RunCommandSync(cmd);
+                        return th.RunCommandSync(cmd);
                     }
                 }
-
-
-                //set dependencies
-                if (settings.PATCH_MODE)
-                {
-
-                }
-                else
-                {
-
-                }
-
+                return WFR.WFR_Finished;
             }
             catch (Exception)
             {
@@ -257,9 +231,346 @@ namespace w3.tools.Commands
                 return WFR.WFR_Error;
                 throw;
             }
-
-            return WFR.WFR_Finished;
         }
     }
+
+    /// <summary>
+    /// WCC_LITE: GENERATE NAVDATA
+    /// </summary>
+    [Serializable]
+    public class WCC_GenerateNavData : WCC_wf_Command
+    {
+
+        public override WFR Run()
+        {
+            // check if any higher level detects any error
+            if (base.Run() != WFR.WFR_Error)
+                return WFR.WFR_Error;
+            // check if step is disabled
+            RAD_Settings settings = (RAD_Settings)base.Parent;
+            if (!settings.WCC_NAVDATA)
+                return (int)WFR.WFR_NotRun;
+
+            return _WCC_GenerateNavData(settings);        }
+
+        private WFR _WCC_GenerateNavData(RAD_Settings settings)
+        {
+            try
+            {
+                WCC_Task th = new WCC_Task(settings.DIR_MODKIT);
+                WccCommand cmd = new pathlib()
+                {
+                    RootSearchDir = settings.DIR_WCC_DEPOT_WORLDS(),
+                    FilePattern = "*.w2w"
+                };
+                return th.RunCommandSync(cmd);
+            }
+            catch (Exception)
+            {
+                //FIXME
+                return WFR.WFR_Error;
+                throw;
+            }
+        }
+    }
+
+    /// <summary>
+    /// WCC_LITE: COOK
+    /// </summary>
+    [Serializable]
+    public class WCC_CookData : WCC_wf_Command
+    {
+        private string WCC_SEEDFILES;
+
+        public override WFR Run()
+        {
+            // check if any higher level detects any error
+            if (base.Run() != WFR.WFR_Error)
+                return WFR.WFR_Error;
+            // check if step is disabled
+            RAD_Settings settings = (RAD_Settings)base.Parent;
+            if (!settings.WCC_COOK)
+                return (int)WFR.WFR_NotRun;
+
+            return _WCC_CookData(settings);
+        }
+
+        private WFR _WCC_CookData(RAD_Settings settings)
+        {
+            try
+            {
+                WFR result = WFR.WFR_Error;
+
+                // setup *all* seedfiles for cooking: hubs, dlc
+                string sp = $"{settings.SEEDFILE_PREFIX}*.files";
+                var seedfiles = Directory.GetFiles(settings.DIR_TMP(), sp, SearchOption.TopDirectoryOnly);
+                foreach (var file in seedfiles)
+                {
+                    WCC_SEEDFILES += $"-seed={file}";
+                }
+                // Note: trimdir MUST be lowercased!
+
+                WCC_Task th = new WCC_Task(settings.DIR_MODKIT);
+                
+
+                WccCommand cmd = new cook()
+                {
+                    Platform = platform.pc,
+                    trimdir = Path.Combine("dlc", $"dlc{settings.MODNAME_LC()}"),
+                    outdir = settings.DIR_COOKED_DLC()
+                };
+
+                // run as arguments because of multiple seedfiles
+                string args = cmd.CommandLine;
+                args += $" {WCC_SEEDFILES}";
+                result = th.RunArgsSync(args);
+
+                //cleanup
+                if (Directory.Exists(settings.DIR_COOKED_FILES_DB()))
+                    Directory.Delete(settings.DIR_COOKED_FILES_DB());
+                //move to prevent beeing packed into mod
+                if (File.Exists(Path.Combine(settings.DIR_COOKED_DLC(), "cook.db")))
+                    File.Move(Path.Combine(settings.DIR_COOKED_DLC(), "cook.db"), Path.Combine(settings.DIR_COOKED_FILES_DB(), "cook.db"));
+
+                return result;
+            }
+            catch (Exception)
+            {
+                //FIXME
+                return WFR.WFR_Error;
+                throw;
+            }
+        }
+    }
+
+    /// <summary>
+    /// WCC_LITE: PACK + METADATASTORE DLC
+    /// </summary>
+    [Serializable]
+    public class WCC_PackDLCAndCreateMetadatastore : WCC_wf_Command
+    {
+        public override WFR Run()
+        {
+            // check if any higher level detects any error
+            if (base.Run() != WFR.WFR_Error)
+                return WFR.WFR_Error;
+            // check if step is disabled
+            RAD_Settings settings = (RAD_Settings)base.Parent;
+            if (!settings.WCC_REPACK_DLC)
+                return (int)WFR.WFR_NotRun;
+
+            return _WCC_PackDLCAndCreateMetadatastore(settings);
+        }
+
+        private WFR _WCC_PackDLCAndCreateMetadatastore(RAD_Settings settings)
+        {
+            try
+            {
+                WFR result_pack = WFR.WFR_Error;
+                WFR result_meta = WFR.WFR_Error;
+
+                WCC_Task th = new WCC_Task(settings.DIR_MODKIT);
+                WccCommand pack = new pack()
+                {
+                    Directory=settings.DIR_COOKED_DLC(),
+                    Outdir=settings.DIR_DLC_CONTENT()
+                };
+                result_pack = th.RunCommandSync(pack);
+                if (result_pack == WFR.WFR_Error)
+                    return WFR.WFR_Error;
+
+                WccCommand metadata = new metadatastore()
+                {
+                    Directory= settings.DIR_DLC_CONTENT()
+                };
+                result_meta = th.RunCommandSync(metadata);
+                if (result_meta == WFR.WFR_Error)
+                    return WFR.WFR_Error;
+
+                return WFR.WFR_Finished;
+            }
+            catch (Exception)
+            {
+                //FIXME
+                return WFR.WFR_Error;
+                throw;
+            }
+        }
+    }
+
+    /// <summary>
+    /// WCC_LITE: PACK + METADATASTORE MOD
+    /// </summary>
+    [Serializable]
+    public class WCC_PackMODAndCreateMetadatastore : WCC_wf_Command
+    {
+        public override WFR Run()
+        {
+            // check if any higher level detects any error
+            if (base.Run() != WFR.WFR_Error)
+                return WFR.WFR_Error;
+            // check if step is disabled
+            RAD_Settings settings = (RAD_Settings)base.Parent;
+            if (!settings.WCC_REPACK_MOD)
+                return (int)WFR.WFR_NotRun;
+
+            return _WCC_PackMODAndCreateMetadatastore(settings);
+        }
+
+        private WFR _WCC_PackMODAndCreateMetadatastore(RAD_Settings settings)
+        {
+            try
+            {
+                WFR result_pack = WFR.WFR_Error;
+                WFR result_meta = WFR.WFR_Error;
+
+                WCC_Task th = new WCC_Task(settings.DIR_MODKIT);
+                WccCommand pack = new pack()
+                {
+                    Directory = settings.DIR_COOKED_MOD(),
+                    Outdir = settings.DIR_MOD_CONTENT()
+                };
+                result_pack = th.RunCommandSync(pack);
+                if (result_pack == WFR.WFR_Error)
+                    return WFR.WFR_Error;
+
+                WccCommand metadata = new metadatastore()
+                {
+                    Directory = settings.DIR_MOD_CONTENT()
+                };
+                result_meta = th.RunCommandSync(metadata);
+                if (result_meta == WFR.WFR_Error)
+                    return WFR.WFR_Error;
+
+                return WFR.WFR_Finished;
+            }
+            catch (Exception)
+            {
+                //FIXME
+                return WFR.WFR_Error;
+                throw;
+            }
+        }
+    }
+
+    /// <summary>
+    /// WCC_LITE: GENERATE TEXTURE CACHE
+    /// </summary>
+    [Serializable]
+    public class WCC_GenerateTextureCache : WCC_wf_Command
+    {
+        public override WFR Run()
+        {
+            // check if any higher level detects any error
+            if (base.Run() != WFR.WFR_Error)
+                return WFR.WFR_Error;
+            // check if step is disabled
+            RAD_Settings settings = (RAD_Settings)base.Parent;
+            if (!settings.WCC_TEXTURECACHE)
+                return (int)WFR.WFR_NotRun;
+
+            return _WCC_GenerateTextureCache(settings);
+        }
+
+        private WFR _WCC_GenerateTextureCache(RAD_Settings settings)
+        {
+            if (!Directory.Exists(Path.Combine(settings.DIR_UNCOOKED_TEXTURES(), settings.DIR_DLC_GAMEPATH())))
+            {
+                // LOG WARN: no textures found in "%DIR_UNCOOKED_TEXTURES%\%DIR_DLC_GAMEPATH%"
+                return WFR.WFR_Error;
+            }
+
+            try
+            {
+                WFR result_cook = WFR.WFR_Error;
+                WFR result_cache = WFR.WFR_Error;
+
+                if (Directory.Exists(settings.DIR_COOKED_TEXTURES_DB()))
+                    Directory.Delete(settings.DIR_COOKED_TEXTURES_DB());
+    
+                // cook textures
+                WCC_Task th = new WCC_Task(settings.DIR_MODKIT);
+                WccCommand cook = new cook()
+                {
+                    Platform=platform.pc,
+                    mod=settings.DIR_UNCOOKED_TEXTURES(),
+                    basedir=settings.DIR_UNCOOKED_TEXTURES(),
+                    outdir=settings.DIR_COOKED_DLC()
+                };
+                result_cook = th.RunCommandSync(cook);
+                if (result_cook == WFR.WFR_Error)
+                    return WFR.WFR_Error;
+
+                // move so it is separated from "normal" files cook.db
+                if (File.Exists(Path.Combine(settings.DIR_COOKED_DLC(), "cook.db")))
+                    File.Delete(Path.Combine(settings.DIR_COOKED_DLC(), "cook.db"));
+
+                // build texture cache
+                WccCommand buildcache = new buildcache()
+                {
+                    builder=cachebuilder.textures,
+                    DataBase= settings.DIR_COOKED_TEXTURES_DB(),
+                    basedir= settings.DIR_UNCOOKED_TEXTURES(),
+                    Out= Path.Combine(settings.DIR_DLC_CONTENT(),"texture.cache"),
+                    Platform=platform.pc
+                };
+                result_cache = th.RunCommandSync(buildcache);
+                if (result_cache == WFR.WFR_Error)
+                    return WFR.WFR_Error;
+
+                return WFR.WFR_Finished;
+            }
+            catch (Exception)
+            {
+                //FIXME
+                return WFR.WFR_Error;
+                throw;
+            }
+        }
+    }
+
+    /// <summary>
+    /// WCC_LITE: GENERATE COLLISION CACHE
+    /// </summary>
+    [Serializable]
+    public class WCC_GenerateCollisionCache : WCC_wf_Command
+    {
+        public override WFR Run()
+        {
+            // check if any higher level detects any error
+            if (base.Run() != WFR.WFR_Error)
+                return WFR.WFR_Error;
+            // check if step is disabled
+            RAD_Settings settings = (RAD_Settings)base.Parent;
+            if (!settings.WCC_COLLISIONCACHE)
+                return (int)WFR.WFR_NotRun;
+
+            return _WCC_GenerateCollisionCache(settings);
+        }
+
+        private WFR _WCC_GenerateCollisionCache(RAD_Settings settings)
+        {
+            try
+            {
+                WCC_Task th = new WCC_Task(settings.DIR_MODKIT);
+                WccCommand buildcache = new buildcache()
+                {
+                    builder = cachebuilder.physics,
+                    DataBase = settings.DIR_COOKED_FILES_DB(),
+                    basedir = settings.DIR_MODKIT_DEPOT(),
+                    Out = Path.Combine(settings.DIR_DLC_CONTENT(), "collision.cache"),
+                    Platform = platform.pc
+                };
+                return th.RunCommandSync(buildcache);
+            }
+            catch (Exception)
+            {
+                //FIXME
+                return WFR.WFR_Error;
+                throw;
+            }
+        }
+    }
+
 
 }

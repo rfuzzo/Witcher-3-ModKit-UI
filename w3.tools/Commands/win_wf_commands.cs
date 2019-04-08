@@ -26,8 +26,7 @@ namespace w3.tools.Commands
             if (!settings.FULL_REBUILD)
                 return (int)WFR.WFR_NotRun;
 
-            WFR result = _CleanupFolder(settings);
-            return result;
+           return _CleanupFolder(settings);
         }
 
         private WFR _CleanupFolder(RAD_Settings settings)
@@ -39,7 +38,9 @@ namespace w3.tools.Commands
                 Cleanup(settings.DIR_DLC());
                 Cleanup(settings.DIR_MOD());
                 Cleanup(settings.DIR_UNCOOKED());
-                Cleanup(settings.DIR_TMP());           
+                Cleanup(settings.DIR_TMP());
+
+                return WFR.WFR_Finished;
             }
             catch (Exception)
             {
@@ -47,8 +48,6 @@ namespace w3.tools.Commands
                 return WFR.WFR_Error;
                 throw;
             }
-
-            return WFR.WFR_Finished;
         }
 
     }
@@ -69,8 +68,7 @@ namespace w3.tools.Commands
             if (!settings.DEPLOY_SCRIPTS)
                 return (int)WFR.WFR_NotRun;
 
-            WFR result = _DeployModScripts(settings);
-            return result;
+           return _DeployModScripts(settings);
         }
 
         private WFR _DeployModScripts(RAD_Settings settings)
@@ -99,6 +97,7 @@ namespace w3.tools.Commands
                     File.Copy(file.FullName, Path.Combine(settings.DIR_MOD_CONTENT(), @"\scripts\" + file.Name), true);
                 }
 
+                return WFR.WFR_Finished;
             }
             catch (Exception)
             {
@@ -106,8 +105,6 @@ namespace w3.tools.Commands
                 return WFR.WFR_Error;
                 throw;
             }
-
-            return WFR.WFR_Finished;
         }
 
     }
@@ -128,8 +125,7 @@ namespace w3.tools.Commands
             if (!settings.DEPLOY_TMP_SCRIPTS)
                 return (int)WFR.WFR_NotRun;
 
-            WFR result = _DeployTmpModScripts(settings);
-            return result;
+            return _DeployTmpModScripts(settings);
         }
 
         private WFR _DeployTmpModScripts(RAD_Settings settings)
@@ -158,6 +154,7 @@ namespace w3.tools.Commands
                     File.Copy(file.FullName, Path.Combine(settings.DIR_TMP_MOD_CONTENT(), @"\scripts\" + file.Name), true);
                 }
 
+                return WFR.WFR_Finished;
             }
             catch (Exception)
             {
@@ -165,8 +162,6 @@ namespace w3.tools.Commands
                 return WFR.WFR_Error;
                 throw;
             }
-
-            return WFR.WFR_Finished;
         }
     }
 
@@ -186,8 +181,7 @@ namespace w3.tools.Commands
             if (!settings.WCC_COOK)
                 return (int)WFR.WFR_NotRun;
 
-            WFR result = _PrepareCooking(settings);
-            return result;
+            return _PrepareCooking(settings);
         }
 
         private WFR _PrepareCooking(RAD_Settings settings)
@@ -196,6 +190,8 @@ namespace w3.tools.Commands
             {
                 if (!Directory.Exists(settings.DIR_TMP()))
                     Directory.CreateDirectory(settings.DIR_TMP());
+
+                return WFR.WFR_Finished;
             }
             catch (Exception)
             {
@@ -203,8 +199,6 @@ namespace w3.tools.Commands
                 return WFR.WFR_Error;
                 throw;
             }
-
-            return WFR.WFR_Finished;
         }
     }
 
@@ -224,8 +218,7 @@ namespace w3.tools.Commands
             if (!settings.WCC_REPACK_DLC)
                 return (int)WFR.WFR_NotRun;
 
-            WFR result = _PreparePackaging(settings);
-            return result;
+            return _PreparePackaging(settings);
         }
 
         private WFR _PreparePackaging(RAD_Settings settings)
@@ -243,7 +236,8 @@ namespace w3.tools.Commands
 
                 //copy additonal files
                 Directory.Move(Path.Combine(settings.DIR_PROJECT_BASE, "additional"), settings.DIR_COOKED_DLC());
-                
+
+                return WFR.WFR_Finished;
             }
             catch (Exception)
             {
@@ -251,8 +245,6 @@ namespace w3.tools.Commands
                 return WFR.WFR_Error;
                 throw;
             }
-
-            return WFR.WFR_Finished;
         }
     }
 }
