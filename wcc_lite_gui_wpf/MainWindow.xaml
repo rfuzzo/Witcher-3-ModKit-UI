@@ -12,11 +12,11 @@
         xmlns:ViewModels="clr-namespace:w3tools.UI.ViewModels"
         
         mc:Ignorable="d"
-        Title="Wcc_thicc"  
+        Title="Radish Mod Tools UI"  
         Height="900" 
         Width="1600"
-        Name="Wcc_thicc"
-        Icon="Resources/Icons/modkitUIIcon.ico"
+        Name="w3Tools"
+        Icon="Resources/radish_icon_circle.png"
         >
 
     <Window.Resources>

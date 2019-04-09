@@ -21,8 +21,8 @@ namespace w3tools
             DIR_W3 = w3; //game path
             DIR_MODKIT = modkit; //wcc_lite.exe path
             DIR_ENCODER = encoder; //path to directory with encoder binaries
-            LOGGER = logger; 
-
+            LOGGER = logger;
+            PATCH_MODE = true;
             //LastResult = WFR.WFR_Finished; // first setup is good
         }
 
@@ -52,51 +52,139 @@ namespace w3tools
         public bool auto_delete_mod { get; set; }
         [CategoryAttribute("1 Settings")]
         public ERL LOG_LEVEL { get; set; }
+        [CategoryAttribute("1 Settings")]
+        public string language { get; set; } = "en"; //FIXME
 
         // User Flags
+        [BrowsableAttribute(false)]
+        public bool _PATCH_MODE { get; set; }
         [CategoryAttribute("2 Flags")]
-        public bool PATCH_MODE { get; set; }
+        public bool PATCH_MODE
+        { 
+            get
+            {
+                return _PATCH_MODE;
+            }
+            set
+            {
+                if (_PATCH_MODE != value)
+                {
+                    _PATCH_MODE = value;
+                    if (_PATCH_MODE)
+                        FULL_REBUILD = false;
+                    else
+                        FULL_REBUILD = true;
+
+                    OnPropertyChanged();
+                    OnPropertyChanged("FULL_REBUILD");
+                }
+            }
+        }
+
+        [BrowsableAttribute(false)]
+        public bool _FULL_REBUILD { get; set; }
         [CategoryAttribute("2 Flags")]
-        public bool FULL_REBUILD { get; set; }
+        public bool FULL_REBUILD
+        {
+            get
+            {
+                return _FULL_REBUILD;
+            }
+            set
+            {
+                if (_FULL_REBUILD != value)
+                {
+                    _FULL_REBUILD = value;
+                    OnPropertyChanged();
+
+                    if (_FULL_REBUILD)
+                    {
+                        PATCH_MODE = false;
+
+                        ENCODE_WORLD = true;
+                        ENCODE_ENVS = true;
+                        ENCODE_QUEST = true;
+                        ENCODE_STRINGS = true;
+                        ENCODE_SCENES = true;
+                        ENCODE_SPEECH = true;
+                        DEPLOY_SCRIPTS = true;
+                        DEPLOY_TMP_SCRIPTS = true;
+                        WCC_REPACK_DLC = true;
+                        WCC_REPACK_MOD = true;
+                        WCC_IMPORT_MODELS = true;
+                    }
+                    else
+                    {
+                        PATCH_MODE = true;
+
+                        ENCODE_WORLD = false;
+                        ENCODE_ENVS = false;
+                        ENCODE_QUEST = false;
+                        ENCODE_STRINGS = false;
+                        ENCODE_SCENES = false;
+                        ENCODE_SPEECH = false;
+                        DEPLOY_SCRIPTS = false;
+                        DEPLOY_TMP_SCRIPTS = false;
+                        WCC_REPACK_DLC = false;
+                        WCC_REPACK_MOD = false;
+                        WCC_IMPORT_MODELS = false;
+                    }
+
+                    OnPropertyChanged("PATCH_MODE");
+
+                    OnPropertyChanged("ENCODE_WORLD");
+                    OnPropertyChanged("ENCODE_ENVS");
+                    OnPropertyChanged("ENCODE_QUEST");
+                    OnPropertyChanged("ENCODE_STRINGS");
+                    OnPropertyChanged("ENCODE_SCENES");
+                    OnPropertyChanged("ENCODE_SPEECH");
+                    OnPropertyChanged("DEPLOY_SCRIPTS");
+                    OnPropertyChanged("DEPLOY_TMP_SCRIPTS");
+                    OnPropertyChanged("WCC_REPACK_DLC");
+                    OnPropertyChanged("WCC_REPACK_MOD");
+                    OnPropertyChanged("WCC_IMPORT_MODELS");
+                }
+            }
+        }
 
         // Hidden Settings
         #region HIDDEN
-        [BrowsableAttribute(false)]
+        [BrowsableAttribute(true)]
         [CategoryAttribute("3 Hidden")]
         public bool ENCODE_WORLD { get; set; }
-        [BrowsableAttribute(false)]
+        [BrowsableAttribute(true)]
         [CategoryAttribute("3 Hidden")]
         public bool ENCODE_ENVS { get; set; }
-        [BrowsableAttribute(false)]
+        [BrowsableAttribute(true)]
         [CategoryAttribute("3 Hidden")]
         public bool ENCODE_SCENES { get; set; }
-        [BrowsableAttribute(false)]
+        [BrowsableAttribute(true)]
         [CategoryAttribute("3 Hidden")]
         public bool ENCODE_QUEST { get; set; }
-        [BrowsableAttribute(false)]
+        [BrowsableAttribute(true)]
         [CategoryAttribute("3 Hidden")]
         public bool ENCODE_STRINGS { get; set; }
-        [BrowsableAttribute(false)]
+        [BrowsableAttribute(true)]
         [CategoryAttribute("3 Hidden")]
         public bool ENCODE_SPEECH { get; set; }
 
 
-        [BrowsableAttribute(false)]
+        [BrowsableAttribute(true)]
         [CategoryAttribute("3 Hidden")]
         public bool WCC_IMPORT_MODELS { get; set; }
-        [BrowsableAttribute(false)]
+        [BrowsableAttribute(true)]
         [CategoryAttribute("3 Hidden")]
         public bool WCC_COOK { get; set; }
-        [BrowsableAttribute(false)]
+        [BrowsableAttribute(true)]
         [CategoryAttribute("3 Hidden")]
         public bool WCC_OCCLUSIONDATA { get; set; }
-        [BrowsableAttribute(false)]
+        [BrowsableAttribute(true)]
         [CategoryAttribute("3 Hidden")]
         public bool WCC_NAVDATA { get; set; }
-        [BrowsableAttribute(false)]
+        [BrowsableAttribute(true)]
         [CategoryAttribute("3 Hidden")]
         public bool WCC_TEXTURECACHE { get; set; }
-        [BrowsableAttribute(false)]
+        [BrowsableAttribute(true)]
         [CategoryAttribute("3 Hidden")]
         public bool WCC_COLLISIONCACHE { get; set; }
         //[BrowsableAttribute(false)]
@@ -105,29 +193,29 @@ namespace w3tools
         // [BrowsableAttribute(false)]
         //[CategoryAttribute("3 Hidden")]
         //public bool WCC_DEPCACHE { get; set; }
-        [BrowsableAttribute(false)]
+        [BrowsableAttribute(true)]
         [CategoryAttribute("3 Hidden")]
         public bool WCC_ANALYZE { get; set; }
-        [BrowsableAttribute(false)]
+        [BrowsableAttribute(true)]
         [CategoryAttribute("3 Hidden")]
         public bool WCC_ANALYZE_WORLD { get; set; }
-        [BrowsableAttribute(false)]
+        [BrowsableAttribute(true)]
         [CategoryAttribute("3 Hidden")]
         public bool WCC_REPACK_DLC { get; set; }
-        [BrowsableAttribute(false)]
+        [BrowsableAttribute(true)]
         [CategoryAttribute("3 Hidden")]
         public bool WCC_REPACK_MOD { get; set; }
 
 
 
 
-        [BrowsableAttribute(false)]
+        [BrowsableAttribute(true)]
         [CategoryAttribute("3 Hidden")]
         public bool DEPLOY_SCRIPTS { get; set; }
-        [BrowsableAttribute(false)]
+        [BrowsableAttribute(true)]
         [CategoryAttribute("3 Hidden")]
         public bool DEPLOY_TMP_SCRIPTS { get; set; }
-        [BrowsableAttribute(false)]
+        [BrowsableAttribute(true)]
         [CategoryAttribute("3 Hidden")]
         public bool START_GAME { get; set; }
         #endregion
@@ -168,34 +256,34 @@ namespace w3tools
         // settings for encoders
         public string dir_repo_quests()
         {
-            return Path.Combine(DIR_ENCODER, @"\repo.quests");
+            return Path.Combine(DIR_ENCODER, "repo.quests");
         }
         public string dir_repo_worlds()
         {
-            return Path.Combine(DIR_ENCODER, @"\repo.quests");
+            return Path.Combine(DIR_ENCODER, "repo.quests");
         }
         public string dir_repo_scenes()
         {
-            return Path.Combine(DIR_ENCODER, @"\repo.scenes");
+            return Path.Combine(DIR_ENCODER, "repo.scenes");
         }
         public string dir_repo_lipsync()
         {
-            return Path.Combine(DIR_ENCODER, @"\repo.lipsync");
+            return Path.Combine(DIR_ENCODER, "repo.lipsync");
         }
         public string dir_data_phoneme_generation()
         {
-            return Path.Combine(DIR_ENCODER, @"\data");
+            return Path.Combine(DIR_ENCODER, "data");
         }
 
 
         // some environment settings
        public string DIR_PROJECT_BIN()
         {
-            return Path.Combine(DIR_PROJECT_BASE, @"\bin");
+            return Path.Combine(DIR_PROJECT_BASE, "bin");
         }
         public string DIR_RESOURCES()
         {
-            return Path.Combine(DIR_PROJECT_BASE, @"\resources");
+            return Path.Combine(DIR_PROJECT_BASE, "resources");
         }
         public string MODNAME_LC()
         {
@@ -205,33 +293,33 @@ namespace w3tools
         // output directories
         public string DIR_TMP()
         {
-            return Path.Combine(DIR_PROJECT_BASE, @"\_tmp");
+            return Path.Combine(DIR_PROJECT_BASE, "_tmp");
         }
         public string DIR_UNCOOKED()
         {
-            return Path.Combine(DIR_PROJECT_BASE, @"\uncooked");
+            return Path.Combine(DIR_PROJECT_BASE, "uncooked");
         }
         public string DIR_UNCOOKED_TEXTURES()
         {
-            return Path.Combine(DIR_PROJECT_BASE, @"\textures");
+            return Path.Combine(DIR_PROJECT_BASE, "textures");
         }
 
         public string DIR_COOKED_MOD()
         {
-            return Path.Combine(DIR_RESOURCES(), $"mod{MODNAME_LC()}\\files"); //FIXME
+            return Path.Combine(DIR_RESOURCES(), $"mod{MODNAME_LC()}","files"); //FIXME
         }
         public string DIR_COOKED_DLC()
         {
-            return Path.Combine(DIR_RESOURCES(), $"dlc{MODNAME_LC()}\\files"); //FIXME
+            return Path.Combine(DIR_RESOURCES(), $"dlc{MODNAME_LC()}", "files"); //FIXME
         }
 
         public string DIR_COOKED_FILES_DB()
         {
-            return Path.Combine(DIR_TMP(), @"\files.cook.db");
+            return Path.Combine(DIR_TMP(), "files.cook.db");
         }
         public string DIR_COOKED_TEXTURES_DB()
         {
-            return Path.Combine(DIR_TMP(), @"\textures.cook.db");
+            return Path.Combine(DIR_TMP(), "textures.cook.db");
         }
 
         public string DIR_DLC_GAMEPATH()
@@ -261,38 +349,38 @@ namespace w3tools
 
         public string DIR_DLC()
         {
-            return Path.Combine(DIR_W3, $"\\{DIR_DLC_GAMEPATH()}");
+            return Path.Combine(DIR_W3, $"{DIR_DLC_GAMEPATH()}");
         }
         public string DIR_MOD()
         {
-            return Path.Combine(DIR_W3, $"\\mods\\mod{MODNAME}");
+            return Path.Combine(DIR_W3, $"mods\\mod{MODNAME}");
         }
         public string DIR_TMP_MOD()
         {
-            return Path.Combine(DIR_W3, $"\\mods\\mod{MODNAME}_tmp");
+            return Path.Combine(DIR_W3, $"mods\\mod{MODNAME}_tmp");
         }
         public string DIR_DLC_CONTENT()
         {
-            return Path.Combine(DIR_DLC(), @"\content");
+            return Path.Combine(DIR_DLC(), "content");
         }
         public string DIR_MOD_CONTENT()
         {
-            return Path.Combine(DIR_MOD(), @"\content");
+            return Path.Combine(DIR_MOD(), "content");
         }
         public string DIR_TMP_MOD_CONTENT()
         {
-            return Path.Combine(DIR_TMP_MOD(), @"\content");
+            return Path.Combine(DIR_TMP_MOD(), "content");
         }
 
 
         // script src dirs
         public string DIR_MOD_SCRIPTS()
         {
-            return Path.Combine(DIR_PROJECT_BASE, @"\mod.scripts");
+            return Path.Combine(DIR_PROJECT_BASE, "mod.scripts");
         }
         public string DIR_TMP_MOD_SCRIPTS()
         {
-            return Path.Combine(DIR_PROJECT_BASE, @"\mod.scripts-tmp");
+            return Path.Combine(DIR_PROJECT_BASE, "mod.scripts-tmp");
         }
 
 
@@ -301,34 +389,33 @@ namespace w3tools
         // w3strings settings
         public string DIR_STRINGS()
         {
-            return Path.Combine(DIR_PROJECT_BASE, @"\strings");
+            return Path.Combine(DIR_PROJECT_BASE, "strings");
         }
         
 
         // w2scene settings
         public string DIR_DEF_SCENES()
         {
-            return Path.Combine(DIR_PROJECT_BASE, @"\definition.scenes");
+            return Path.Combine(DIR_PROJECT_BASE, "definition.scenes");
         }
         
 
         // w2quest settings
         public string DIR_DEF_QUEST()
         {
-            return Path.Combine(DIR_PROJECT_BASE, @"\definition.quest");
+            return Path.Combine(DIR_PROJECT_BASE, "definition.quest");
         }
         
 
         // w3speech settings
-        [CategoryAttribute("1 Settings")]
-        public string language { get; set; } = "en"; //FIXME
+       
         public string DIR_SPEECH()
         {
-            return Path.Combine(DIR_PROJECT_BASE, @"\speech");
+            return Path.Combine(DIR_PROJECT_BASE, "speech");
         }
         public string DIR_AUDIO_WAV()
         {
-            return Path.Combine(DIR_SPEECH(), $"\\speech.{language}.wav");
+            return Path.Combine(DIR_SPEECH(), $"speech.{language}.wav");
         }
         public string DIR_PHONEMES()
         {
@@ -336,34 +423,34 @@ namespace w3tools
         }
         public string DIR_AUDIO_WEM()
         {
-            return Path.Combine(DIR_SPEECH(), $"\\speech.{language}.wem");
+            return Path.Combine(DIR_SPEECH(), $"speech.{language}.wem");
         }
 
         // w3world settings
         public string DIR_DEF_WORLD()
         {
-            return Path.Combine(DIR_PROJECT_BASE, @"\definition.world");
+            return Path.Combine(DIR_PROJECT_BASE, "definition.world");
         }
         
 
         // w3envs settings
         public string DIR_DEF_ENVS()
         {
-            return Path.Combine(DIR_PROJECT_BASE, @"\definition.envs");
+            return Path.Combine(DIR_PROJECT_BASE, "definition.envs");
         }
         
 
         // model import settings
         public string DIR_MODEL_FBX()
         {
-            return Path.Combine(DIR_PROJECT_BASE, @"\models");
+            return Path.Combine(DIR_PROJECT_BASE, "models");
         }
         
 
         // game relative path to worlds for scanning depot
         public string DIR_WCC_DEPOT_WORLDS()
         {
-            return Path.Combine(DIR_DLC_GAMEPATH(), @"\levels");
+            return Path.Combine(DIR_DLC_GAMEPATH(), "levels");
         }
 
         #endregion
@@ -375,7 +462,7 @@ namespace w3tools
         public bool CheckSelf()
         {
             bool test_DIR_W3 = Directory.Exists(this.DIR_W3);
-            bool test_DIR_MODKIT = Directory.Exists(this.DIR_MODKIT);
+            bool test_DIR_MODKIT = File.Exists(this.DIR_MODKIT);
             bool test_DIR_ENCODER = Directory.Exists(this.DIR_ENCODER);
 
             bool test_DIR_PROJECT_BASE = Directory.Exists(this.DIR_PROJECT_BASE);

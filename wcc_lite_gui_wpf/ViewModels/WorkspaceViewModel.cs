@@ -166,7 +166,7 @@ namespace w3tools.UI.ViewModels
 
             if (dropInfo.Effects == DragDropEffects.Move) //if drag and drop *within* the list
             {
-                var sourceCollection = dropInfo.DragInfo.SourceCollection.Cast<WccCommand>().ToArray(); // UNSAFE if not castable to list
+                var sourceCollection = dropInfo.DragInfo.SourceCollection.Cast<WorkflowItem>().ToArray(); // UNSAFE if not castable to list
                 var insertIndex = dropInfo.InsertIndex;
                 var sourceIndex = dropInfo.DragInfo.SourceIndex;
                 insertIndex = Math.Min(insertIndex, sourceCollection.Length - 1);
@@ -176,9 +176,9 @@ namespace w3tools.UI.ViewModels
             else //handle all dropping *into* the list
             {
                 // handle dropping of commands
-                if (sourceItem.GetType().BaseType == typeof(WccCommand))
+                if (sourceItem.GetType().BaseType == typeof(WorkflowItem))
                 {
-                    WccCommand emptyCopy = (WccCommand)Activator.CreateInstance(sourceItem.GetType());
+                    WorkflowItem emptyCopy = (WorkflowItem)Activator.CreateInstance(sourceItem.GetType());
                     Workflow.Add(emptyCopy);
                 }
                 // handle dropping of variables 

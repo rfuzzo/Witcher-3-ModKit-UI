@@ -23,7 +23,7 @@ namespace w3tools.Commands
         public override WFR Run()
         {
             // check if any higher level detects any error
-            if (base.Run() != WFR.WFR_Error)
+            if (base.Run() == WFR.WFR_Error)
                 return WFR.WFR_Error;
             // check if step is disabled
             RAD_Settings settings = (RAD_Settings)base.Parent;
@@ -101,7 +101,7 @@ namespace w3tools.Commands
         public override WFR Run()
         {
             // check if any higher level detects any error
-            if (base.Run() != WFR.WFR_Error)
+            if (base.Run() == WFR.WFR_Error)
                 return WFR.WFR_Error;
             // check if step is disabled
             RAD_Settings settings = (RAD_Settings)base.Parent;
@@ -168,7 +168,7 @@ namespace w3tools.Commands
         public override WFR Run()
         {
             // check if any higher level detects any error
-            if (base.Run() != WFR.WFR_Error)
+            if (base.Run() == WFR.WFR_Error)
                 return WFR.WFR_Error;
             // check if step is disabled
             RAD_Settings settings = (RAD_Settings)base.Parent;
@@ -261,7 +261,7 @@ namespace w3tools.Commands
         public override WFR Run()
         {
             // check if any higher level detects any error
-            if (base.Run() != WFR.WFR_Error)
+            if (base.Run() == WFR.WFR_Error)
                 return WFR.WFR_Error;
             // check if step is disabled
             RAD_Settings settings = (RAD_Settings)base.Parent;
@@ -308,7 +308,7 @@ namespace w3tools.Commands
         public override WFR Run()
         {
             // check if any higher level detects any error
-            if (base.Run() != WFR.WFR_Error)
+            if (base.Run() == WFR.WFR_Error)
                 return WFR.WFR_Error;
             // check if step is disabled
             RAD_Settings settings = (RAD_Settings)base.Parent;
@@ -380,7 +380,7 @@ namespace w3tools.Commands
         public override WFR Run()
         {
             // check if any higher level detects any error
-            if (base.Run() != WFR.WFR_Error)
+            if (base.Run() == WFR.WFR_Error)
                 return WFR.WFR_Error;
             // check if step is disabled
             RAD_Settings settings = (RAD_Settings)base.Parent;
@@ -440,7 +440,7 @@ namespace w3tools.Commands
         public override WFR Run()
         {
             // check if any higher level detects any error
-            if (base.Run() != WFR.WFR_Error)
+            if (base.Run() == WFR.WFR_Error)
                 return WFR.WFR_Error;
             // check if step is disabled
             RAD_Settings settings = (RAD_Settings)base.Parent;
@@ -500,7 +500,7 @@ namespace w3tools.Commands
         public override WFR Run()
         {
             // check if any higher level detects any error
-            if (base.Run() != WFR.WFR_Error)
+            if (base.Run() == WFR.WFR_Error)
                 return WFR.WFR_Error;
             // check if step is disabled
             RAD_Settings settings = (RAD_Settings)base.Parent;
@@ -581,7 +581,7 @@ namespace w3tools.Commands
         public override WFR Run()
         {
             // check if any higher level detects any error
-            if (base.Run() != WFR.WFR_Error)
+            if (base.Run() == WFR.WFR_Error)
                 return WFR.WFR_Error;
             // check if step is disabled
             RAD_Settings settings = (RAD_Settings)base.Parent;

@@ -19,7 +19,7 @@ namespace w3tools.Commands
         public override WFR Run()
         {
             // check if any higher level detects any error
-            if (base.Run() != WFR.WFR_Error)
+            if (base.Run() == WFR.WFR_Error)
                 return WFR.WFR_Error;
             // check if step is disabled
             RAD_Settings settings = (RAD_Settings)base.Parent;
@@ -76,7 +76,7 @@ namespace w3tools.Commands
         public override WFR Run()
         {
             // check if any higher level detects any error
-            if (base.Run() != WFR.WFR_Error)
+            if (base.Run() == WFR.WFR_Error)
                 return WFR.WFR_Error;
             // check if step is disabled
             RAD_Settings settings = (RAD_Settings)base.Parent;
@@ -113,11 +113,13 @@ namespace w3tools.Commands
 
                 // copying files to %DIR_MOD%
                 settings.LOGGER.LogString($"copying files to {settings.DIR_MOD_CONTENT()}");
-                DirectoryInfo dirInfo = new DirectoryInfo(settings.DIR_MOD_SCRIPTS());
-                FileInfo[] fileInfos = dirInfo.GetFiles();
-                foreach (FileInfo file in fileInfos)
+                if (Directory.Exists(settings.DIR_MOD_SCRIPTS()))
                 {
-                    File.Copy(file.FullName, Path.Combine(settings.DIR_MOD_CONTENT(), @"\scripts\" + file.Name), true);
+                    var files = Directory.GetFiles(settings.DIR_MOD_SCRIPTS());
+                    foreach (string file in files)
+                    {
+                        File.Copy(Path.GetFileName(file), Path.Combine(settings.DIR_MOD_CONTENT(), @"\scripts\" + Path.GetFileName(file)), true);
+                    }
                 }
 
                 settings.LOGGER.LogString($"mod deployed.");
@@ -142,7 +144,7 @@ namespace w3tools.Commands
         public override WFR Run()
         {
             // check if any higher level detects any error
-            if (base.Run() != WFR.WFR_Error)
+            if (base.Run() == WFR.WFR_Error)
                 return WFR.WFR_Error;
             // check if step is disabled
             RAD_Settings settings = (RAD_Settings)base.Parent;
@@ -207,7 +209,7 @@ namespace w3tools.Commands
         public override WFR Run()
         {
             // check if any higher level detects any error
-            if (base.Run() != WFR.WFR_Error)
+            if (base.Run() == WFR.WFR_Error)
                 return WFR.WFR_Error;
             // check if step is disabled
             RAD_Settings settings = (RAD_Settings)base.Parent;
@@ -249,7 +251,7 @@ namespace w3tools.Commands
         public override WFR Run()
         {
             // check if any higher level detects any error
-            if (base.Run() != WFR.WFR_Error)
+            if (base.Run() == WFR.WFR_Error)
                 return WFR.WFR_Error;
             // check if step is disabled
             RAD_Settings settings = (RAD_Settings)base.Parent;

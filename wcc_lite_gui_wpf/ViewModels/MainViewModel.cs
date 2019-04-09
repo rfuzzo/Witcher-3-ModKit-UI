@@ -236,12 +236,12 @@ namespace w3tools.UI.ViewModels
 
         public bool CanRun()
         {
-            WorkspaceViewModel wvm = DocumentsSource.FirstOrDefault(x => x.ContentId == "workspace");
-            return wvm.Workflow.Any();
+            WorkspaceViewModel wvm = DocumentsSource.FirstOrDefault(x => x.IsSelected);
+            return wvm != null && wvm.Workflow.Any();
         }
         public void Run()
         {
-            WorkspaceViewModel wvm = DocumentsSource.FirstOrDefault(x => x.ContentId == "workspace");
+            WorkspaceViewModel wvm = DocumentsSource.FirstOrDefault(x => x.IsSelected);
             var workflow = wvm.Workflow;
 
             // FIXME tasks?

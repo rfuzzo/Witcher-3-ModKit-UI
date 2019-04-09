@@ -369,5 +369,9 @@
   <ItemGroup>
     <Resource Include="Resources\Icons\CollapseChevronRight_bold_blueNoHalo_16x.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\radish_icon.png" />
+    <Resource Include="Resources\radish_icon_circle.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

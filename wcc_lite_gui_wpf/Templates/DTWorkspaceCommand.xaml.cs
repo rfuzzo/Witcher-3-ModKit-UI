@@ -35,6 +35,11 @@ namespace w3tools.UI.Templates
 
         private void Toggle_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            //dbg
+
+
+
+
             //if (_propertyGridMain.Height == _propertyGridMain.MinHeight) // expand
             if (_propertyGridMain.Visibility == Visibility.Collapsed) // expand
             {

@@ -104,12 +104,15 @@ namespace w3tools
             Add(new w2quest());
             Add(new w2scene());
             Add(new w3speech());
+            Add(new w3speech_phoneme_extractor());
+            Add(new w3speech_lipsync_creator());
             Add(new w3strings());
             Add(new w3world());
             #endregion
             #endregion
 
             /// Workflow Commands
+            /*
             #region Workflow Commands
             // Windows Commands
             #region Win
@@ -133,6 +136,7 @@ namespace w3tools
 
             #endregion
             #endregion
+            */
         }
     }
 

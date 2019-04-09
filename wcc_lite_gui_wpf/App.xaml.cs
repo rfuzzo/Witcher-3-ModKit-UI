@@ -39,6 +39,12 @@ namespace w3tools.UI
 
         private void InitAppSetting()
         {
+            //debug //FIXME
+            w3tools.UI.Properties.Settings.Default.GamePath = "E:\\moddingdir_tw3\\The Witcher 3";
+            w3tools.UI.Properties.Settings.Default.ToolsPath = "E:\\moddingdir_tw3\\TOOLS\\Encoder";
+            //debug
+
+
             //Wcc Comamnds
             if (w3tools.UI.Properties.Settings.Default.WccLite_Commands == null)
             {

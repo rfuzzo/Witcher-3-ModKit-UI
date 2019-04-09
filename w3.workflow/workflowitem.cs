@@ -29,7 +29,7 @@ namespace w3tools.common
     public abstract class WorkflowItem : ObservableObject
     {
         [BrowsableAttribute(false)]
-        public string Name { get { return this.ToString(); } }
+        public string Name { get; set; }
 
         [BrowsableAttribute(false)]
         public WccCommandCategory Category { get; set; }
