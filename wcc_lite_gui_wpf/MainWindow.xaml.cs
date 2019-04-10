@@ -3,7 +3,7 @@ using System.IO;
 using System.Text;
 using System.Windows;
 using System.Xml;
-using w3tools.UI.ViewModels;
+using w3tools.App.ViewModels;
 using Xceed.Wpf.AvalonDock.Layout.Serialization;
 
 namespace w3tools.UI

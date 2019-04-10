@@ -3,4 +3,3 @@ C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3.workflow\bin\Debug\w3tools.common.pdb
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3.workflow\obj\Debug\w3tools.common.csproj.CoreCompileInputs.cache
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3.workflow\obj\Debug\w3tools.common.dll
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3.workflow\obj\Debug\w3tools.common.pdb
-C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3.workflow\obj\Debug\w3tools.common.csprojAssemblyReference.cache

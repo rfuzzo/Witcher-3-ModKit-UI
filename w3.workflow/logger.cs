@@ -102,7 +102,6 @@ namespace w3tools.common
                 }
             }
         }
-        private WccLoggerSingleStatus _status;
         /// <summary>
         /// Overall Status of the Logger.
         /// </summary>
@@ -126,7 +125,22 @@ namespace w3tools.common
 
         }
 
-        public string Log { get; set; }
+        private string _Log;
+        public string Log
+        {
+            get
+            {
+                return _Log;
+            }
+            set
+            {
+                if (_Log != value)
+                {
+                    _Log = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public ObservableCollection<string> RawLog { get; set; }
         public ObservableCollection<ExtendedWCCLogMessage> ExtendedLog { get; set; }
 
@@ -135,6 +149,9 @@ namespace w3tools.common
         public void ClearLog()
         {
             ExtendedLog.Clear();
+            RawLog.Clear();
+            Log = "";
+
         }
         public void NotifyStatusChanged()
         {
@@ -148,6 +165,7 @@ namespace w3tools.common
         {
             RawLog.Add(value);
             Log += value + "\r\n";
+            
         }
         public void LogStrings(ObservableCollection<string> innerlog)
         {

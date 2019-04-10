@@ -1,6 +1,5 @@
 ﻿using System.Windows.Controls;
 using w3tools.common;
-using wcc.core;
 
 namespace w3tools.UI.Views
 {

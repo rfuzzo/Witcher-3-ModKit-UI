@@ -43,6 +43,9 @@
     <Reference Include="GongSolutions.Wpf.DragDrop, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\gong-wpf-dragdrop.1.1.0\lib\net46\GongSolutions.Wpf.DragDrop.dll</HintPath>
     </Reference>
+    <Reference Include="MvvmDialogs, Version=5.2.2.0, Culture=neutral, PublicKeyToken=3d3b9708589bc73e, processorArchitecture=MSIL">
+      <HintPath>packages\MvvmDialogs.5.2.2\lib\net45\MvvmDialogs.dll</HintPath>
+    </Reference>
     <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
     </Reference>
@@ -62,6 +65,9 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WPFFolderBrowser, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\WPFFolderBrowser.1.0.2\lib\WPFFolderBrowser.dll</HintPath>
+    </Reference>
     <Reference Include="Xceed.Wpf.AvalonDock, Version=3.5.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
       <HintPath>packages\Extended.Wpf.Toolkit.3.5.0\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
     </Reference>
@@ -86,11 +92,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Commands\CommandBase.cs" />
-    <Compile Include="Commands\DelegateCommand.cs" />
-    <Compile Include="Commands\DelegateCommand{T}.cs" />
-    <Compile Include="Commands\RelayCommand.cs" />
-    <Compile Include="CustomSettings.cs" />
     <Compile Include="Templates\DataTemplates.xaml.cs">
       <DependentUpon>DataTemplates.xaml</DependentUpon>
     </Compile>
@@ -101,21 +102,18 @@
       <DependentUpon>DTWorkspaceCommand.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainLayoutUpdateStrategy.cs" />
-    <Compile Include="ViewModels\CommandsListViewModel.cs" />
-    <Compile Include="ViewModels\DockableViewModel.cs" />
-    <Compile Include="ViewModels\ErrorListViewModel.cs" />
-    <Compile Include="ViewModels\LogViewModel.cs" />
-    <Compile Include="ViewModels\PropertiesViewModel.cs" />
-    <Compile Include="ViewModels\UtilitiesViewModel.cs" />
-    <Compile Include="ViewModels\VariablesViewModel.cs" />
-    <Compile Include="ViewModels\ViewModel.cs" />
-    <Compile Include="ViewModels\WorkflowsViewModel.cs" />
-    <Compile Include="ViewModels\WorkspaceViewModel.cs" />
+    <Compile Include="UIModule.cs" />
     <Compile Include="Views\AboutView.xaml.cs">
       <DependentUpon>AboutView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Pages\Settings_Editor.xaml.cs">
+      <DependentUpon>Settings_Editor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\PropertiesView.xaml.cs">
       <DependentUpon>PropertiesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SettingsView.xaml.cs">
+      <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\VariablesView.xaml.cs">
       <DependentUpon>VariablesView.xaml</DependentUpon>
@@ -126,9 +124,6 @@
     <Compile Include="Views\WorkspaceView.xaml.cs">
       <DependentUpon>WorkspaceView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\IViewModel.cs" />
-    <Compile Include="ViewModels\MainViewModel.cs" />
-    <Compile Include="extensions.cs" />
     <Page Include="Templates\DataTemplates.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -157,7 +152,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Pages\Settings_Editor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\PropertiesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -199,25 +202,7 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <None Include="packages.config" />
-    <None Include="Properties\Settings.settings">
-      <Generator>PublicSettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -320,25 +305,21 @@
     <Resource Include="Resources\Icons\Undo_16x.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Radish_core\Radish_core\radish.core.csproj">
-      <Project>{81620735-e3aa-43c5-9da0-b6722724567d}</Project>
-      <Name>radish.core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Wcc_lite_core\Wcc_lite_core\wcc.core.csproj">
-      <Project>{9a1a410d-d826-4dd1-af00-2a89f6a3b6ef}</Project>
-      <Name>wcc.core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Xceed.wpf.PropertyGrid.Extensions\Xceed.wpf.PropertyGrid.Extensions\Xceed.wpf.PropertyGrid.Extensions.csproj">
       <Project>{067072d6-da16-4ab0-8b55-aa31c358dd4d}</Project>
       <Name>Xceed.wpf.PropertyGrid.Extensions</Name>
     </ProjectReference>
-    <ProjectReference Include="..\w3.tools\w3tools.csproj">
+    <ProjectReference Include="..\w3.tools\w3tools.App.csproj">
       <Project>{8cac32e6-ba2c-4a47-b9ab-9e7291015978}</Project>
-      <Name>w3tools</Name>
+      <Name>w3tools.App</Name>
     </ProjectReference>
     <ProjectReference Include="..\w3.workflow\w3tools.common.csproj">
       <Project>{8c1e1dc3-3ee4-4ae1-a5fe-cc62a9df3f51}</Project>
       <Name>w3tools.common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\w3tools\w3tools.csproj">
+      <Project>{8ad8911f-faa2-4a6e-b913-2b4fbbe1d1f0}</Project>
+      <Name>w3tools</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -372,6 +353,10 @@
   <ItemGroup>
     <Resource Include="Resources\radish_icon.png" />
     <Resource Include="Resources\radish_icon_circle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\modkitUIIcon.ico" />
+    <Resource Include="Resources\modkitUIIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

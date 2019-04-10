@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using w3tools.UI.ViewModels;
+using w3tools.App.ViewModels;
 using Xceed.Wpf.AvalonDock.Layout;
 
 namespace w3tools.UI

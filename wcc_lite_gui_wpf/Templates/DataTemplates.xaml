@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary x:Class="w3tools.UI.Templates.DataTemplates"
                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:vm="clr-namespace:w3tools.UI.ViewModels"
+                    xmlns:vm="clr-namespace:w3tools.App.ViewModels;assembly=w3tools.App"
                     xmlns:v="clr-namespace:w3tools.UI.Views"
                     xmlns:s="clr-namespace:System;assembly=mscorlib"
                     >
@@ -45,10 +45,10 @@
 
     <DataTemplate DataType="{x:Type vm:WorkspaceViewModel}">
         <v:WorkspaceView>
-            
+
         </v:WorkspaceView>
     </DataTemplate>
 
-    
+
 
 </ResourceDictionary>

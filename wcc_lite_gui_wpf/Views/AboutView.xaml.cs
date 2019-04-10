@@ -13,7 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using w3tools.UI.ViewModels;
+using w3tools.App.ViewModels;
 
 namespace w3tools.UI.Views
 {

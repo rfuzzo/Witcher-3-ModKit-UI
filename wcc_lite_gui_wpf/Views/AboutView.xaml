@@ -80,7 +80,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Orientation="Vertical">
-            <Image Source="/w3tools.UI;component/Resources/Icons/modkitUIIcon.ico" 
+            <Image Source="/w3tools.UI;component/Resources/modkitUIIcon.ico" 
                    Stretch="Fill"
                    Height="50"
                    Width="50"

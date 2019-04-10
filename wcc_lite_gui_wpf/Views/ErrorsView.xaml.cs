@@ -1,7 +1,6 @@
 ﻿using System.Windows.Controls;
 using System.Windows.Data;
 using w3tools.common;
-using wcc.core;
 
 namespace w3tools.UI.Views
 {

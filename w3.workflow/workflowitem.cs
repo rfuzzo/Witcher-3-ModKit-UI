@@ -51,7 +51,13 @@ namespace w3tools.common
         }
 
 
-
+        /// <summary>
+        /// Reset's the commands category to it's  default.
+        /// </summary>
+        public void ResetCategory()
+        {
+            Category = DefaultCategory;
+        }
 
 
 
@@ -59,6 +65,7 @@ namespace w3tools.common
         /// <summary>
         /// Overrides
         /// </summary>
+        /// //FIXME?
         #region Overrides
         public override string ToString()
         {

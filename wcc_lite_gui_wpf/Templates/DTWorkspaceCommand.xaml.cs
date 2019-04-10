@@ -13,7 +13,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using w3tools.common;
-using wcc.core;
 
 namespace w3tools.UI.Templates
 {
@@ -30,29 +29,26 @@ namespace w3tools.UI.Templates
             InitializeComponent();
 
 
-            
+            _propertyGridMain.Visibility = Visibility.Collapsed;
         }
 
         private void Toggle_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            //dbg
-
-
-
-
-            //if (_propertyGridMain.Height == _propertyGridMain.MinHeight) // expand
-            if (_propertyGridMain.Visibility == Visibility.Collapsed) // expand
+            // expand
+            if (_propertyGridMain.Visibility == Visibility.Collapsed) 
             {
-                //_propertyGridMain.Height = Double.NaN;
                 _propertyGridMain.Visibility = Visibility.Visible;
+                _propertyGridMain.Height = Double.NaN; //expand to max
+                //change button icon
                 _expandIcon.Source = new ImageSourceConverter().ConvertFromString(ExpandedPackUri) as ImageSource;
             }
             else // collapse
             {
-                //_propertyGridMain.Height = _propertyGridMain.MinHeight;
                 _propertyGridMain.Visibility = Visibility.Collapsed;
+                 //change button icon
                 _expandIcon.Source = new ImageSourceConverter().ConvertFromString(CollapsedPackUri) as ImageSource;
             }
+            
         }
         private void Toggle_MouseEnter(object sender, MouseEventArgs e)
         {

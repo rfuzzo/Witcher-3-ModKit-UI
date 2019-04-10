@@ -1,0 +1,61 @@
+﻿<Window x:Class="w3tools.UI.Views.SettingsView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:w3tools.UI.Views"
+        xmlns:sp="clr-namespace:w3tools.UI.Views.Pages"
+        mc:Ignorable="d"
+        Title="Settings" Height="450" Width="600"
+        x:Name="_SettingsWindow"
+        >
+    
+    
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <!-- Content -->
+            <RowDefinition Height="*"/>
+            <!-- Buttons -->
+            <RowDefinition Height="35"/>
+            
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <!-- List -->
+                <ColumnDefinition Width="200"/>
+                <!-- Page -->
+                <ColumnDefinition Width="*"/>
+
+            </Grid.ColumnDefinitions>
+
+            <ListView Grid.Column="0" x:Name="_settingsListBox"
+                      ItemsSource="{Binding Settings}"
+                      SelectedItem="{Binding ActiveSetting, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedIndex="0"
+                      
+                      >
+
+            </ListView>
+
+            <sp:Settings_Editor Grid.Column="1" DataContext="{Binding}"/>
+
+        </Grid>
+
+        <StackPanel Grid.Row="1" HorizontalAlignment="Right" Orientation="Horizontal" >
+                        
+            <Button Content="OK" Margin="5,7,5,7" Width="70" x:Name="_ButtonOK" 
+                    Command="{Binding SaveSettingsCommand, Mode=OneWay}"
+                    CommandParameter="{Binding ElementName=_SettingsWindow}"
+                    />
+
+            <Button Content="Cancel" Margin="5,7,5,7" Width="70" x:Name="_ButtonCancel" Click="_ButtonCancel_Click" IsCancel="True" IsDefault="True">
+                
+            </Button>
+            
+            
+        </StackPanel>
+
+        </Grid>
+</Window>
