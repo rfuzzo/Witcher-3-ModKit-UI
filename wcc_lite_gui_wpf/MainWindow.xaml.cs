@@ -3,6 +3,7 @@ using System.IO;
 using System.Text;
 using System.Windows;
 using System.Xml;
+using w3tools.App.Services;
 using w3tools.App.ViewModels;
 using Xceed.Wpf.AvalonDock.Layout.Serialization;
 
@@ -11,7 +12,7 @@ namespace w3tools.UI
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, ICloseable
     {
         public MainWindow(IViewModel viewModel)
         {
@@ -20,6 +21,7 @@ namespace w3tools.UI
 
             this.Loaded += new RoutedEventHandler(OnWindowLoaded);
 
+            ((MainViewModel)viewModel).ClosingRequest += (sender, e) => this.Close(); //dbg
 
         }
 

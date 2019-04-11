@@ -92,6 +92,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Services\ViewDialogService.cs" />
     <Compile Include="Templates\DataTemplates.xaml.cs">
       <DependentUpon>DataTemplates.xaml</DependentUpon>
     </Compile>
@@ -106,6 +107,26 @@
     <Compile Include="Views\AboutView.xaml.cs">
       <DependentUpon>AboutView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Templates\DialogTemplates.xaml.cs">
+      <DependentUpon>DialogTemplates.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\DialogView.xaml.cs">
+      <DependentUpon>DialogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\ExceptionDialogView.xaml.cs">
+      <DependentUpon>ExceptionDialogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\IDialogView.cs" />
+    <Compile Include="Views\Dialogs\MessageDialog.xaml.cs">
+      <DependentUpon>MessageDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\SettingsDialogView.xaml.cs">
+      <DependentUpon>SettingsDialogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\UnsavedChangesDialogView.xaml.cs">
+      <DependentUpon>UnsavedChangesDialogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\IView.cs" />
     <Compile Include="Views\Pages\Settings_Editor.xaml.cs">
       <DependentUpon>Settings_Editor.xaml</DependentUpon>
     </Compile>
@@ -147,6 +168,30 @@
     <Page Include="Views\ConsoleView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Templates\DialogTemplates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Dialogs\DialogView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Dialogs\ExceptionDialogView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Dialogs\MessageDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Dialogs\SettingsDialogView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Dialogs\UnsavedChangesDialogView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\ErrorsView.xaml">
       <SubType>Designer</SubType>

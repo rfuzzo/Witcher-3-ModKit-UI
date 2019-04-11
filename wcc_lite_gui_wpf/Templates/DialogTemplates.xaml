@@ -1,0 +1,42 @@
+﻿<ResourceDictionary x:Class="w3tools.UI.Templates.DialogTemplates"
+                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:v="clr-namespace:w3tools.UI.Views"
+                    xmlns:d="clr-namespace:w3tools.UI.Views.Dialogs"
+                    xmlns:dvm="clr-namespace:w3tools.App.ViewModels.Dialogs;assembly=w3tools.App"
+                    xmlns:local="clr-namespace:w3tools.UI.Templates">
+
+    <DataTemplate DataType="{x:Type dvm:UnsavedChangesDialogViewModel}">
+        <d:UnsavedChangesDialogView>
+            
+        </d:UnsavedChangesDialogView>
+    </DataTemplate>
+
+
+    <DataTemplate DataType="{x:Type dvm:SettingsDialogViewModel}">
+        <d:SettingsDialogView>
+            
+        </d:SettingsDialogView>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type dvm:AboutDialogViewModel}">
+        <v:AboutView>
+
+        </v:AboutView>
+    </DataTemplate>
+
+
+    <DataTemplate DataType="{x:Type dvm:ExceptionDialogViewModel}">
+        <d:ExceptionDialogView>
+            
+        </d:ExceptionDialogView>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type dvm:MessageDialogViewModel}">
+        <d:MessageDialog>
+
+        </d:MessageDialog>
+    </DataTemplate>
+
+
+</ResourceDictionary>

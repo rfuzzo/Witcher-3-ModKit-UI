@@ -8,39 +8,46 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Input;
-using w3tools.App.Commands;
-using wcc.core;
 using Microsoft.Win32;
+using System.Diagnostics;
 using Ninject;
 using Ninject.Infrastructure;
 using w3tools.common;
-using radish.core.Commands;
-using wcc.core.Commands;
-using radish.core;
-using System.Diagnostics;
 using w3tools.Workflows;
+using radish.core;
+using radish.core.Commands;
+using wcc.core;
+using wcc.core.Commands;
 
 namespace w3tools.App.ViewModels
 {
-    
+    using Commands;
+    using Services;
+    using ViewModels.Dialogs;
 
     /// <summary>
     /// Represents the currently open workspace and project information.
     /// </summary>
     public class MainViewModel : ViewModel, IHaveKernel
     {
+        public IKernel Kernel { get; }
 
-        public MainViewModel(IKernel kernel)
+
+        public MainViewModel(
+            IKernel kernel, 
+            IDialogService dialogService)
         {
             Kernel = kernel;
-            WccTaskHandler = new WccTaskHandler(w3tools.App.Properties.Settings.Default.WccPath);
-            Commands = Properties.Settings.Default.WccLite_Commands;
+            DialogService = dialogService;
+
+            Logger = new WccExtendedLogger();
+            Commands = new WccCommandsCollection();
             Workflows = new RadishWorkflowCollection();
-            Logger = WccTaskHandler.Logger;
+
 
             #region ViewModels
-            //var dialogservice = new Ninject.Parameters.ConstructorArgument("dialogservice", new DialogService());
             Utilities = kernel.Get<UtilitiesViewModel>();
+            
 
             #endregion
 
@@ -48,10 +55,14 @@ namespace w3tools.App.ViewModels
             ExitCommand = new RelayCommand(Exit);
 
             RunCommand = new RelayCommand(Run, CanRun);
-            SaveFileCommand = new RelayCommand(Save, CanSave);
+            SaveFileCommand = new RelayCommand(SaveFile, CanSaveFile);
 
             StartGameCommand = new RelayCommand(StartGame, CanStartGame);
 
+            //DBG
+            DEBUGCMD = new RelayCommand(DBG);
+            DEBUGCMD2 = new RelayCommand(DBG2);
+            //DBG
 
             #endregion
 
@@ -109,9 +120,45 @@ namespace w3tools.App.ViewModels
             };
             #endregion
 
-
+           
         }
 
+       
+
+        #region DEBUG
+        //dbg
+        public ICommand DEBUGCMD { get; }
+        public ICommand DEBUGCMD2 { get; }
+        //dbg
+        private void DBG()
+        {
+            var s = Config;
+            //s.Load();
+
+            Logger.LogString($"--- IConfigProvider ---");
+            Logger.LogString($"GamePath: {s.GetConfigSetting("TW3_Path")};");
+            Logger.LogString($"ToolsPath: {s.GetConfigSetting("RAD_Path")};");
+            Logger.LogString($"ModKitPath: {s.GetConfigSetting("WCC_Path")};");
+        }
+        private void DBG2()
+        {
+
+           
+        }
+
+        public event EventHandler ClosingRequest;
+        protected void OnClosingRequest()
+        {
+            if (this.ClosingRequest != null)
+            {
+                this.ClosingRequest(this, EventArgs.Empty);
+            }
+        }
+        #endregion
+
+        #region Services
+        public IDialogService DialogService { get; }
+        #endregion
 
         #region Documents / Content / Anchorables
         private object _activeContent;
@@ -313,32 +360,58 @@ namespace w3tools.App.ViewModels
         public ICommand SaveFileCommand { get; }
 
         public ICommand StartGameCommand { get; }
-        
-       
+
+
+
 
 
         #region Command Implementation
+
+
+
         private void Exit()
         {
-            //Kernel.Get<MainWindow>().Close();
+            this.OnClosingRequest();
         }
 
 
         private bool CanStartGame()
         {
-            return !String.IsNullOrEmpty(Properties.Settings.Default.GamePath);
+            return !String.IsNullOrEmpty(Config.GetConfigSetting("TW3_Path"));
 
         }
         private void StartGame()
         {
-            Process.Start(Properties.Settings.Default.GamePath);
+            Process.Start(Config.GetConfigSetting("TW3_Path"));
         }
 
 
         public bool CanRun()
         {
-            WorkspaceViewModel wvm = DocumentsSource.FirstOrDefault(x => x.IsSelected);
-            return wvm != null && wvm.Workflow.Any();
+            // check if config is OK
+            if (Config != null)
+            {
+                // if either variable is empty or not initialized
+                if (String.IsNullOrEmpty(Config.GetConfigSetting("RAD_Path")) || String.IsNullOrEmpty(Config.GetConfigSetting("WCC_Path")))
+                {
+                    // attempt to load settinsg from xml
+                    if (!Config.Load()) //either no config file exists or it's bugged or variables are bad
+                    {
+                        // open settings
+
+
+                        return false;
+                    }
+                }
+                // settings succesfully loaded
+                //check if any commands in active workflow
+                WorkspaceViewModel wvm = DocumentsSource.FirstOrDefault(x => x.IsSelected);
+                return wvm != null && wvm.Workflow.Any();
+            }
+            else
+            {
+                return false;
+            }
         }
         public void Run()
         {
@@ -356,12 +429,12 @@ namespace w3tools.App.ViewModels
 
                 if (item.GetType().IsSubclassOf(typeof(RAD_Command)))
                 {
-                    RAD_Task rth = new RAD_Task(Properties.Settings.Default.ToolsPath, Logger);
+                    RAD_Task rth = new RAD_Task(Config.GetConfigSetting("RAD_Path"), Logger);
                     completed = rth.RunCommandSync((RAD_Command)item);
                 }
                 else if (item.GetType().IsSubclassOf(typeof(WCC_Command)))
                 {
-                    WCC_Task wth = new WCC_Task(Properties.Settings.Default.WccPath, Logger);
+                    WCC_Task wth = new WCC_Task(Config.GetConfigSetting("WCC_Path"), Logger);
                     completed = wth.RunCommandSync((WCC_Command)item);
                 }
                 else //workflowitems
@@ -383,22 +456,22 @@ namespace w3tools.App.ViewModels
         }
 
 
-        public bool CanSave()
+        public bool CanSaveFile()
         {
             return true;
         }
-        public void Save()
+        public void SaveFile()
         {
             //w3tools.App.Properties.Settings.Default.Save();
         }
 
-        #endregion
-        #endregion
-
-        public IKernel Kernel { get; }
-
-        
-
        
+
+
+
+        #endregion
+        #endregion
+
+
     }
 }

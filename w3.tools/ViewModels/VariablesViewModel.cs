@@ -22,6 +22,7 @@ namespace w3tools.App.ViewModels
     /// 2. drag and drop -->
     /// </summary>
     
+        /*
     public class VariablesViewModel : DockableViewModel
     {
         
@@ -104,5 +105,5 @@ namespace w3tools.App.ViewModels
             Variables = Properties.Settings.Default.EditorVariables;
 
         }
-    }
+    }*/
 }

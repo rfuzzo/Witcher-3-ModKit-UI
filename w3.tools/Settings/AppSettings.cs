@@ -2,35 +2,46 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Linq;
 using w3tools.common;
 
 namespace w3tools.App.Settings
 {
 
 	
-    sealed class AppSettings : ApplicationSettingsBase
+    /*sealed class AppSettings : ApplicationSettingsBase
     {
         [UserScopedSettingAttribute()]
-        public string Host
+        public string GamePath
         {
-            get { return (string)(this["Host"]); }
-            set { this["Host"] = value; }
+            get { return (string)(this["GamePath"]); }
+            set { this["GamePath"] = value; }
         }
 
         [UserScopedSettingAttribute()]
-        [DefaultSettingValue("8080")]
-        public int Port
+        public string ToolsPath
         {
-            get { return (int)(this["Port"]); }
-            set { this["Port"] = value; }
+            get { return (string)(this["ToolsPath"]); }
+            set { this["ToolsPath"] = value; }
         }
-    }
 
-    /*
-    public class AppSettings : ObservableObject
+        [UserScopedSettingAttribute()]
+        public string ModKitPath
+        {
+            get { return (string)(this["ModKitPath"]); }
+            set { this["ModKitPath"] = value; }
+        }
+
+       
+    }*/
+
+
+    sealed class AppSettings : ObservableObject
     {
         private string _ModKitPath;
         public string ModKitPath
@@ -83,43 +94,5 @@ namespace w3tools.App.Settings
             }
         }
 
-        private ObservableCollection<WorkflowItem> _WCC_Commands;
-        public ObservableCollection<WorkflowItem> WCC_Commands
-        {
-            get
-            {
-                return _WCC_Commands;
-            }
-            set
-            {
-                if (_WCC_Commands != value)
-                {
-                    _WCC_Commands = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private ObservableCollection<WccUIVariable> _EditorVariables;
-        public ObservableCollection<WccUIVariable> EditorVariables
-        {
-            get
-            {
-                return _EditorVariables;
-            }
-            set
-            {
-                if (_EditorVariables != value)
-                {
-                    _EditorVariables = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-
-
     }
-
-    */
 }

@@ -10,10 +10,12 @@ namespace w3tools.App.Services
 	
     public interface IConfigProvider
     {
-        string Host { get; set; }
-        int Port { get; set; }
+        string GetConfigSetting(string configKey);
 
-        void Save();
-        void Load();
+        void SetConfigSetting(string configKey, string value);
+
+        bool Save();
+
+        bool Load();
     }
 }

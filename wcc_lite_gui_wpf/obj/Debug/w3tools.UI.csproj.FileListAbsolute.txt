@@ -76,3 +76,16 @@ C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\w3tools.UI.exe
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\w3tools.UI.pdb
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\bin\Debug\w3tools.dll
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\bin\Debug\w3tools.pdb
+C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\App.baml
+C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\Views\Dialogs\DialogView.baml
+C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\Views\Dialogs\DialogView.g.cs
+C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\Views\Dialogs\ExceptionDialogView.g.cs
+C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\Views\Dialogs\MessageDialog.g.cs
+C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\Views\Dialogs\UnsavedChangesDialogView.g.cs
+C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\Views\Dialogs\ExceptionDialogView.baml
+C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\Views\Dialogs\MessageDialog.baml
+C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\Views\Dialogs\UnsavedChangesDialogView.baml
+C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\Templates\DialogTemplates.g.cs
+C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\Templates\DialogTemplates.baml
+C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\Views\Dialogs\SettingsDialogView.g.cs
+C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\Views\Dialogs\SettingsDialogView.baml

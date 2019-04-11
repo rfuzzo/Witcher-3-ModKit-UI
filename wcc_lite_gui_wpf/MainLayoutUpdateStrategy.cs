@@ -41,7 +41,7 @@ namespace w3tools.UI
             // Right Side Anchorables
             var rightSide = layout.Descendents().OfType<LayoutAnchorablePane>().FirstOrDefault(x => x.Name == "rightPane");
             //var rightSide = layout.RightSide.Descendents().OfType<LayoutAnchorGroup>().FirstOrDefault();
-            if (rightSide != null && (anchorableToShow.Content is PropertiesViewModel || anchorableToShow.Content is VariablesViewModel))
+            if (rightSide != null && (anchorableToShow.Content is PropertiesViewModel ))
             {
                 anchorableToShow.AutoHideWidth = 200;
                 rightSide.InsertChildAt(0, anchorableToShow);

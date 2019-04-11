@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="w3tools.UI.Views.Dialogs.UnsavedChangesDialogView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:w3tools.UI.Views.Dialogs"
+             mc:Ignorable="d" 
+             Width="400"
+             Background="GhostWhite">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        
+        <Border Grid.Row="0" Margin="10">
+            <TextBlock TextWrapping="Wrap" Text="{Binding Message}"/>
+        </Border>
+        
+        <Grid Margin="10 0" Height="200" Grid.Row="1">
+            <ListView SelectionMode="Single" Background="White" ItemsSource="{Binding Documents}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Width="16" Height="16" Margin="0 0 5 0" Source="{Binding IconSource}"/>
+                            <TextBlock Text="{Binding FilePath}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListBoxItem}">
+                        <Setter Property="IsSelected" Value="{Binding IsSelected}"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
+        </Grid>
+        
+        <StackPanel Margin="10" HorizontalAlignment="Right" Orientation="Horizontal" Grid.Row="2">
+            <StackPanel.Resources>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Width"  Value="75"/>
+                    <Setter Property="Height" Value="25"/>
+                    <Setter Property="Margin" Value="10 0 0 0"/>
+                </Style>
+            </StackPanel.Resources>
+            <Button Command="{Binding YesCommand}"    Content="Yes"/>
+            <Button Command="{Binding NoCommand}"     Content="No"/>
+            <Button Command="{Binding CancelCommand}" Content="Cancel"/>
+        </StackPanel>
+
+    </Grid>
+</UserControl>

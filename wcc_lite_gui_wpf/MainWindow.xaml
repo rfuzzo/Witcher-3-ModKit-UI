@@ -16,8 +16,9 @@
         Title="Radish Mod Tools UI"  
         Height="900" 
         Width="1600"
-        Name="w3Tools"
+        x:Name="_w3Tools"
         Icon="Resources/radish_icon_circle.png"
+        
         >
 
     <Window.Resources>
@@ -68,7 +69,7 @@
                     </MenuItem.Icon>
                 </MenuItem>
                 <Separator/>
-                <MenuItem Header="Exit" Command="{Binding ExitCommand}"/>
+                <MenuItem Header="Exit" Command="{Binding ExitCommand, Mode=OneWay}"/>
             </MenuItem>
 
             <!-- View -->
@@ -91,18 +92,21 @@
             </MenuItem>
 
             <!-- Help -->
-            <MenuItem Header="Help" DataContext="{Binding Utilities}">
-                <MenuItem Header="About Modkit UI" Command="{Binding OpenAboutCommand}">
+            <MenuItem Header="Help" >
+                <MenuItem Header="About Modkit UI" Command="{Binding OpenAboutCommand}" DataContext="{Binding Utilities}">
                     <MenuItem.Icon>
                         <Image Source="Resources/Icons/StatusHelp_16x.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
                 <Separator/>
-                <MenuItem Header="Settings" Command="{Binding SettingsCommand}">
+                <MenuItem Header="Settings" Command="{Binding OpenSettingsCommand}" DataContext="{Binding Utilities}">
                     <MenuItem.Icon>
                         <Image Source="/w3tools.UI;component/Resources/Icons/Settings_16x.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
+                <Separator/>
+                <MenuItem Header="DEBUG" Command="{Binding DEBUGCMD}" />
+                <MenuItem Header="DEBUG2" Command="{Binding DEBUGCMD2}" />
             </MenuItem>
         </Menu>
 

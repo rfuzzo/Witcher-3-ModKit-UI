@@ -14,3 +14,4 @@ C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3tools\obj\Debug\w3tools.csproj.CoreCompi
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3tools\obj\Debug\w3tools.csproj.CopyComplete
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3tools\obj\Debug\w3tools.dll
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3tools\obj\Debug\w3tools.pdb
+C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3tools\obj\Debug\w3tools.csprojAssemblyReference.cache

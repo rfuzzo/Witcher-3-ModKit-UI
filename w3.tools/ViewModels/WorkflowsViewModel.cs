@@ -70,7 +70,7 @@ namespace w3tools.App.ViewModels
                 Title = sender.Name,
                 ContentId = ContentId, 
                 ParentViewModel = ParentViewModel,
-                Settings = new RAD_Settings(Properties.Settings.Default.GamePath, Properties.Settings.Default.WccPath, Properties.Settings.Default.ToolsPath, ParentViewModel.Logger)
+                Settings = new RAD_Settings(Config.GetConfigSetting("TW3_Path"), Config.GetConfigSetting("RAD_Path"), Config.GetConfigSetting("WCC_Path"), ParentViewModel.Logger)
             });            
             WorkspaceViewModel currentDoc = ParentViewModel.DocumentsSource.FirstOrDefault(x => x.ContentId == ContentId);
 

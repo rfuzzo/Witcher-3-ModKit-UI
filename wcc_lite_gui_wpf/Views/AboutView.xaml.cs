@@ -20,17 +20,14 @@ namespace w3tools.UI.Views
     /// <summary>
     /// Interaction logic for AboutView.xaml
     /// </summary>
-    public partial class AboutView : Window
+    public partial class AboutView : UserControl
     {
         public AboutView()
         {
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
+       
 
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {
@@ -38,11 +35,7 @@ namespace w3tools.UI.Views
             e.Handled = true;
         }
 
-        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.ChangedButton == MouseButton.Left)
-                this.DragMove();
-        }
+       
         
     }
 }

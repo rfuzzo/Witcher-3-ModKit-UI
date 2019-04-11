@@ -36,12 +36,13 @@
         </v:PropertiesView>
     </DataTemplate>
 
+    <!--
     <DataTemplate DataType="{x:Type vm:VariablesViewModel}">
         <v:VariablesView>
 
         </v:VariablesView>
     </DataTemplate>
-
+-->
 
     <DataTemplate DataType="{x:Type vm:WorkspaceViewModel}">
         <v:WorkspaceView>

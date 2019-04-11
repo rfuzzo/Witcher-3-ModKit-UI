@@ -19,7 +19,10 @@ namespace w3tools.App
         public override void Load()
         {
 
-            Bind<IConfigProvider>().To<SettingsConfigProvider>();
+            Bind<IConfigProvider>().To<SettingsConfigProvider>().InSingletonScope();
+
+
+           // Bind<MainViewModel>().To<SettingsViewModel>();
         }
     }
 }
