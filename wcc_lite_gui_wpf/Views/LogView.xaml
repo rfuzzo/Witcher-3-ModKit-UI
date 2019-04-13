@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="w3tools.UI.Views.ConsoleView"
+﻿<UserControl x:Class="w3tools.UI.Views.LogView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -11,7 +11,7 @@
     
     <Grid>
         <TextBox x:Name="_logTextBox"
-            Text="{Binding ExtendedLogger.Log}"
+            Text="{Binding LoggerService.Log}"
                 Background="LightYellow"
                 IsReadOnly="True"
                 VerticalScrollBarVisibility="Visible"

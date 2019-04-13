@@ -4,10 +4,10 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
-using static w3tools.common.WccExtendedLogger;
 using wcc.core.Commands;
 using w3tools.common;
 using w3tools.Services;
+using System.Linq;
 using Ninject;
 
 namespace w3tools
@@ -50,6 +50,7 @@ namespace w3tools
 
             try
             {
+                Logger.LogString($"-----------------------------------------------------");
                 Logger.LogString($"WCC_TASK: {args}");
 
                 proc.Arguments = args;
@@ -64,9 +65,10 @@ namespace w3tools
                     {
                         while (true)
                         {
-                            string result = reader.ReadLine(); //FIXME is this slow?
+                            string result = reader.ReadLine();
+
                             Logger.LogString(result);
-                            //_Logger.LogExtended(SystemLogFlag.SLF_Interpretable, cmdName, $"{result}"); //FIXME
+                            Logger.LogExtended(SystemLogFlag.SLF_Interpretable, ToolFlag.TLF_Wcc, cmdName, $"{result}");
 
                             if (reader.EndOfStream)
                                 break;
@@ -74,13 +76,27 @@ namespace w3tools
                     }
                 }
 
-                return WFR.WFR_Finished; //FIXME
+                //Handle Errors
+                if (Logger.ExtendedLog.Any(x => x.Flag == LogFlag.WLF_Error))
+                {
+                    Logger.LogString("Finished with Errors.");
+                    return WFR.WFR_Error;
+                }
+                else if (Logger.ExtendedLog.Any(x => x.Flag == LogFlag.WLF_Error))
+                {
+                    Logger.LogString("Finished with Warnings.");
+                    return WFR.WFR_Finished;
+                }
+                else
+                {
+                    Logger.LogString("Finished without Errors or Warnings.");
+                    return WFR.WFR_Finished;
+                }
             }
             catch (Exception ex)
             {
                 Logger.LogString(ex.ToString());
                 throw ex;
-                return WFR.WFR_Error; //FIXME
                 
             }
         }

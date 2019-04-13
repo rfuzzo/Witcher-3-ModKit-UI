@@ -25,9 +25,9 @@
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type vm:LogViewModel}">
-        <v:ConsoleView>
+        <v:LogView>
 
-        </v:ConsoleView>
+        </v:LogView>
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type vm:PropertiesViewModel}">

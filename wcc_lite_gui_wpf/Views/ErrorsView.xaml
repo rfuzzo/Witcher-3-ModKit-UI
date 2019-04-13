@@ -11,7 +11,7 @@
     <UserControl.Resources>
         <CollectionViewSource  
             x:Key="cvs_log" 
-            Source="{Binding ParentViewModel.Logger.ExtendedLog, Mode=OneWay}">
+            Source="{Binding LoggerService.ExtendedLog, Mode=OneWay}">
 
             <CollectionViewSource.GroupDescriptions>
                 <PropertyGroupDescription PropertyName="WccFlag" />
@@ -49,15 +49,15 @@
                 -->
 
                 <!-- Replaces WccFlag cell (type: custom enum) with an Icon -->
-                <DataGridTemplateColumn Header="WccFlag" Width="50">
+                <DataGridTemplateColumn Header="Flag" Width="50">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Image x:Name="img" Source="/w3tools.UI;component/Resources/Icons/StatusInformation_16x.ico" Stretch="None" />
                             <DataTemplate.Triggers>
-                                <DataTrigger Binding="{Binding WccFlag}" Value="WLF_Error">
+                                <DataTrigger Binding="{Binding Flag}" Value="WLF_Error">
                                     <Setter TargetName="img" Property="Source" Value="/w3tools.UI;component/Resources/Icons/StatusCriticalError_16x.ico" />
                                 </DataTrigger>
-                                <DataTrigger Binding="{Binding WccFlag}" Value="WLF_Warning">
+                                <DataTrigger Binding="{Binding Flag}" Value="WLF_Warning">
                                     <Setter TargetName="img" Property="Source" Value="/w3tools.UI;component/Resources/Icons/StatusWarning_16x.ico" />
                                 </DataTrigger>
                             </DataTemplate.Triggers>
@@ -67,7 +67,8 @@
 
                 <!-- Rest of the Columns -->
 
-                <DataGridTextColumn Header="Command" Binding="{Binding WccCommandName}" />
+                <DataGridTextColumn Header="Tool" Binding="{Binding Tool}" />
+                <DataGridTextColumn Header="Command" Binding="{Binding CommandName}" />
                 <DataGridTextColumn Header="Timestamp" Binding="{Binding Timestamp}"/>
                 <DataGridTextColumn Header="Module" Binding="{Binding WccModule}"/>
                 <DataGridTemplateColumn Header="Value" Width="*">

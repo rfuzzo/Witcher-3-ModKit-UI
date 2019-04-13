@@ -12,6 +12,9 @@ namespace w3tools.UI
 {
     using Services;
     using Views.Dialogs;
+    using w3tools.Services;
+    using w3tools.UI.Views;
+
     /// <summary>
     /// The UI module used for the app.
     /// </summary>
@@ -30,6 +33,9 @@ namespace w3tools.UI
             Bind<MainWindow>().ToSelf().InSingletonScope();
 
             Bind<IViewModel>().To<MainViewModel>().WhenInjectedInto<MainWindow>();
+            //Bind<ILoggerService>().To<LogViewModel>().WhenInjectedInto<LogView>();
+            //Bind<ILoggerService>().To<LogViewModel>().WhenInjectedInto<LogView>();
+
             //Bind<IViewModel>().To<SettingsViewModel>().WhenInjectedInto<SettingsView>();
 
         }

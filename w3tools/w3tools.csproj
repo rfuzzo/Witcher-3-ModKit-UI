@@ -51,6 +51,7 @@
     <Compile Include="Services\LoggerService.cs" />
     <Compile Include="Services\IConfigService.cs" />
     <Compile Include="Services\ILoggerService.cs" />
+    <Compile Include="Services\LoggerTypes.cs" />
     <Compile Include="Services\SettingNotFoundException.cs" />
     <Compile Include="Tasks\rad_task.cs" />
     <Compile Include="Tasks\wcc_task.cs" />

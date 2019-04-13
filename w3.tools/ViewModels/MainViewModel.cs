@@ -85,13 +85,13 @@ namespace w3tools.App.ViewModels
                     ContentId = "workflowList",
                     ParentViewModel = this,
                 },
-                new ErrorListViewModel()
+                new ErrorListViewModel(Kernel.Get<ILoggerService>())
                 {
                     Title = "Error List",
                     ContentId = "errorList",
                     ParentViewModel = this,
                 },
-                new LogViewModel(Logger)
+                new LogViewModel(Kernel.Get<ILoggerService>())
                 {
                     Title = "Log",
                     ContentId = "log",
@@ -412,7 +412,7 @@ namespace w3tools.App.ViewModels
         }
         private void SaveAll()
         {
-
+            throw new NotImplementedException();
         }
 
 
@@ -434,8 +434,6 @@ namespace w3tools.App.ViewModels
 
         public bool CanRun()
         {
-           
-
             //check if any commands in active workflow
             DocumentViewModel wvm = DocumentsSource.FirstOrDefault(x => x.IsSelected);
             return wvm != null && wvm.Workflow.Any();
@@ -447,7 +445,7 @@ namespace w3tools.App.ViewModels
             RAD_Task RAD_Task = Kernel.Get<RAD_Task>();
             WCC_Task WCC_Task = Kernel.Get<WCC_Task>();
 
-            //Logger.ClearLog();
+            Logger.Clear();
             Logger.LogString("Starting Workflow...");
 
             // FIXME structure?
@@ -465,11 +463,13 @@ namespace w3tools.App.ViewModels
                 }
                 else //workflowitems
                 {
+                    
                     completed = item.Run();
                 }
-                
+
                 if (completed == WFR.WFR_Error)
                 {
+                    Logger.LogString("Aborting.");
                     break;
                 }
                 else

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -14,10 +15,11 @@ namespace w3tools.Services
        
 
         string Log { get; }
-        WccExtendedLogger ELogger { get; }
+        ObservableCollection<InterpretedLogMessage> ExtendedLog { get; }
 
+        void Clear();
         void LogString(string value);
-        //object LogExtended(string, configKey, string value);
+        void LogExtended(SystemLogFlag sflag, ToolFlag lflag, string cmdName, string value);
 
     }
 }

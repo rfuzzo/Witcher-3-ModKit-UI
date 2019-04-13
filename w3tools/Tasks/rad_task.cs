@@ -75,8 +75,9 @@ namespace w3tools
                     {
                         while (true)
                         {
-                            string result = reader.ReadLine(); //FIXME is this slow?
+                            string result = reader.ReadLine();
                             Logger.LogString(result);
+                            Logger.LogExtended(SystemLogFlag.SLF_Interpretable, ToolFlag.TLF_Radish, encoderName, $"{result}");
 
                             if (reader.EndOfStream)
                                 break;
@@ -84,14 +85,27 @@ namespace w3tools
                     }
                 }
 
-                //return inlogger;
-                return WFR.WFR_Finished; //FIXME
+                //Handle Errors
+                if (Logger.ExtendedLog.Any(x => x.Flag == LogFlag.WLF_Error))
+                {
+                    Logger.LogString("Finished with Errors.");
+                    return WFR.WFR_Error;
+                }
+                else if (Logger.ExtendedLog.Any(x => x.Flag == LogFlag.WLF_Error))
+                {
+                    Logger.LogString("Finished with Warnings.");
+                    return WFR.WFR_Finished;
+                }
+                else
+                {
+                    Logger.LogString("Finished without Errors or Warnings.");
+                    return WFR.WFR_Finished;
+                }
             }
             catch (Exception ex)
             {
                 Logger.LogString(ex.ToString());
                 throw ex;
-                return WFR.WFR_Error; //FIXME
             }
         }
     }

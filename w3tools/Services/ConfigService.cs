@@ -90,8 +90,9 @@ namespace w3tools.Services
                     return File.Exists(_TW3_Path) && Directory.Exists(_RAD_Path) && File.Exists(_WCC_Path);
 
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
+                    throw ex;
                     // file is bugged and should be deleted
                     File.Delete(outfile); //FIXME
                     return false;

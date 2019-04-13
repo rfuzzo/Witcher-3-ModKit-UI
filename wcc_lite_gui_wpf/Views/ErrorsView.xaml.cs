@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 using System.Windows.Data;
-using w3tools.common;
+using w3tools.Services;
 
 namespace w3tools.UI.Views
 {
@@ -20,8 +20,8 @@ namespace w3tools.UI.Views
 
         private void FilterForErrors(object sender, FilterEventArgs e)
         {
-            WccLogFlag value = ((ExtendedWCCLogMessage)e.Item).WccFlag;
-            if (value == WccLogFlag.WLF_Error || value == WccLogFlag.WLF_Warning)
+            LogFlag value = ((WCCLogMessage)e.Item).Flag;
+            if (value == LogFlag.WLF_Error || value == LogFlag.WLF_Warning)
             {
                 e.Accepted = true;
             }

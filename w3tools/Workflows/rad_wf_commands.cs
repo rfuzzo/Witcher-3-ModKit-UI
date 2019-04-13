@@ -90,7 +90,6 @@ namespace w3tools.Workflows
             {
                 settings.LOGGER.LogString(ex.ToString());
                 throw ex;
-                return WFR.WFR_Error; //FIXME
             }
         }
     }

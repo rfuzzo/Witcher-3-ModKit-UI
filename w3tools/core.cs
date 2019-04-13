@@ -121,20 +121,9 @@ namespace w3tools
         }
     }
 
-    /*
-    /// <summary>
-    /// Holds all referenced icons
-    /// </summary>
-    #region Icons
-    public class IconsCollection
-    {
-        public readonly Icon ErrorIcon = Properties.Resources.StatusCriticalErrorIcon;
-        public readonly Icon WarningIcon = Properties.Resources.StatusWarningIcon;
-        public readonly Icon InfoIcon = Properties.Resources.StatusInformationIcon;
-    }
-
-    #endregion
-    */
+    
+    
+    
 
     /// <summary>
     /// Holds all wcc_lite commands
