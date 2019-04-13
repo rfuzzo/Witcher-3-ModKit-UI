@@ -5,7 +5,7 @@ FC:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\Templates\DTVariable.xam
 FC:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\Templates\DTWorkspaceCommand.xaml;;
 FC:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\Views\AboutView.xaml;;
 FC:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\Views\CommandsView.xaml;;
-FC:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\Views\ConsoleView.xaml;;
+FC:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\Views\LogView.xaml;;
 FC:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\Templates\DialogTemplates.xaml;;
 FC:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\Views\Dialogs\ExceptionDialogView.xaml;;
 FC:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\Views\Dialogs\MessageDialog.xaml;;
@@ -14,9 +14,8 @@ FC:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\Views\Dialogs\UnsavedCha
 FC:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\Views\ErrorsView.xaml;;
 FC:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\Views\Pages\Settings_Editor.xaml;;
 FC:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\Views\PropertiesView.xaml;;
-FC:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\Views\SettingsView.xaml;;
 FC:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\Views\VariablesView.xaml;;
 FC:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\Views\WorkflowListView.xaml;;
-FC:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\Views\WorkspaceView.xaml;;
+FC:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\Views\DocumentView.xaml;;
 FC:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\MainWindow.xaml;;
 

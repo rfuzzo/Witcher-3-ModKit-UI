@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Ninject;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using w3tools.common;
+using w3tools.Services;
 
 namespace w3tools.Workflows
 {
@@ -14,6 +16,8 @@ namespace w3tools.Workflows
     [Serializable]
     public abstract class RAD_wf_Command : WorkflowItem
     {
+        public RAD_Task RAD_Task { get; set; }
+
         //fixme bind to settings
         public bool Enabled { get; set; } = true;
        
@@ -22,6 +26,7 @@ namespace w3tools.Workflows
         {
             base.Category = defaultCategory;
             base.DefaultCategory = defaultCategory;
+
         }
 
         /// <summary>

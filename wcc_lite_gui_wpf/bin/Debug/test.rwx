@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<w3ToolsWorkflow>
+  <Title>Test stiff</Title>
+  <Workflow>
+    <Name>CleanupFolder</Name>
+    <Name>DeployModScripts</Name>
+    <Name>DeployTmpModScripts</Name>
+    <Name>Encode_world</Name>
+    <Name>Encode_env</Name>
+    <Name>Encode_scene</Name>
+    <Name>Encode_quest</Name>
+    <Name>WCC_import</Name>
+    <Name>WCC_GenerateNavData</Name>
+    <Name>WCC_occlusion</Name>
+    <Name>WCC_analyze</Name>
+    <Name>WCC_CookData</Name>
+    <Name>WCC_PackDLCAndCreateMetadatastore</Name>
+    <Name>WCC_PackMODAndCreateMetadatastore</Name>
+    <Name>Encode_strings</Name>
+    <Name>Encode_speech</Name>
+    <Name>WCC_GenerateTextureCache</Name>
+    <Name>WCC_GenerateCollisionCache</Name>
+  </Workflow>
+  <WorkflowSettings>
+    <DIR_PROJECT_BASE>C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\bin\Debug</DIR_PROJECT_BASE>
+    <MODNAME>wvdjhsvb</MODNAME>
+    <idspace>6</idspace>
+  </WorkflowSettings>
+</w3ToolsWorkflow>

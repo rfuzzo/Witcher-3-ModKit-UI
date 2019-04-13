@@ -56,13 +56,12 @@ namespace w3tools.Workflows
                     settings.LOGGER.LogString($"importing: {MODELNAME}...");
 
                     //call wcc_lite
-                    WCC_Task th = new WCC_Task(settings.DIR_MODKIT, settings.LOGGER);
                     WCC_Command cmd = new import() {
                         Depot = $"{settings.DIR_MODKIT_DEPOT()}",
                         File = filename,
                         Out = Path.Combine(settings.DIR_OUTPUT_MESHES(),$"{MODELNAME}.w2mesh"),
                     };
-                    WFR result = th.RunCommandSync(cmd);
+                    WFR result = WCC_Task.RunCommandSync(cmd);
                     if (result == WFR.WFR_Error)
                         return WFR.WFR_Error;
                 }
@@ -87,7 +86,6 @@ namespace w3tools.Workflows
             catch (Exception ex)
             {
                 settings.LOGGER.LogString(ex.ToString());
-                return WFR.WFR_Error; //FIXME
                 throw ex;
             }
         }
@@ -142,12 +140,12 @@ namespace w3tools.Workflows
                         //LOG WCC_LITE: GENERATE OCCLUSIONDATA FOR !WORLDNAME!
 
                         //call wcc_lite
-                        WCC_Task th = new WCC_Task(settings.DIR_MODKIT, settings.LOGGER);
+                        
                         WCC_Command cmd = new cookocclusion()
                         {
                             WorldFile = worldfile
                         };
-                        WFR result = th.RunCommandSync(cmd);
+                        WFR result = WCC_Task.RunCommandSync(cmd);
                         if (result == WFR.WFR_Error)
                             return WFR.WFR_Error;
                     }
@@ -159,7 +157,6 @@ namespace w3tools.Workflows
             catch (Exception ex)
             {
                 settings.LOGGER.LogString(ex.ToString());
-                return WFR.WFR_Error; //FIXME
                 throw ex;
             }
         }
@@ -219,14 +216,14 @@ namespace w3tools.Workflows
                             //LOG WCC_LITE: ANALYZE WORLD FOR !WORLDNAME!
 
                             //call wcc_lite
-                            WCC_Task th = new WCC_Task(settings.DIR_MODKIT, settings.LOGGER);
+                            
                             WCC_Command cmd = new analyze()
                             {
                                 Analyzer = analyzers.world,
                                 Object = Path.Combine(settings.DIR_DLC_GAMEPATH(), "levels", worldname, $"{worldname}.w2w"),
                                 Out = Path.Combine(settings.DIR_TMP(), $"{settings.SEEDFILE_PREFIX}world.{worldname}.files")
                             };
-                            WFR result = th.RunCommandSync(cmd);
+                            WFR result = WCC_Task.RunCommandSync(cmd);
 
                             //if any wcc operation fails return
                             if (result == WFR.WFR_Error)
@@ -240,14 +237,14 @@ namespace w3tools.Workflows
                     {
                         //LOG WCC_LITE: ANALYZE DLC
                         //call wcc_lite
-                        WCC_Task th = new WCC_Task(settings.DIR_MODKIT, settings.LOGGER);
+                        
                         WCC_Command cmd = new analyze()
                         {
                             Analyzer = analyzers.r4dlc,
                             reddlc = Path.Combine(settings.DIR_DLC_GAMEPATH(), $"dlc{settings.MODNAME}.reddlc"),
                             Out = Path.Combine(settings.DIR_TMP(), $"{settings.SEEDFILE_PREFIX}dlc{settings.MODNAME}.files")
                         };
-                        return th.RunCommandSync(cmd);
+                        return WCC_Task.RunCommandSync(cmd);
                     }
                 }
 
@@ -257,7 +254,6 @@ namespace w3tools.Workflows
             catch (Exception ex)
             {
                 settings.LOGGER.LogString(ex.ToString());
-                return WFR.WFR_Error; //FIXME
                 throw ex;
             }
         }
@@ -294,7 +290,7 @@ namespace w3tools.Workflows
 
             try
             {
-                WCC_Task th = new WCC_Task(settings.DIR_MODKIT, settings.LOGGER);
+                
                 WCC_Command cmd = new pathlib()
                 {
                     RootSearchDir = settings.DIR_WCC_DEPOT_WORLDS(),
@@ -302,12 +298,11 @@ namespace w3tools.Workflows
                 };
 
                 settings.LOGGER.LogString("done.");
-                return th.RunCommandSync(cmd);
+                return WCC_Task.RunCommandSync(cmd);
             }
             catch (Exception ex)
             {
                 settings.LOGGER.LogString(ex.ToString());
-                return WFR.WFR_Error; //FIXME
                 throw ex;
             }
         }
@@ -357,7 +352,7 @@ namespace w3tools.Workflows
                 }
                 // Note: trimdir MUST be lowercased!
 
-                WCC_Task th = new WCC_Task(settings.DIR_MODKIT, settings.LOGGER);
+                
                 
 
                 WCC_Command cmd = new cook()
@@ -370,7 +365,7 @@ namespace w3tools.Workflows
                 // run as arguments because of multiple seedfiles
                 string args = cmd.CommandLine;
                 args += $" {WCC_SEEDFILES}";
-                result = th.RunArgsSync(cmd.Name, args);
+                result = WCC_Task.RunArgsSync(cmd.Name, args);
 
                 //cleanup
                 if (Directory.Exists(settings.DIR_COOKED_FILES_DB()))
@@ -385,7 +380,6 @@ namespace w3tools.Workflows
             catch (Exception ex)
             {
                 settings.LOGGER.LogString(ex.ToString());
-                return WFR.WFR_Error; //FIXME
                 throw ex;
             }
         }
@@ -426,13 +420,13 @@ namespace w3tools.Workflows
                 WFR result_pack = WFR.WFR_Error;
                 WFR result_meta = WFR.WFR_Error;
 
-                WCC_Task th = new WCC_Task(settings.DIR_MODKIT, settings.LOGGER);
+                
                 WCC_Command pack = new pack()
                 {
                     Directory=settings.DIR_COOKED_DLC(),
                     Outdir=settings.DIR_DLC_CONTENT()
                 };
-                result_pack = th.RunCommandSync(pack);
+                result_pack = WCC_Task.RunCommandSync(pack);
                 if (result_pack == WFR.WFR_Error)
                     return WFR.WFR_Error;
 
@@ -440,7 +434,7 @@ namespace w3tools.Workflows
                 {
                     Directory= settings.DIR_DLC_CONTENT()
                 };
-                result_meta = th.RunCommandSync(metadata);
+                result_meta = WCC_Task.RunCommandSync(metadata);
                 if (result_meta == WFR.WFR_Error)
                     return WFR.WFR_Error;
 
@@ -450,7 +444,6 @@ namespace w3tools.Workflows
             catch (Exception ex)
             {
                 settings.LOGGER.LogString(ex.ToString());
-                return WFR.WFR_Error; //FIXME
                 throw ex;
             }
         }
@@ -491,13 +484,13 @@ namespace w3tools.Workflows
                 WFR result_pack = WFR.WFR_Error;
                 WFR result_meta = WFR.WFR_Error;
 
-                WCC_Task th = new WCC_Task(settings.DIR_MODKIT, settings.LOGGER);
+                
                 WCC_Command pack = new pack()
                 {
                     Directory = settings.DIR_COOKED_MOD(),
                     Outdir = settings.DIR_MOD_CONTENT()
                 };
-                result_pack = th.RunCommandSync(pack);
+                result_pack = WCC_Task.RunCommandSync(pack);
                 if (result_pack == WFR.WFR_Error)
                     return WFR.WFR_Error;
 
@@ -505,7 +498,7 @@ namespace w3tools.Workflows
                 {
                     Directory = settings.DIR_MOD_CONTENT()
                 };
-                result_meta = th.RunCommandSync(metadata);
+                result_meta = WCC_Task.RunCommandSync(metadata);
                 if (result_meta == WFR.WFR_Error)
                     return WFR.WFR_Error;
 
@@ -515,7 +508,6 @@ namespace w3tools.Workflows
             catch (Exception ex)
             {
                 settings.LOGGER.LogString(ex.ToString());
-                return WFR.WFR_Error; //FIXME
                 throw ex;
             }
         }
@@ -566,7 +558,7 @@ namespace w3tools.Workflows
                     Directory.Delete(settings.DIR_COOKED_TEXTURES_DB());
     
                 // cook textures
-                WCC_Task th = new WCC_Task(settings.DIR_MODKIT, settings.LOGGER);
+                
                 WCC_Command cook = new cook()
                 {
                     Platform=platform.pc,
@@ -574,7 +566,7 @@ namespace w3tools.Workflows
                     basedir=settings.DIR_UNCOOKED_TEXTURES(),
                     outdir=settings.DIR_COOKED_DLC()
                 };
-                result_cook = th.RunCommandSync(cook);
+                result_cook = WCC_Task.RunCommandSync(cook);
                 if (result_cook == WFR.WFR_Error)
                     return WFR.WFR_Error;
 
@@ -591,7 +583,7 @@ namespace w3tools.Workflows
                     Out= Path.Combine(settings.DIR_DLC_CONTENT(),"texture.cache"),
                     Platform=platform.pc
                 };
-                result_cache = th.RunCommandSync(buildcache);
+                result_cache = WCC_Task.RunCommandSync(buildcache);
                 if (result_cache == WFR.WFR_Error)
                     return WFR.WFR_Error;
 
@@ -601,7 +593,6 @@ namespace w3tools.Workflows
             catch (Exception ex)
             {
                 settings.LOGGER.LogString(ex.ToString());
-                return WFR.WFR_Error; //FIXME
                 throw ex;
             }
         }
@@ -639,7 +630,7 @@ namespace w3tools.Workflows
 
             try
             {
-                WCC_Task th = new WCC_Task(settings.DIR_MODKIT, settings.LOGGER);
+                
                 WCC_Command buildcache = new buildcache()
                 {
                     builder = cachebuilder.physics,
@@ -650,12 +641,11 @@ namespace w3tools.Workflows
                 };
 
                 settings.LOGGER.LogString("done.");
-                return th.RunCommandSync(buildcache);
+                return WCC_Task.RunCommandSync(buildcache);
             }
             catch (Exception ex)
             {
                 settings.LOGGER.LogString(ex.ToString());
-                return WFR.WFR_Error; //FIXME
                 throw ex;
             }
         }

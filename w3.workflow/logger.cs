@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -54,6 +55,7 @@ namespace w3tools.common
     /// Logger Class
     /// </summary>
     #region Logger
+    [TypeConverter(typeof(ExpandableObjectConverter))]
     public class WccExtendedLogger : ObservableObject
     {
         public WccExtendedLogger()

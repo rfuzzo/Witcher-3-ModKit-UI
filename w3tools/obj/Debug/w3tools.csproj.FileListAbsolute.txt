@@ -15,3 +15,5 @@ C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3tools\obj\Debug\w3tools.csproj.CopyCompl
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3tools\obj\Debug\w3tools.dll
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3tools\obj\Debug\w3tools.pdb
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3tools\obj\Debug\w3tools.csprojAssemblyReference.cache
+C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3tools\bin\Debug\Ninject.dll
+C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3tools\bin\Debug\Ninject.xml

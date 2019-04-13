@@ -27,8 +27,6 @@ namespace w3tools.App.ViewModels.Dialogs
 
 
         public ICommand OpenGithubCommand { get; }
-
-
         public ICommand OKCommand { get; }
 
        

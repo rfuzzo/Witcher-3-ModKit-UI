@@ -6,23 +6,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using w3tools.App.Services;
-using w3tools.App.Settings;
 
 namespace w3tools.App
 {
     
     using Services;
     using ViewModels;
+    using w3tools.Services;
 
     public class AppModule : NinjectModule
     {
         public override void Load()
         {
 
-            Bind<IConfigProvider>().To<SettingsConfigProvider>().InSingletonScope();
+            Bind<IConfigService>().To<ConfigService>().InSingletonScope();
+            //Bind<IConfigService>().To<ConfigService>().WhenInjectedInto<RAD_Task>();
 
 
-           // Bind<MainViewModel>().To<SettingsViewModel>();
+            //Bind<ILoggerService>().To<LoggerService>().WhenInjectedInto<RAD_Task>();
+            Bind<ILoggerService>().To<LoggerService>().InSingletonScope();
         }
     }
 }

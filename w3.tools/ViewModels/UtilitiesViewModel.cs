@@ -62,7 +62,7 @@ namespace w3tools.App.ViewModels
         //private readonly IDialogService dialogService;
         public void OpenSettings()
         {
-            var dialog = new SettingsDialogViewModel(this)
+            var dialog = new SettingsDialogViewModel( Config)
             {
                 Title = "Settings",
                 Message = "Please Specify Tools Locations.",

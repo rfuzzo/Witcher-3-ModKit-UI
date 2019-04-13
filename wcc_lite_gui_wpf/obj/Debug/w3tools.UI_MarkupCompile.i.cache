@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\App.xaml
-20-12180225
+19-1065564495
 
-28232941835
+27-768130474
 29-804367342
-Templates\DataTemplates.xaml;Templates\DTVariable.xaml;Templates\DTWorkspaceCommand.xaml;Views\AboutView.xaml;Views\CommandsView.xaml;Views\ConsoleView.xaml;Templates\DialogTemplates.xaml;Views\Dialogs\DialogView.xaml;Views\Dialogs\ExceptionDialogView.xaml;Views\Dialogs\MessageDialog.xaml;Views\Dialogs\SettingsDialogView.xaml;Views\Dialogs\UnsavedChangesDialogView.xaml;Views\ErrorsView.xaml;Views\Pages\Settings_Editor.xaml;Views\PropertiesView.xaml;Views\SettingsView.xaml;Views\VariablesView.xaml;Views\WorkflowListView.xaml;Views\WorkspaceView.xaml;MainWindow.xaml;
+Templates\DataTemplates.xaml;Templates\DTVariable.xaml;Templates\DTWorkspaceCommand.xaml;Views\AboutView.xaml;Views\CommandsView.xaml;Views\LogView.xaml;Templates\DialogTemplates.xaml;Views\Dialogs\DialogView.xaml;Views\Dialogs\ExceptionDialogView.xaml;Views\Dialogs\MessageDialog.xaml;Views\Dialogs\SettingsDialogView.xaml;Views\Dialogs\UnsavedChangesDialogView.xaml;Views\ErrorsView.xaml;Views\Pages\Settings_Editor.xaml;Views\PropertiesView.xaml;Views\VariablesView.xaml;Views\WorkflowListView.xaml;Views\DocumentView.xaml;MainWindow.xaml;
 
 True
 

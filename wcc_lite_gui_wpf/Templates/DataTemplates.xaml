@@ -44,10 +44,10 @@
     </DataTemplate>
 -->
 
-    <DataTemplate DataType="{x:Type vm:WorkspaceViewModel}">
-        <v:WorkspaceView>
+    <DataTemplate DataType="{x:Type vm:DocumentViewModel}">
+        <v:DocumentView>
 
-        </v:WorkspaceView>
+        </v:DocumentView>
     </DataTemplate>
 
 

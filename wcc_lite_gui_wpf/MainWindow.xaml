@@ -41,35 +41,38 @@
         <Menu IsMainMenu="True" x:Name="_menu" Padding="3" Grid.Row="0">
             
             <!-- File -->
-            <MenuItem Header="_File">
+            <MenuItem Header="_File" >
                 <MenuItem Header="New Workflow" Command="{Binding NewCommand}">
                     <MenuItem.Icon>
-                        <Image Source="/w3tools.UI;component/Resources/Icons/AddFile_16x.png"/>
+                        <Image Source="/w3tools.UI;component/Resources/Icons/NewFile_16x.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Header="Open Workflow" Command="{Binding OpenCommand}">
                     <MenuItem.Icon>
-                        <Image Source="/w3tools.UI;component/Resources/Icons/OpenFile_16x.png"/>
+                        <Image Source="/w3tools.UI;component/Resources/Icons/OpenFolder_16x.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
                 <Separator/>
-                <MenuItem Header="Close" Command="{Binding CloseCommand}"/>
+                <MenuItem Header="Close" Command="{Binding CloseCommand}" DataContext="{Binding ActiveDocument}"/>
                 <Separator/>
-                <MenuItem Header="{Binding ActiveDocument.Title}" HeaderStringFormat="Save {0}"
-                          Command="{Binding SaveCommand}" >
+                <MenuItem Header="{Binding Title}" HeaderStringFormat="Save {0}"
+                          Command="{Binding SaveCommand}" 
+                          DataContext="{Binding ActiveDocument}">
                     <MenuItem.Icon>
                         <Image Source="/w3tools.UI;component/Resources/Icons/Save_16x.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="{Binding ActiveDocument.Title}" HeaderStringFormat="Save {0} As..."
-                          Command="{Binding SaveAsCommand}"/>
-                <MenuItem Header="Save All" Command="{Binding SaveAllCommand}">
+                <MenuItem Header="{Binding Title}" HeaderStringFormat="Save {0} As..."
+                          Command="{Binding SaveAsCommand}"
+                          DataContext="{Binding ActiveDocument}"/>
+                <MenuItem Header="Save All" Command="{Binding SaveAllCommand}"
+                          DataContext="{Binding ActiveDocument}">
                     <MenuItem.Icon>
                         <Image Source="/w3tools.UI;component/Resources/Icons/SaveAll_16x.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
                 <Separator/>
-                <MenuItem Header="Exit" Command="{Binding ExitCommand, Mode=OneWay}"/>
+                <MenuItem Header="{Binding}" Command="{Binding ExitCommand, Mode=OneWay}"/>
             </MenuItem>
 
             <!-- View -->
@@ -125,9 +128,21 @@
                 </ToolBar.Resources>
 
                 
-                <Button ToolTip="Save" Command="{Binding SaveFileCommand}">
+                <Button ToolTip="New Document" Command="{Binding NewCommand}">
+                    <Image Source="/w3tools.UI;component/Resources/Icons/NewFile_16x.png"/>
+                </Button>
+                <Button ToolTip="Open Document" Command="{Binding OpenCommand}">
+                    <Image Source="/w3tools.UI;component/Resources/Icons/OpenFolder_16x.png"/>
+                </Button>
+                <Button ToolTip="Save" Command="{Binding SaveCommand}" DataContext="{Binding ActiveDocument}">
                     <Image Source="/w3tools.UI;component/Resources/Icons/Save_16x.png"/>
                 </Button>
+                <Button ToolTip="Save" Command="{Binding SaveAllCommand}">
+                    <Image Source="/w3tools.UI;component/Resources/Icons/SaveAll_16x.png"/>
+                </Button>
+
+                <Separator/>
+
                 <Button ToolTip="Run Command" Command="{Binding RunCommand}">
                     <Image Source="/w3tools.UI;component/Resources/Icons/Run_16x.png"/>
                 </Button>

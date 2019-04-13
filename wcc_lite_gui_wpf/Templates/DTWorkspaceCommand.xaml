@@ -39,7 +39,7 @@
                    MouseDown="Close_MouseDown" 
                    MouseEnter="Close_MouseEnter"
                    MouseLeave="Close_MouseLeave" 
-                   DataContext="{Binding Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Views:WorkspaceView}}}"/>
+                   DataContext="{Binding Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Views:DocumentView}}}"/>
             </Grid>
 
             <!-- PropertyGrid Element -->

@@ -69,7 +69,7 @@ namespace w3tools.common
         #region Overrides
         public override string ToString()
         {
-            return this.GetType().Name.ToString();
+            return Name;
         }
         #endregion
 

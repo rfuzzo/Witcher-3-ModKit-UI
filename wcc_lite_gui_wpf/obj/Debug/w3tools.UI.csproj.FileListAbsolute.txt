@@ -42,14 +42,11 @@ C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\Templates\DTVar
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\Templates\DTWorkspaceCommand.g.cs
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\Views\AboutView.g.cs
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\Views\CommandsView.g.cs
-C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\Views\ConsoleView.g.cs
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\Views\ErrorsView.g.cs
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\Views\Pages\Settings_Editor.g.cs
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\Views\PropertiesView.g.cs
-C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\Views\SettingsView.g.cs
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\Views\VariablesView.g.cs
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\Views\WorkflowListView.g.cs
-C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\Views\WorkspaceView.g.cs
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\MainWindow.g.cs
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\App.g.cs
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\GeneratedInternalTypeHelper.g.cs
@@ -60,14 +57,11 @@ C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\Templates\DTVar
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\Templates\DTWorkspaceCommand.baml
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\Views\AboutView.baml
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\Views\CommandsView.baml
-C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\Views\ConsoleView.baml
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\Views\ErrorsView.baml
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\Views\Pages\Settings_Editor.baml
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\Views\PropertiesView.baml
-C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\Views\SettingsView.baml
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\Views\VariablesView.baml
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\Views\WorkflowListView.baml
-C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\Views\WorkspaceView.baml
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\MainWindow.baml
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\w3tools.UI.g.resources
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\w3tools.UI.csproj.CoreCompileInputs.cache
@@ -89,3 +83,7 @@ C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\Templates\Dialo
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\Templates\DialogTemplates.baml
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\Views\Dialogs\SettingsDialogView.g.cs
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\Views\Dialogs\SettingsDialogView.baml
+C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\Views\DocumentView.g.cs
+C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\Views\DocumentView.baml
+C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\Views\LogView.g.cs
+C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\Views\LogView.baml

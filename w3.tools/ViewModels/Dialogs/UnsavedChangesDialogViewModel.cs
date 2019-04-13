@@ -20,8 +20,8 @@ namespace w3tools.App.ViewModels.Dialogs
     /// </summary>
     public class UnsavedChangesDialogViewModel : DialogViewModel
     {
-        private ICollection<WorkspaceViewModel> _documents;
-        public ICollection<WorkspaceViewModel> Documents
+        private ICollection<DocumentViewModel> _documents;
+        public ICollection<DocumentViewModel> Documents
         {
             get
             {
@@ -45,7 +45,7 @@ namespace w3tools.App.ViewModels.Dialogs
 
         public UnsavedChangesDialogViewModel()
         {
-            Documents      = new ObservableCollection<WorkspaceViewModel>();
+            Documents      = new ObservableCollection<DocumentViewModel>();
             YesCommand     = new RelayCommand(Yes);
             NoCommand      = new RelayCommand(No);
             CancelCommand  = new RelayCommand(Cancel);

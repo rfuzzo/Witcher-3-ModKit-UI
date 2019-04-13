@@ -14,6 +14,7 @@ namespace w3tools.Workflows
     [Serializable]
     public abstract class WCC_wf_Command : WorkflowItem
     {
+        public WCC_Task WCC_Task { get; set; }
         //fixme bind to settings
         public bool Enabled { get; set; } = true;
 
@@ -44,5 +45,7 @@ namespace w3tools.Workflows
             // no errors detected
             return WFR.WFR_Finished;
         }
+
+
     }
 }

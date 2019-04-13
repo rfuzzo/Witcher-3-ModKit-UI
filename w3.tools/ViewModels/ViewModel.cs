@@ -5,7 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using w3tools.App.Services;
+using w3tools.Services;
 using w3tools.common;
 
 namespace w3tools.App.ViewModels
@@ -15,10 +15,11 @@ namespace w3tools.App.ViewModels
     /// </summary>
     public abstract class ViewModel : ObservableObject, IViewModel
     {
-        public IConfigProvider Config { get; private set; }
+
+        public IConfigService Config { get; private set; }
 
         [Inject]
-        public void SetConfigService(IConfigProvider configService)
+        public void SetConfigService(IConfigService configService)
         {
             Config = configService;
         }

@@ -5,18 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using w3tools.App.Commands;
-using w3tools.App.Services;
+using w3tools.Services;
 
 namespace w3tools.App.ViewModels.Dialogs
 {
     public class SettingsDialogViewModel : DialogViewModel
     {
-        private ViewModel vm; //FIXME
 
-        public SettingsDialogViewModel(IViewModel owner)
+        public SettingsDialogViewModel( IConfigService configService)
         {
-            Owner = owner;
-            vm = owner as ViewModel;
+            ConfigService = configService;
 
             OKCommand = new RelayCommand(Save, CanSave);
             CancelCommand = new RelayCommand(Cancel);
@@ -27,19 +25,16 @@ namespace w3tools.App.ViewModels.Dialogs
 
         public void Register()
         {
-            if (!(vm.Config is null))
+            if (!(ConfigService is null))
             {
-                _WCC_Path = vm.Config.GetConfigSetting("WCC_Path");
-                _RAD_Path = vm.Config.GetConfigSetting("RAD_Path");
-                _TW3_Path = vm.Config.GetConfigSetting("TW3_Path");
+                _WCC_Path = ConfigService.GetConfigSetting("WCC_Path");
+                _RAD_Path = ConfigService.GetConfigSetting("RAD_Path");
+                _TW3_Path = ConfigService.GetConfigSetting("TW3_Path");
             }
         }
 
         #region Services
-        private IConfigProvider ConfigProvider { get; }
-
-
-
+        private IConfigService ConfigService { get; }
         #endregion
 
         #region Properties
@@ -56,8 +51,6 @@ namespace w3tools.App.ViewModels.Dialogs
                 {
                     _WCC_Path = value;
                     OnPropertyChanged();
-
-                    vm.Config.SetConfigSetting("WCC_Path", value);
                 }
             }
         }
@@ -75,8 +68,6 @@ namespace w3tools.App.ViewModels.Dialogs
                 {
                     _RAD_Path = value;
                     OnPropertyChanged();
-
-                    vm.Config.SetConfigSetting("RAD_Path", value);
                 }
             }
         }
@@ -94,15 +85,14 @@ namespace w3tools.App.ViewModels.Dialogs
                 {
                     _TW3_Path = value;
                     OnPropertyChanged();
-
-                    vm.Config.SetConfigSetting("TW3_Path", value);
                 }
             }
         }
 
-       
+
         #endregion
 
+        #region Commands
         public ICommand OKCommand { get; }
         public ICommand CancelCommand { get; }
 
@@ -110,7 +100,12 @@ namespace w3tools.App.ViewModels.Dialogs
 
         private void Save()
         {
-            vm.Config.Save();
+            ConfigService.SetConfigSetting("WCC_Path", WCC_Path);
+            ConfigService.SetConfigSetting("TW3_Path", TW3_Path);
+            ConfigService.SetConfigSetting("RAD_Path", RAD_Path);
+
+            ConfigService.Save();
+
             InvokeDialogCloseRequest(true);
         }
 
@@ -124,5 +119,6 @@ namespace w3tools.App.ViewModels.Dialogs
         {
             InvokeDialogCloseRequest(false);
         }
+        #endregion
     }
 }

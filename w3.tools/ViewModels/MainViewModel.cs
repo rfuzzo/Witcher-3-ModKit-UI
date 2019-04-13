@@ -23,7 +23,9 @@ namespace w3tools.App.ViewModels
 {
     using Commands;
     using Services;
+    using System.Xml.Linq;
     using ViewModels.Dialogs;
+    using w3tools.Services;
 
     /// <summary>
     /// Represents the currently open workspace and project information.
@@ -33,14 +35,13 @@ namespace w3tools.App.ViewModels
         public IKernel Kernel { get; }
 
 
-        public MainViewModel(
-            IKernel kernel, 
-            IDialogService dialogService)
+        public MainViewModel(IKernel kernel, IDialogService dialogService, ILoggerService logger, IConfigService configService)
         {
             Kernel = kernel;
             DialogService = dialogService;
+            ConfigService = configService;
+            Logger = logger;
 
-            Logger = new WccExtendedLogger();
             Commands = new WccCommandsCollection();
             Workflows = new RadishWorkflowCollection();
 
@@ -52,12 +53,15 @@ namespace w3tools.App.ViewModels
             #endregion
 
             #region Relay Commands
+
             ExitCommand = new RelayCommand(Exit);
-
             RunCommand = new RelayCommand(Run, CanRun);
-            SaveFileCommand = new RelayCommand(SaveFile, CanSaveFile);
-
             StartGameCommand = new RelayCommand(StartGame, CanStartGame);
+
+            NewCommand = new RelayCommand(New);
+            OpenCommand = new RelayCommand(Open);
+            SaveAllCommand = new RelayCommand(SaveAll);
+
 
             //DBG
             DEBUGCMD = new RelayCommand(DBG);
@@ -87,7 +91,7 @@ namespace w3tools.App.ViewModels
                     ContentId = "errorList",
                     ParentViewModel = this,
                 },
-                new LogViewModel()
+                new LogViewModel(Logger)
                 {
                     Title = "Log",
                     ContentId = "log",
@@ -107,23 +111,26 @@ namespace w3tools.App.ViewModels
                     ParentViewModel = this,
                 },*/
             };
-            DocumentsSource = new ObservableCollection<WorkspaceViewModel>
+            DocumentsSource = new ObservableCollection<DocumentViewModel>
             {
-                new WorkspaceViewModel()
+                new DocumentViewModel(DialogService, ConfigService)
                 {
                     Title = "Workspace",
                     ContentId = "workspace",
                     ParentViewModel = this,
+                    Settings = new RAD_Settings(ConfigService, Logger) //FIXME
                 },
 
 
             };
             #endregion
 
-           
+            InitSettings();
         }
 
        
+
+
 
         #region DEBUG
         //dbg
@@ -132,9 +139,11 @@ namespace w3tools.App.ViewModels
         //dbg
         private void DBG()
         {
-            var s = Config;
+            var s = ConfigService;
             //s.Load();
+            var t = s.GetConfigSetting("RAD_Path");
 
+            Logger.LogString($"{DateTime.Now}");
             Logger.LogString($"--- IConfigProvider ---");
             Logger.LogString($"GamePath: {s.GetConfigSetting("TW3_Path")};");
             Logger.LogString($"ToolsPath: {s.GetConfigSetting("RAD_Path")};");
@@ -158,6 +167,8 @@ namespace w3tools.App.ViewModels
 
         #region Services
         public IDialogService DialogService { get; }
+        public IConfigService ConfigService { get; }
+        public ILoggerService Logger { get; }
         #endregion
 
         #region Documents / Content / Anchorables
@@ -181,11 +192,11 @@ namespace w3tools.App.ViewModels
             }
         }
 
-        private ICollection<WorkspaceViewModel> _documentsSource;
+        private ICollection<DocumentViewModel> _documentsSource;
         /// <summary>
         /// Holds all the currently open documents in the project.
         /// </summary>
-        public ICollection<WorkspaceViewModel> DocumentsSource
+        public ICollection<DocumentViewModel> DocumentsSource
         {
             get
             {
@@ -268,25 +279,7 @@ namespace w3tools.App.ViewModels
             }
         }
 
-        private WccExtendedLogger _logger;
-        /// <summary>
-        /// Holds the Logger Class from the Wcc Task Handler.
-        /// </summary>
-        public WccExtendedLogger Logger
-        {
-            get
-            {
-                return _logger;
-            }
-            set
-            {
-                if (_logger != value)
-                {
-                    _logger = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+       
 
         private ObservableCollection<WorkflowItem> _commands;
         /// <summary>
@@ -349,23 +342,78 @@ namespace w3tools.App.ViewModels
             }
         }
 
-        public WccTaskHandler WccTaskHandler { get; set; }
         #endregion
 
         #region Commands
         public ICommand ExitCommand { get; }
-
         public ICommand RunCommand { get; }
-
-        public ICommand SaveFileCommand { get; }
-
         public ICommand StartGameCommand { get; }
 
-
-
+        public ICommand NewCommand { get; }
+        public ICommand OpenCommand { get; }
+        public ICommand SaveAllCommand { get; }
 
 
         #region Command Implementation
+
+
+
+        private void New()
+        {
+            AddDocument("untitled");
+        }
+        //FIXME
+        private void Open()
+        {
+            var dialog = new OpenFileDialogViewModel
+            {
+                Title = "Open Workflow",
+                Filter = "W3Tools Workflow (*.rwx)|*.rwx",
+                Owner = this,
+            };
+            var result = DialogService.ShowDialog(dialog);
+            if (result == true )
+            {
+                foreach (var file in dialog.FilePaths)
+                {
+                    //check if file exists?
+                    if (!File.Exists(file))
+                        continue;
+                    //check if it is workflow file
+                    // FIXME
+
+                    var data = RwxData.Deserialize(file);
+                    if (data is null)
+                        continue;
+
+                    RAD_Settings settings = new RAD_Settings(ConfigService, Logger); //FIXME
+                    settings.FromXElement(data.Xsettings); //FIXMEEEE
+
+                    var Workflow = new ObservableCollection<WorkflowItem>();
+                    foreach (var item in data.WorkflowItems)
+                    {
+                        //we have all commands stored in Commands, no need for assembly qualified names // FIXME
+                        var cmd = Commands.FirstOrDefault(x => x.GetType().Name == item);
+                        if (cmd is null)
+                            continue;
+
+                        WorkflowItem emptyCopy = (WorkflowItem)Activator.CreateInstance(cmd.GetType());
+                        emptyCopy.Parent = settings;
+                        Workflow.Add(emptyCopy);
+                    }
+
+                    var vm =  AddDocument(data.Title);
+                    vm.Settings = settings;
+                    vm.Workflow = Workflow;
+                    vm.DocumentPath = file;
+
+                }
+            }
+        }
+        private void SaveAll()
+        {
+
+        }
 
 
 
@@ -373,7 +421,6 @@ namespace w3tools.App.ViewModels
         {
             this.OnClosingRequest();
         }
-
 
         private bool CanStartGame()
         {
@@ -385,41 +432,22 @@ namespace w3tools.App.ViewModels
             Process.Start(Config.GetConfigSetting("TW3_Path"));
         }
 
-
         public bool CanRun()
         {
-            // check if config is OK
-            if (Config != null)
-            {
-                // if either variable is empty or not initialized
-                if (String.IsNullOrEmpty(Config.GetConfigSetting("RAD_Path")) || String.IsNullOrEmpty(Config.GetConfigSetting("WCC_Path")))
-                {
-                    // attempt to load settinsg from xml
-                    if (!Config.Load()) //either no config file exists or it's bugged or variables are bad
-                    {
-                        // open settings
+           
 
-
-                        return false;
-                    }
-                }
-                // settings succesfully loaded
-                //check if any commands in active workflow
-                WorkspaceViewModel wvm = DocumentsSource.FirstOrDefault(x => x.IsSelected);
-                return wvm != null && wvm.Workflow.Any();
-            }
-            else
-            {
-                return false;
-            }
+            //check if any commands in active workflow
+            DocumentViewModel wvm = DocumentsSource.FirstOrDefault(x => x.IsSelected);
+            return wvm != null && wvm.Workflow.Any();
         }
         public void Run()
         {
-            WorkspaceViewModel wvm = DocumentsSource.FirstOrDefault(x => x.IsSelected);
+            DocumentViewModel wvm = DocumentsSource.FirstOrDefault(x => x.IsSelected);
             var workflow = wvm.Workflow;
+            RAD_Task RAD_Task = Kernel.Get<RAD_Task>();
+            WCC_Task WCC_Task = Kernel.Get<WCC_Task>();
 
-
-            Logger.ClearLog();
+            //Logger.ClearLog();
             Logger.LogString("Starting Workflow...");
 
             // FIXME structure?
@@ -429,13 +457,11 @@ namespace w3tools.App.ViewModels
 
                 if (item.GetType().IsSubclassOf(typeof(RAD_Command)))
                 {
-                    RAD_Task rth = new RAD_Task(Config.GetConfigSetting("RAD_Path"), Logger);
-                    completed = rth.RunCommandSync((RAD_Command)item);
+                    completed = RAD_Task.RunCommandSync((RAD_Command)item);
                 }
                 else if (item.GetType().IsSubclassOf(typeof(WCC_Command)))
                 {
-                    WCC_Task wth = new WCC_Task(Config.GetConfigSetting("WCC_Path"), Logger);
-                    completed = wth.RunCommandSync((WCC_Command)item);
+                    completed = WCC_Task.RunCommandSync((WCC_Command)item);
                 }
                 else //workflowitems
                 {
@@ -456,22 +482,58 @@ namespace w3tools.App.ViewModels
         }
 
 
-        public bool CanSaveFile()
+        #endregion
+        #endregion
+
+        #region Methods
+
+        private void InitSettings()
         {
-            return true;
-        }
-        public void SaveFile()
-        {
-            //w3tools.App.Properties.Settings.Default.Save();
+            // check if config is OK
+            if (ConfigService != null)
+            {
+                // if either variable is empty or not initialized
+                if (String.IsNullOrEmpty(ConfigService.GetConfigSetting("RAD_Path")) || String.IsNullOrEmpty(ConfigService.GetConfigSetting("WCC_Path")))
+                {
+                    // attempt to load settinsg from xml
+                    if (!ConfigService.Load()) //either no config file exists or it's bugged or variables are bad
+                    {
+                        // open settings
+
+                    }
+                }
+                // settings succesfully loaded
+
+            }
         }
 
-       
+        /// <summary>
+        /// Adds a new Document. Optionally adds a Command or Workflow
+        /// </summary>
+        /// <param name="title"></param>
+        public DocumentViewModel AddDocument(string title)
+        {
+            //FIXME handle better?
+            string ContentId = "workspace_" + (this.DocumentsSource.Count + 1).ToString();
+
+            DocumentViewModel document = new DocumentViewModel(DialogService, ConfigService)
+            {
+                Title = title,
+                ContentId = ContentId,
+                ParentViewModel = this,
+                Settings = new RAD_Settings(ConfigService,Logger) //FIXME
+            };
+            DocumentsSource.Add(document);
+
+            //FIXME bugged?
+            DocumentViewModel currentDoc = this.DocumentsSource.FirstOrDefault(x => x.ContentId == ContentId);
+
+            return document;
+        }
+
 
 
 
         #endregion
-        #endregion
-
-
     }
 }

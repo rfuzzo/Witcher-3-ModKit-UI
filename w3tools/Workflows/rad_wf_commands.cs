@@ -56,7 +56,6 @@ namespace w3tools.Workflows
                     settings.LOGGER.LogString($"encoding: {filename}...");
 
                     //call encoder //FIXME
-                    RAD_Task th = new RAD_Task(settings.DIR_ENCODER, settings.LOGGER);
                     var encoder = new w3world() {
                        RepoDirectory = settings.dir_repo_worlds(),
                        OutputDirectory = settings.DIR_OUTPUT_WORLD(),
@@ -66,7 +65,7 @@ namespace w3tools.Workflows
                        Encode = filename,
                        LogLevel=settings.LOG_LEVEL
                     };
-                    WFR result = th.RunCommandSync(encoder);
+                    WFR result = RAD_Task.RunCommandSync(encoder);
                     if (result == WFR.WFR_Error)
                         return WFR.WFR_Error;
                 }
@@ -90,8 +89,8 @@ namespace w3tools.Workflows
             catch (Exception ex)
             {
                 settings.LOGGER.LogString(ex.ToString());
-                return WFR.WFR_Error; //FIXME
                 throw ex;
+                return WFR.WFR_Error; //FIXME
             }
         }
     }
@@ -145,13 +144,12 @@ namespace w3tools.Workflows
                     settings.LOGGER.LogString($"encoding: {filename}...");
 
                     //call encode
-                    RAD_Task th = new RAD_Task(settings.DIR_ENCODER, settings.LOGGER);
                     var encoder = new w3env() {
                         OutputDirectory = settings.DIR_OUTPUT_ENVS(),
                         Encode = filename,
                         LogLevel = settings.LOG_LEVEL
                     };
-                    WFR result = th.RunCommandSync(encoder);
+                    WFR result = RAD_Task.RunCommandSync(encoder);
                     if (result == WFR.WFR_Error)
                         return WFR.WFR_Error;
                 }
@@ -162,7 +160,6 @@ namespace w3tools.Workflows
             catch (Exception ex)
             {
                 settings.LOGGER.LogString(ex.ToString());
-                return WFR.WFR_Error; //FIXME
                 throw ex;
             }
         }
@@ -221,14 +218,14 @@ namespace w3tools.Workflows
 
                     //FIXME paths
                     //call encoder
-                    RAD_Task th = new RAD_Task(settings.DIR_ENCODER, settings.LOGGER);
+                    RAD_Task th = new RAD_Task();
                     var encoder = new w2scene() {
                         RepoDirectory = settings.dir_repo_scenes(),
                         OutputDirectory = settings.DIR_OUTPUT_SCENES(),
                         Encode = SCENENAME,
                         LogLevel = settings.LOG_LEVEL
                     };
-                    if (th.RunCommandSync(encoder) == WFR.WFR_Error)
+                    if (RAD_Task.RunCommandSync(encoder) == WFR.WFR_Error)
                         return WFR.WFR_Error;
 
                     //rename scene.<sceneid>.w2scene to <sceneid>.w2scene
@@ -257,7 +254,6 @@ namespace w3tools.Workflows
             catch (Exception ex)
             {
                 settings.LOGGER.LogString(ex.ToString());
-                return WFR.WFR_Error; //FIXME
                 throw ex;
             }
         }
@@ -310,14 +306,13 @@ namespace w3tools.Workflows
                     settings.LOGGER.LogString($"encoding quest: {filename}...");
 
                     //call encoder
-                    RAD_Task th = new RAD_Task(settings.DIR_ENCODER, settings.LOGGER);
                     var encoder = new w2quest() {
                         RepoDirectory = settings.dir_repo_quests(),
                         OutputDirectory = settings.DIR_OUTPUT_QUEST(),
                         Encode = filename,
                         LogLevel = settings.LOG_LEVEL
                     };
-                    if (th.RunCommandSync(encoder) == WFR.WFR_Error)
+                    if (RAD_Task.RunCommandSync(encoder) == WFR.WFR_Error)
                         return WFR.WFR_Error;
 
                     //put generated strings into strings dir for later concatenation
@@ -342,7 +337,6 @@ namespace w3tools.Workflows
             catch (Exception ex)
             {
                 settings.LOGGER.LogString(ex.ToString());
-                return WFR.WFR_Error; //FIXME
                 throw ex;
             }
         }
@@ -416,14 +410,13 @@ namespace w3tools.Workflows
                     settings.LOGGER.LogString($"encoding to w3strings...");
 
                     //call encoder
-                    RAD_Task th = new RAD_Task(settings.DIR_ENCODER, settings.LOGGER);
                     var encoder = new w3strings() {
                         Encode = STRINGS_FILE_COMBINED,
                         IdSpace = settings.idspace,
                         AutoGenerateMissingIds = true,
                         LogLevel = settings.LOG_LEVEL
                     };
-                    if (th.RunCommandSync(encoder) == WFR.WFR_Error)
+                    if (RAD_Task.RunCommandSync(encoder) == WFR.WFR_Error)
                         return WFR.WFR_Error;
                 }
                 // COPYING W3STRINGS INTO DLC FOLDER
@@ -443,7 +436,6 @@ namespace w3tools.Workflows
             catch (Exception ex)
             {
                 settings.LOGGER.LogString(ex.ToString());
-                return WFR.WFR_Error; //FIXME
                 throw ex;
             }
         }
@@ -489,14 +481,14 @@ namespace w3tools.Workflows
                     string file = Directory.GetFiles(settings.DIR_PHONEMES(), "*.phonemes", SearchOption.AllDirectories).First();
 
                     //call encoder
-                    RAD_Task th = new RAD_Task(settings.DIR_ENCODER, settings.LOGGER);
+                    
                     var encoder = new w3speech_lipsync_creator() {
                         CreateLipsync = file,
                         OutputDirectory = settings.DIR_AUDIO_WEM(),
                         RepoDirectory = settings.dir_repo_lipsync(),
                         LogLevel = settings.LOG_LEVEL
                     };
-                    if (th.RunCommandSync(encoder) == WFR.WFR_Error)
+                    if (RAD_Task.RunCommandSync(encoder) == WFR.WFR_Error)
                         return WFR.WFR_Error;
                 }
 
@@ -506,12 +498,12 @@ namespace w3tools.Workflows
                     settings.LOGGER.LogString($"ENCODING LIPSYNC ANIMATIONS TO CR2W");
 
                     //call encoder
-                    RAD_Task th = new RAD_Task(settings.DIR_ENCODER, settings.LOGGER);
+                    
                     var encoder = new w3speech() {
                         Encode = settings.DIR_AUDIO_WEM(),
                         LogLevel = settings.LOG_LEVEL
                     };
-                    if (th.RunCommandSync(encoder) == WFR.WFR_Error)
+                    if (RAD_Task.RunCommandSync(encoder) == WFR.WFR_Error)
                         return WFR.WFR_Error;
                 }
 
@@ -521,14 +513,14 @@ namespace w3tools.Workflows
                     settings.LOGGER.LogString($"CREATING W3SPEECH FILE");
 
                     //call encoder FIXME
-                    RAD_Task th = new RAD_Task(settings.DIR_ENCODER, settings.LOGGER);
+                    
                     var pack = new w3speech() {
                         Pack = settings.DIR_AUDIO_WEM(),
                         OutputDirectory = settings.DIR_DLC_CONTENT(),
                         Language = settings.language,
                         LogLevel = settings.LOG_LEVEL
                     };
-                    if (th.RunCommandSync(pack) == WFR.WFR_Error)
+                    if (RAD_Task.RunCommandSync(pack) == WFR.WFR_Error)
                         return WFR.WFR_Error;
                 }
 
@@ -549,7 +541,6 @@ namespace w3tools.Workflows
             catch (Exception ex)
             {
                 settings.LOGGER.LogString(ex.ToString());
-                return WFR.WFR_Error; //FIXME
                 throw ex;
             }
         }

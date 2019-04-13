@@ -6,16 +6,13 @@
                     xmlns:dvm="clr-namespace:w3tools.App.ViewModels.Dialogs;assembly=w3tools.App"
                     xmlns:local="clr-namespace:w3tools.UI.Templates">
 
-    <DataTemplate DataType="{x:Type dvm:UnsavedChangesDialogViewModel}">
-        <d:UnsavedChangesDialogView>
-            
-        </d:UnsavedChangesDialogView>
-    </DataTemplate>
+
+
 
 
     <DataTemplate DataType="{x:Type dvm:SettingsDialogViewModel}">
         <d:SettingsDialogView>
-            
+
         </d:SettingsDialogView>
     </DataTemplate>
 
@@ -25,6 +22,17 @@
         </v:AboutView>
     </DataTemplate>
 
+    
+    
+
+    <DataTemplate DataType="{x:Type dvm:UnsavedChangesDialogViewModel}">
+        <d:UnsavedChangesDialogView>
+            
+        </d:UnsavedChangesDialogView>
+    </DataTemplate>
+
+
+   
 
     <DataTemplate DataType="{x:Type dvm:ExceptionDialogViewModel}">
         <d:ExceptionDialogView>

@@ -6,7 +6,11 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Linq;
+using System.Xml.Serialization;
 using w3tools.common;
+using w3tools.Services;
 using Xceed.wpf.PropertyGrid.Extensions.EditorTemplates;
 
 namespace w3tools.Workflows
@@ -14,34 +18,29 @@ namespace w3tools.Workflows
     /// <summary>
     /// Radish Workflow Global Settings
     /// </summary>
+    [Serializable]
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public class RAD_Settings : ObservableObject
     {
-        public RAD_Settings(string w3, string modkit, string encoder, WccExtendedLogger logger)
+        //public RAD_Settings(string WCC_Path, string TW3_Path, string RAD_Path)
+        public RAD_Settings(IConfigService configService, ILoggerService loggerService)
         {
-            DIR_W3 = w3; //game path
-            DIR_MODKIT = modkit; //wcc_lite.exe path
-            DIR_ENCODER = encoder; //path to directory with encoder binaries
-            LOGGER = logger;
+            ConfigService = configService; //FIXME
+            LOGGER = loggerService;
+
             PATCH_MODE = true;
-            //LastResult = WFR.WFR_Finished; // first setup is good
         }
 
-        #region Properties
-        // Editor Settings
-        [BrowsableAttribute(false)]
-        [Editor(typeof(PropertyGridFolderPicker), typeof(PropertyGridFolderPicker))]
-        public string DIR_W3 { get; set; }
-        [BrowsableAttribute(false)]
-        [Editor(typeof(PropertyGridFolderPicker), typeof(PropertyGridFolderPicker))]
-        public string DIR_MODKIT { get; set; }
-        [BrowsableAttribute(false)]
-        [Editor(typeof(PropertyGridFolderPicker), typeof(PropertyGridFolderPicker))]
-        public string DIR_ENCODER { get; set; }
-        [BrowsableAttribute(false)]
-        public WccExtendedLogger LOGGER { get; set; }
+        #region Services
+        public IConfigService ConfigService { get; }
+        public ILoggerService LOGGER { get; }
+        #endregion
 
-        // User Settings
+        #region Properties
+
+
+        // User User Settings
+        #region User Settings
         [CategoryAttribute("1 Settings")]
         [Editor(typeof(PropertyGridFolderPicker), typeof(PropertyGridFolderPicker))]
         public string DIR_PROJECT_BASE { get; set; }
@@ -49,8 +48,8 @@ namespace w3tools.Workflows
         public string MODNAME { get; set; }
         [CategoryAttribute("1 Settings")]
         public uint idspace { get; set; }
-        [CategoryAttribute("1 Settings")]
-        public bool auto_delete_mod { get; set; }
+        //[CategoryAttribute("1 Settings")]
+        //public bool auto_delete_mod { get; set; }
         [CategoryAttribute("1 Settings")]
         public ERL LOG_LEVEL { get; set; }
         [CategoryAttribute("1 Settings")]
@@ -61,11 +60,8 @@ namespace w3tools.Workflows
         public bool _PATCH_MODE { get; set; }
         [CategoryAttribute("2 Flags")]
         public bool PATCH_MODE
-        { 
-            get
-            {
-                return _PATCH_MODE;
-            }
+        {
+            get => _PATCH_MODE;
             set
             {
                 if (_PATCH_MODE != value)
@@ -87,10 +83,7 @@ namespace w3tools.Workflows
         [CategoryAttribute("2 Flags")]
         public bool FULL_REBUILD
         {
-            get
-            {
-                return _FULL_REBUILD;
-            }
+            get => _FULL_REBUILD;
             set
             {
                 if (_FULL_REBUILD != value)
@@ -147,6 +140,7 @@ namespace w3tools.Workflows
                 }
             }
         }
+        #endregion
 
         // Hidden Settings
         #region HIDDEN
@@ -242,217 +236,70 @@ namespace w3tools.Workflows
 
         // auto generated
         #region AUTO
-
+        public string DIR_MODKIT() => ConfigService.GetConfigSetting("WCC_Path");
+        public string DIR_ENCODER() => ConfigService.GetConfigSetting("RAD_Path");
+        public string DIR_W3() => ConfigService.GetConfigSetting("TW3_Path");
 
         // settings for modkit
-        public string DIR_MODKIT_BIN()
-        {
-            return Path.Combine(DIR_MODKIT, @"..\"); //FIXME
-        }
-        public string DIR_MODKIT_DEPOT()
-        {
-            return Path.Combine(DIR_MODKIT, @"..\..\r4data"); //FIXME
-        }
+        public string DIR_MODKIT_BIN() => Path.Combine(DIR_MODKIT(), @"..\"); //FIXME
+        public string DIR_MODKIT_DEPOT() => Path.Combine(DIR_MODKIT(), @"..\..\r4data"); //FIXME
 
         // settings for encoders
-        public string dir_repo_quests()
-        {
-            return Path.Combine(DIR_ENCODER, "repo.quests");
-        }
-        public string dir_repo_worlds()
-        {
-            return Path.Combine(DIR_ENCODER, "repo.quests");
-        }
-        public string dir_repo_scenes()
-        {
-            return Path.Combine(DIR_ENCODER, "repo.scenes");
-        }
-        public string dir_repo_lipsync()
-        {
-            return Path.Combine(DIR_ENCODER, "repo.lipsync");
-        }
-        public string dir_data_phoneme_generation()
-        {
-            return Path.Combine(DIR_ENCODER, "data");
-        }
+        public string dir_repo_quests() => Path.Combine(DIR_ENCODER(), "repo.quests");
+        public string dir_repo_worlds() => Path.Combine(DIR_ENCODER(), "repo.quests");
+        public string dir_repo_scenes() => Path.Combine(DIR_ENCODER(), "repo.scenes");
+        public string dir_repo_lipsync() => Path.Combine(DIR_ENCODER(), "repo.lipsync");
+        public string dir_data_phoneme_generation() => Path.Combine(DIR_ENCODER(), "data");
 
 
         // some environment settings
-       public string DIR_PROJECT_BIN()
-        {
-            return Path.Combine(DIR_PROJECT_BASE, "bin");
-        }
-        public string DIR_RESOURCES()
-        {
-            return Path.Combine(DIR_PROJECT_BASE, "resources");
-        }
-        public string MODNAME_LC()
-        {
-            return MODNAME.ToLower();
-        }
+        public string DIR_PROJECT_BIN() => Path.Combine(DIR_PROJECT_BASE, "bin");
+        public string DIR_RESOURCES() => Path.Combine(DIR_PROJECT_BASE, "resources");
+        public string MODNAME_LC() => MODNAME.ToLower();
 
         // output directories
-        public string DIR_TMP()
-        {
-            return Path.Combine(DIR_PROJECT_BASE, "_tmp");
-        }
-        public string DIR_UNCOOKED()
-        {
-            return Path.Combine(DIR_PROJECT_BASE, "uncooked");
-        }
-        public string DIR_UNCOOKED_TEXTURES()
-        {
-            return Path.Combine(DIR_PROJECT_BASE, "textures");
-        }
+        public string DIR_TMP() => Path.Combine(DIR_PROJECT_BASE, "_tmp");
+        public string DIR_UNCOOKED() => Path.Combine(DIR_PROJECT_BASE, "uncooked");
+        public string DIR_UNCOOKED_TEXTURES() => Path.Combine(DIR_PROJECT_BASE, "textures");
 
-        public string DIR_COOKED_MOD()
-        {
-            return Path.Combine(DIR_RESOURCES(), $"mod{MODNAME_LC()}","files"); //FIXME
-        }
-        public string DIR_COOKED_DLC()
-        {
-            return Path.Combine(DIR_RESOURCES(), $"dlc{MODNAME_LC()}", "files"); //FIXME
-        }
+        public string DIR_COOKED_MOD() => Path.Combine(DIR_RESOURCES(), $"mod{MODNAME_LC()}", "files"); //FIXME
+        public string DIR_COOKED_DLC() => Path.Combine(DIR_RESOURCES(), $"dlc{MODNAME_LC()}", "files"); //FIXME
 
-        public string DIR_COOKED_FILES_DB()
-        {
-            return Path.Combine(DIR_TMP(), "files.cook.db");
-        }
-        public string DIR_COOKED_TEXTURES_DB()
-        {
-            return Path.Combine(DIR_TMP(), "textures.cook.db");
-        }
+        public string DIR_COOKED_FILES_DB() => Path.Combine(DIR_TMP(), "files.cook.db");
+        public string DIR_COOKED_TEXTURES_DB() => Path.Combine(DIR_TMP(), "textures.cook.db");
 
-        public string DIR_DLC_GAMEPATH()
-        {
-            return $"dlc\\dlc{MODNAME_LC()}";
-        }
-        public string DIR_OUTPUT_QUEST()
-        {
-            return $"{DIR_UNCOOKED()}";
-        }
-        public string DIR_OUTPUT_SCENES()
-        {
-            return $"{DIR_UNCOOKED()}\\{DIR_DLC_GAMEPATH()}\\data\\scenes";
-        }
-        public string DIR_OUTPUT_WORLD()
-        {
-            return $"{DIR_UNCOOKED()}\\{DIR_DLC_GAMEPATH()}\\levels";
-        }
-        public string DIR_OUTPUT_ENVS()
-        {
-            return $"{DIR_UNCOOKED()}\\{DIR_DLC_GAMEPATH()}\\data\\envs";
-        }
-        public string DIR_OUTPUT_MESHES()
-        {
-            return $"{DIR_UNCOOKED()}\\{DIR_DLC_GAMEPATH()}\\data\\entities\\meshes";
-        }
+        public string DIR_DLC_GAMEPATH() => $"dlc\\dlc{MODNAME_LC()}";
+        public string DIR_OUTPUT_QUEST() => $"{DIR_UNCOOKED()}";
+        public string DIR_OUTPUT_SCENES() => $"{DIR_UNCOOKED()}\\{DIR_DLC_GAMEPATH()}\\data\\scenes";
+        public string DIR_OUTPUT_WORLD() => $"{DIR_UNCOOKED()}\\{DIR_DLC_GAMEPATH()}\\levels";
+        public string DIR_OUTPUT_ENVS() => $"{DIR_UNCOOKED()}\\{DIR_DLC_GAMEPATH()}\\data\\envs";
+        public string DIR_OUTPUT_MESHES() => $"{DIR_UNCOOKED()}\\{DIR_DLC_GAMEPATH()}\\data\\entities\\meshes";
 
-        public string DIR_DLC()
-        {
-            return Path.Combine(DIR_W3, $"{DIR_DLC_GAMEPATH()}");
-        }
-        public string DIR_MOD()
-        {
-            return Path.Combine(DIR_W3, $"mods\\mod{MODNAME}");
-        }
-        public string DIR_TMP_MOD()
-        {
-            return Path.Combine(DIR_W3, $"mods\\mod{MODNAME}_tmp");
-        }
-        public string DIR_DLC_CONTENT()
-        {
-            return Path.Combine(DIR_DLC(), "content");
-        }
-        public string DIR_MOD_CONTENT()
-        {
-            return Path.Combine(DIR_MOD(), "content");
-        }
-        public string DIR_TMP_MOD_CONTENT()
-        {
-            return Path.Combine(DIR_TMP_MOD(), "content");
-        }
+        public string DIR_DLC() => Path.Combine(DIR_W3(), $"{DIR_DLC_GAMEPATH()}");
+        public string DIR_MOD() => Path.Combine(DIR_W3(), $"mods\\mod{MODNAME}");
+        public string DIR_TMP_MOD() => Path.Combine(DIR_W3(), $"mods\\mod{MODNAME}_tmp");
+        public string DIR_DLC_CONTENT() => Path.Combine(DIR_DLC(), "content");
+        public string DIR_MOD_CONTENT() => Path.Combine(DIR_MOD(), "content");
+        public string DIR_TMP_MOD_CONTENT() => Path.Combine(DIR_TMP_MOD(), "content");
 
 
         // script src dirs
-        public string DIR_MOD_SCRIPTS()
-        {
-            return Path.Combine(DIR_PROJECT_BASE, "mod.scripts");
-        }
-        public string DIR_TMP_MOD_SCRIPTS()
-        {
-            return Path.Combine(DIR_PROJECT_BASE, "mod.scripts-tmp");
-        }
+        public string DIR_MOD_SCRIPTS() => Path.Combine(DIR_PROJECT_BASE, "mod.scripts");
+        public string DIR_TMP_MOD_SCRIPTS() => Path.Combine(DIR_PROJECT_BASE, "mod.scripts-tmp");
 
 
-
-
-        // w3strings settings
-        public string DIR_STRINGS()
-        {
-            return Path.Combine(DIR_PROJECT_BASE, "strings");
-        }
-        
-
-        // w2scene settings
-        public string DIR_DEF_SCENES()
-        {
-            return Path.Combine(DIR_PROJECT_BASE, "definition.scenes");
-        }
-        
-
-        // w2quest settings
-        public string DIR_DEF_QUEST()
-        {
-            return Path.Combine(DIR_PROJECT_BASE, "definition.quest");
-        }
-        
-
-        // w3speech settings
-       
-        public string DIR_SPEECH()
-        {
-            return Path.Combine(DIR_PROJECT_BASE, "speech");
-        }
-        public string DIR_AUDIO_WAV()
-        {
-            return Path.Combine(DIR_SPEECH(), $"speech.{language}.wav");
-        }
-        public string DIR_PHONEMES()
-        {
-            return DIR_AUDIO_WAV();
-        }
-        public string DIR_AUDIO_WEM()
-        {
-            return Path.Combine(DIR_SPEECH(), $"speech.{language}.wem");
-        }
-
-        // w3world settings
-        public string DIR_DEF_WORLD()
-        {
-            return Path.Combine(DIR_PROJECT_BASE, "definition.world");
-        }
-        
-
-        // w3envs settings
-        public string DIR_DEF_ENVS()
-        {
-            return Path.Combine(DIR_PROJECT_BASE, "definition.envs");
-        }
-        
-
-        // model import settings
-        public string DIR_MODEL_FBX()
-        {
-            return Path.Combine(DIR_PROJECT_BASE, "models");
-        }
-        
-
-        // game relative path to worlds for scanning depot
-        public string DIR_WCC_DEPOT_WORLDS()
-        {
-            return Path.Combine(DIR_DLC_GAMEPATH(), "levels");
-        }
+        // encoder settings
+        public string DIR_STRINGS() => Path.Combine(DIR_PROJECT_BASE, "strings");
+        public string DIR_DEF_SCENES() => Path.Combine(DIR_PROJECT_BASE, "definition.scenes");
+        public string DIR_DEF_QUEST() => Path.Combine(DIR_PROJECT_BASE, "definition.quest");
+        public string DIR_SPEECH() => Path.Combine(DIR_PROJECT_BASE, "speech");
+        public string DIR_AUDIO_WAV() => Path.Combine(DIR_SPEECH(), $"speech.{language}.wav");
+        public string DIR_PHONEMES() => DIR_AUDIO_WAV();
+        public string DIR_AUDIO_WEM() => Path.Combine(DIR_SPEECH(), $"speech.{language}.wem");
+        public string DIR_DEF_WORLD() => Path.Combine(DIR_PROJECT_BASE, "definition.world");
+        public string DIR_DEF_ENVS() => Path.Combine(DIR_PROJECT_BASE, "definition.envs");
+        public string DIR_MODEL_FBX() => Path.Combine(DIR_PROJECT_BASE, "models");
+        public string DIR_WCC_DEPOT_WORLDS() => Path.Combine(DIR_DLC_GAMEPATH(), "levels");
 
         #endregion
 
@@ -462,9 +309,9 @@ namespace w3tools.Workflows
         /// <returns></returns>
         public bool CheckSelf()
         {
-            bool test_DIR_W3 = Directory.Exists(this.DIR_W3);
-            bool test_DIR_MODKIT = File.Exists(this.DIR_MODKIT);
-            bool test_DIR_ENCODER = Directory.Exists(this.DIR_ENCODER);
+            bool test_DIR_W3 = File.Exists(DIR_W3());
+            bool test_DIR_MODKIT = File.Exists(DIR_MODKIT());
+            bool test_DIR_ENCODER = Directory.Exists(DIR_ENCODER() );
 
             bool test_DIR_PROJECT_BASE = Directory.Exists(this.DIR_PROJECT_BASE);
             bool test_MODNAME = !String.IsNullOrEmpty(this.MODNAME);
@@ -503,7 +350,7 @@ namespace w3tools.Workflows
         /// </summary>
         /// <param name="v"></param>
         /// <returns></returns>
-        public string EnumToArg(ERL v)
+        private string EnumToArg(ERL v)
         {
             switch (v)
             {
@@ -513,5 +360,47 @@ namespace w3tools.Workflows
                 default: return "";
             }
         }
+
+
+        public XElement ToXElement()
+        {
+
+            return new XElement("WorkflowSettings", 
+                new XElement ("DIR_PROJECT_BASE", DIR_PROJECT_BASE),
+                new XElement ("MODNAME", MODNAME),
+                new XElement ("idspace", idspace)
+                );
+
+            /*using (var memoryStream = new MemoryStream())
+            {
+                using (XmlWriter streamWriter = XmlWriter.Create(memoryStream))
+                {
+                    var xmlSerializer = new XmlSerializer(typeof(RAD_Settings));
+                    xmlSerializer.Serialize(streamWriter, this);
+
+                    var xml = Encoding.UTF8.GetString(memoryStream.ToArray());
+
+                    string _byteOrderMarkUtf8 = Encoding.UTF8.GetString(Encoding.UTF8.GetPreamble());
+                    if (xml.StartsWith(_byteOrderMarkUtf8))
+                    {
+                        xml = xml.Remove(0, _byteOrderMarkUtf8.Length);
+                    }
+
+                    return XElement.Parse(xml);
+                }
+            }*/
+        }
+
+        public void FromXElement(XElement el)
+        {
+            if (el.Name == "WorkflowSettings")
+            {
+                DIR_PROJECT_BASE = el.Element("DIR_PROJECT_BASE").Value;
+                MODNAME = el.Element("MODNAME").Value;
+                idspace = uint.Parse(el.Element("idspace").Value);
+            }
+        }
+
+        
     }
 }

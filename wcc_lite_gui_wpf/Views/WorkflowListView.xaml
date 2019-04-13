@@ -46,13 +46,19 @@
     <Grid>
         <ListView x:Name="_workflowsListView" 
                   ItemsSource="{Binding Source={StaticResource cvs_wfs}, UpdateSourceTrigger=PropertyChanged}" 
-                  MouseDoubleClick="_workflowsListView_MouseDoubleClick"
                   SelectedItem="{Binding ParentViewModel.ActiveProperty}"
                    >
-
+            <ListView.InputBindings>
+                <MouseBinding Gesture="LeftDoubleClick" Command="{Binding AddWorkflowCommand}" />
+            </ListView.InputBindings>
 
             <ListView.ContextMenu>
                 <ContextMenu>
+                    <MenuItem Header="Create Workflow from this"
+                         Command="{Binding AddWorkflowCommand}"
+                         CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu}, Path=PlacementTarget.SelectedItem}">
+                    </MenuItem>
+                    <Separator/>
                     <MenuItem Header="Add to Favourites"
                          Command="{Binding AddToFavouritesCommand}"
                          CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu}, Path=PlacementTarget.SelectedItem}">

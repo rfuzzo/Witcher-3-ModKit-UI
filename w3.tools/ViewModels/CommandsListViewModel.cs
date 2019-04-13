@@ -62,7 +62,7 @@ namespace w3tools.App.ViewModels
         public void CommandDoubleClick(WorkflowItem sender)
         {
             //FIXME handle open docs
-            WorkspaceViewModel currentDoc = ParentViewModel.DocumentsSource.FirstOrDefault(x => x.IsSelected);
+            DocumentViewModel currentDoc = ParentViewModel.DocumentsSource.FirstOrDefault(x => x.IsSelected);
 
             WorkflowItem emptyCopy = (WorkflowItem)Activator.CreateInstance(sender.GetType());
             currentDoc.Workflow.Add(emptyCopy);

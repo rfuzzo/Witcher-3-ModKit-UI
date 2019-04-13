@@ -65,7 +65,6 @@ namespace w3tools.Workflows
             catch (Exception ex)
             {
                 settings.LOGGER.LogString(ex.ToString());
-                return WFR.WFR_Error; //FIXME
                 throw ex;
             }
         }
@@ -78,6 +77,8 @@ namespace w3tools.Workflows
     [Serializable]
     public class DeployModScripts : WIN_wf_Command
     {
+        private bool auto_delete_mod {get;set;}
+
         public DeployModScripts()
         {
             Name = "Deploy Mod Scripts";
@@ -109,7 +110,7 @@ namespace w3tools.Workflows
                 if (Directory.Exists(settings.DIR_MOD()))
                 {
                     // deleting ALL files in %DIR_MOD_CONTENT%\scripts
-                    if (!settings.auto_delete_mod)
+                    if (!auto_delete_mod)
                     {
                         //confirmation
                         //FIXME message box
@@ -138,7 +139,6 @@ namespace w3tools.Workflows
             catch (Exception ex)
             {
                 settings.LOGGER.LogString(ex.ToString());
-                return WFR.WFR_Error; //FIXME
                 throw ex;
             }
         }
@@ -151,6 +151,8 @@ namespace w3tools.Workflows
     [Serializable]
     public class DeployTmpModScripts : WIN_wf_Command
     {
+        private bool auto_delete_mod { get; set; }
+
         public DeployTmpModScripts()
         {
             Name = "Deploy Tmp-Mod Scripts";
@@ -182,7 +184,7 @@ namespace w3tools.Workflows
                 if (Directory.Exists(settings.DIR_TMP_MOD()))
                 {
                     // deleting ALL files in %DIR_TMP_MOD%
-                    if (!settings.auto_delete_mod)
+                    if (!auto_delete_mod)
                     {
                         //confirmation
                         //FIXME message box
@@ -209,7 +211,6 @@ namespace w3tools.Workflows
             catch (Exception ex)
             {
                 settings.LOGGER.LogString(ex.ToString());
-                return WFR.WFR_Error; //FIXME
                 throw ex;
             }
         }
@@ -256,7 +257,6 @@ namespace w3tools.Workflows
             catch (Exception ex)
             {
                 settings.LOGGER.LogString(ex.ToString());
-                return WFR.WFR_Error; //FIXME
                 throw ex;
             }
         }
@@ -312,7 +312,6 @@ namespace w3tools.Workflows
             catch (Exception ex)
             {
                 settings.LOGGER.LogString(ex.ToString());
-                return WFR.WFR_Error; //FIXME
                 throw ex;
             }
         }

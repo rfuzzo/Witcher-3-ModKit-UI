@@ -24,7 +24,7 @@ namespace w3tools.UI
         {
             Kernel = new StandardKernel();
 
-            //Kernel.Load<CoreModule>();
+            Kernel.Load<CoreModule>();
             Kernel.Load<AppModule>();
             Kernel.Load<UIModule>();
         }

@@ -133,17 +133,14 @@
     <Compile Include="Views\PropertiesView.xaml.cs">
       <DependentUpon>PropertiesView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SettingsView.xaml.cs">
-      <DependentUpon>SettingsView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\VariablesView.xaml.cs">
       <DependentUpon>VariablesView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WorkflowListView.xaml.cs">
       <DependentUpon>WorkflowListView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\WorkspaceView.xaml.cs">
-      <DependentUpon>WorkspaceView.xaml</DependentUpon>
+    <Compile Include="Views\DocumentView.xaml.cs">
+      <DependentUpon>DocumentView.xaml</DependentUpon>
     </Compile>
     <Page Include="Templates\DataTemplates.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -165,7 +162,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ConsoleView.xaml">
+    <Page Include="Views\LogView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -205,10 +202,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\SettingsView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\VariablesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -217,7 +210,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\WorkspaceView.xaml">
+    <Page Include="Views\DocumentView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -232,8 +225,8 @@
     <Compile Include="Views\CommandsView.xaml.cs">
       <DependentUpon>CommandsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ConsoleView.xaml.cs">
-      <DependentUpon>ConsoleView.xaml</DependentUpon>
+    <Compile Include="Views\LogView.xaml.cs">
+      <DependentUpon>LogView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ErrorsView.xaml.cs">
       <DependentUpon>ErrorsView.xaml</DependentUpon>
@@ -265,64 +258,6 @@
     <Resource Include="Resources\Icons\Copy_16x.png" />
     <Resource Include="Resources\Icons\Cut_16x.png" />
     <Resource Include="Resources\Icons\ExpandAll_16x.png" />
-    <Resource Include="Resources\Icons\Files\bird.png" />
-    <Resource Include="Resources\Icons\Files\csv.png" />
-    <Resource Include="Resources\Icons\Files\detail.png" />
-    <Resource Include="Resources\Icons\Files\env.png" />
-    <Resource Include="Resources\Icons\Files\fev.png" />
-    <Resource Include="Resources\Icons\Files\journal.png" />
-    <Resource Include="Resources\Icons\Files\redgame.png" />
-    <Resource Include="Resources\Icons\Files\redswf.png" />
-    <Resource Include="Resources\Icons\Files\spawntree.png" />
-    <Resource Include="Resources\Icons\Files\swf.png" />
-    <Resource Include="Resources\Icons\Files\vbrush.png" />
-    <Resource Include="Resources\Icons\Files\w2ainfo.png" />
-    <Resource Include="Resources\Icons\Files\w2am.png" />
-    <Resource Include="Resources\Icons\Files\w2anim.png" />
-    <Resource Include="Resources\Icons\Files\w2animev.png" />
-    <Resource Include="Resources\Icons\Files\w2anims.png" />
-    <Resource Include="Resources\Icons\Files\w2beh.png" />
-    <Resource Include="Resources\Icons\Files\w2behtree.png" />
-    <Resource Include="Resources\Icons\Files\w2blb.png" />
-    <Resource Include="Resources\Icons\Files\w2brix.png" />
-    <Resource Include="Resources\Icons\Files\w2cent.png" />
-    <Resource Include="Resources\Icons\Files\w2comm.png" />
-    <Resource Include="Resources\Icons\Files\w2conv.png" />
-    <Resource Include="Resources\Icons\Files\w2cube.png" />
-    <Resource Include="Resources\Icons\Files\w2cutscene.png" />
-    <Resource Include="Resources\Icons\Files\w2ds.png" />
-    <Resource Include="Resources\Icons\Files\w2dset.png" />
-    <Resource Include="Resources\Icons\Files\w2ent.png" />
-    <Resource Include="Resources\Icons\Files\w2expr.png" />
-    <Resource Include="Resources\Icons\Files\w2f.png" />
-    <Resource Include="Resources\Icons\Files\w2faces.png" />
-    <Resource Include="Resources\Icons\Files\w2fnt.png" />
-    <Resource Include="Resources\Icons\Files\w2goalcrv.png" />
-    <Resource Include="Resources\Icons\Files\w2guidesc.png" />
-    <Resource Include="Resources\Icons\Files\w2je.png" />
-    <Resource Include="Resources\Icons\Files\w2job.png" />
-    <Resource Include="Resources\Icons\Files\w2l.png" />
-    <Resource Include="Resources\Icons\Files\w2mesh.png" />
-    <Resource Include="Resources\Icons\Files\w2mg.png" />
-    <Resource Include="Resources\Icons\Files\w2mi.png" />
-    <Resource Include="Resources\Icons\Files\w2p.png" />
-    <Resource Include="Resources\Icons\Files\w2phase.png" />
-    <Resource Include="Resources\Icons\Files\w2pr.png" />
-    <Resource Include="Resources\Icons\Files\w2ps.png" />
-    <Resource Include="Resources\Icons\Files\w2qlog.png" />
-    <Resource Include="Resources\Icons\Files\w2quest.png" />
-    <Resource Include="Resources\Icons\Files\w2rag.png" />
-    <Resource Include="Resources\Icons\Files\w2ragdoll.png" />
-    <Resource Include="Resources\Icons\Files\w2react.png" />
-    <Resource Include="Resources\Icons\Files\w2rig.png" />
-    <Resource Include="Resources\Icons\Files\w2rigm.png" />
-    <Resource Include="Resources\Icons\Files\w2sbnk.png" />
-    <Resource Include="Resources\Icons\Files\w2scene.png" />
-    <Resource Include="Resources\Icons\Files\w2spwn.png" />
-    <Resource Include="Resources\Icons\Files\w2steer.png" />
-    <Resource Include="Resources\Icons\Files\w2surf.png" />
-    <Resource Include="Resources\Icons\Files\w2w.png" />
-    <Resource Include="Resources\Icons\Files\worldmap.png" />
     <Resource Include="Resources\Icons\FlatList_16x.png" />
     <Resource Include="Resources\Icons\FolderOpen_16x.png" />
     <Resource Include="Resources\Icons\Folder_16x.png" />
@@ -402,6 +337,9 @@
   <ItemGroup>
     <Resource Include="Resources\modkitUIIcon.ico" />
     <Resource Include="Resources\modkitUIIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\OpenFolder_16x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
