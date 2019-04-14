@@ -27,14 +27,14 @@ namespace w3tools.Workflows
             if (base.Run() == WFR.WFR_Error)
                 return WFR.WFR_Error;
             // check if step is disabled
-            RAD_Settings settings = (RAD_Settings)base.Parent;
+            WF_Settings settings = (WF_Settings)base.Parent;
             if (!settings.FULL_REBUILD)
                 return (int)WFR.WFR_NotRun;
 
            return _CleanupFolder(settings);
         }
 
-        private WFR _CleanupFolder(RAD_Settings settings)
+        private WFR _CleanupFolder(WF_Settings settings)
         {
             settings.LOGGER.LogString($"--------------------------------------------------------------------------");
             settings.LOGGER.LogString($"-- CLEANUP OF UNCOOKED, COOKED, DLC TARGET FOLDERS pm: {settings.PATCH_MODE}");
@@ -90,14 +90,14 @@ namespace w3tools.Workflows
             if (base.Run() == WFR.WFR_Error)
                 return WFR.WFR_Error;
             // check if step is disabled
-            RAD_Settings settings = (RAD_Settings)base.Parent;
+            WF_Settings settings = (WF_Settings)base.Parent;
             if (!settings.DEPLOY_SCRIPTS)
                 return (int)WFR.WFR_NotRun;
 
            return _DeployModScripts(settings);
         }
 
-        private WFR _DeployModScripts(RAD_Settings settings)
+        private WFR _DeployModScripts(WF_Settings settings)
         {
             settings.LOGGER.LogString($"--------------------------------------------------------------------------");
             settings.LOGGER.LogString($"-- DEPLOYING MOD pm: {settings.PATCH_MODE}");
@@ -164,14 +164,14 @@ namespace w3tools.Workflows
             if (base.Run() == WFR.WFR_Error)
                 return WFR.WFR_Error;
             // check if step is disabled
-            RAD_Settings settings = (RAD_Settings)base.Parent;
+            WF_Settings settings = (WF_Settings)base.Parent;
             if (!settings.DEPLOY_TMP_SCRIPTS)
                 return (int)WFR.WFR_NotRun;
 
             return _DeployTmpModScripts(settings);
         }
 
-        private WFR _DeployTmpModScripts(RAD_Settings settings)
+        private WFR _DeployTmpModScripts(WF_Settings settings)
         {
             settings.LOGGER.LogString($"--------------------------------------------------------------------------");
             settings.LOGGER.LogString($"-- DEPLOYING TMP MOD pm: {settings.PATCH_MODE}");
@@ -233,14 +233,14 @@ namespace w3tools.Workflows
             if (base.Run() == WFR.WFR_Error)
                 return WFR.WFR_Error;
             // check if step is disabled
-            RAD_Settings settings = (RAD_Settings)base.Parent;
+            WF_Settings settings = (WF_Settings)base.Parent;
             if (!settings.WCC_COOK)
                 return (int)WFR.WFR_NotRun;
 
             return _PrepareCooking(settings);
         }
 
-        private WFR _PrepareCooking(RAD_Settings settings)
+        private WFR _PrepareCooking(WF_Settings settings)
         {
             settings.LOGGER.LogString($"--------------------------------------------------------------------------");
             settings.LOGGER.LogString($"-- PREPARE COOKING: CLEANUP OF UNCOOKED CONTENT");
@@ -279,14 +279,14 @@ namespace w3tools.Workflows
             if (base.Run() == WFR.WFR_Error)
                 return WFR.WFR_Error;
             // check if step is disabled
-            RAD_Settings settings = (RAD_Settings)base.Parent;
+            WF_Settings settings = (WF_Settings)base.Parent;
             if (!settings.WCC_REPACK_DLC)
                 return (int)WFR.WFR_NotRun;
 
             return _PreparePackaging(settings);
         }
 
-        private WFR _PreparePackaging(RAD_Settings settings)
+        private WFR _PreparePackaging(WF_Settings settings)
         {
             settings.LOGGER.LogString($"--------------------------------------------------------------------------");
             settings.LOGGER.LogString($"-- PREPARE PACKING: COPY ADDITIONAL DATA");

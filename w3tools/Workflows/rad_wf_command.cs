@@ -39,7 +39,7 @@ namespace w3tools.Workflows
             if (base.Run() == WFR.WFR_Error)
                 return WFR.WFR_Error;
             // all radish commands check if radish setttings are OK
-            RAD_Settings settings = (RAD_Settings)base.Parent;
+            WF_Settings settings = (WF_Settings)base.Parent;
             if (!settings.CheckSelf())
                 return WFR.WFR_Error;
             //manual override

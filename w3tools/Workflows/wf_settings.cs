@@ -20,10 +20,10 @@ namespace w3tools.Workflows
     /// </summary>
     [Serializable]
     [TypeConverter(typeof(ExpandableObjectConverter))]
-    public class RAD_Settings : ObservableObject
+    public class WF_Settings : ObservableObject
     {
         //public RAD_Settings(string WCC_Path, string TW3_Path, string RAD_Path)
-        public RAD_Settings(IConfigService configService, ILoggerService loggerService)
+        public WF_Settings(IConfigService configService, ILoggerService loggerService)
         {
             ConfigService = configService; //FIXME
             LOGGER = loggerService;

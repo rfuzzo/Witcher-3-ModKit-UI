@@ -27,14 +27,14 @@ namespace w3tools.Workflows
             if (base.Run() == WFR.WFR_Error)
                 return WFR.WFR_Error;
             // check if step is disabled
-            RAD_Settings settings = (RAD_Settings)base.Parent;
+            WF_Settings settings = (WF_Settings)base.Parent;
             if (!settings.WCC_IMPORT_MODELS)
                 return (int)WFR.WFR_NotRun;
 
             return _WCC_import(settings);
         }
 
-        private WFR _WCC_import(RAD_Settings settings)
+        private WFR _WCC_import(WF_Settings settings)
         {
             settings.LOGGER.LogString($"--------------------------------------------------------------------------");
             settings.LOGGER.LogString($"-- WCC_LITE: IMPORTING MODELS pm: {settings.PATCH_MODE}");
@@ -108,14 +108,14 @@ namespace w3tools.Workflows
             if (base.Run() == WFR.WFR_Error)
                 return WFR.WFR_Error;
             // check if step is disabled
-            RAD_Settings settings = (RAD_Settings)base.Parent;
+            WF_Settings settings = (WF_Settings)base.Parent;
             if (!settings.WCC_OCCLUSIONDATA)
                 return (int)WFR.WFR_NotRun;
 
             return _WCC_occlusion(settings);
         }
 
-        private WFR _WCC_occlusion(RAD_Settings settings)
+        private WFR _WCC_occlusion(WF_Settings settings)
         {
             settings.LOGGER.LogString($"--------------------------------------------------------------------------");
             settings.LOGGER.LogString($"-- WCC_LITE: COOK OCCLUSION pm: {settings.PATCH_MODE}");
@@ -179,13 +179,13 @@ namespace w3tools.Workflows
             if (base.Run() == WFR.WFR_Error)
                 return WFR.WFR_Error;
             // check if step is disabled
-            RAD_Settings settings = (RAD_Settings)base.Parent;
+            WF_Settings settings = (WF_Settings)base.Parent;
             if (!settings.WCC_ANALYZE)
                 return (int)WFR.WFR_NotRun;
 
             return _WCC_analyze(settings);        }
 
-        private WFR _WCC_analyze(RAD_Settings settings)
+        private WFR _WCC_analyze(WF_Settings settings)
         {
             settings.LOGGER.LogString($"--------------------------------------------------------------------------");
             settings.LOGGER.LogString($"-- WCC_LITE: ANALYZE FILES pm: {settings.PATCH_MODE}");
@@ -276,13 +276,13 @@ namespace w3tools.Workflows
             if (base.Run() == WFR.WFR_Error)
                 return WFR.WFR_Error;
             // check if step is disabled
-            RAD_Settings settings = (RAD_Settings)base.Parent;
+            WF_Settings settings = (WF_Settings)base.Parent;
             if (!settings.WCC_NAVDATA)
                 return (int)WFR.WFR_NotRun;
 
             return _WCC_GenerateNavData(settings);        }
 
-        private WFR _WCC_GenerateNavData(RAD_Settings settings)
+        private WFR _WCC_GenerateNavData(WF_Settings settings)
         {
             settings.LOGGER.LogString($"--------------------------------------------------------------------------");
             settings.LOGGER.LogString($"-- WCC_LITE: GENERATE NAVDATA pm: {settings.PATCH_MODE}");
@@ -326,14 +326,14 @@ namespace w3tools.Workflows
             if (base.Run() == WFR.WFR_Error)
                 return WFR.WFR_Error;
             // check if step is disabled
-            RAD_Settings settings = (RAD_Settings)base.Parent;
+            WF_Settings settings = (WF_Settings)base.Parent;
             if (!settings.WCC_COOK)
                 return (int)WFR.WFR_NotRun;
 
             return _WCC_CookData(settings);
         }
 
-        private WFR _WCC_CookData(RAD_Settings settings)
+        private WFR _WCC_CookData(WF_Settings settings)
         {
             settings.LOGGER.LogString($"--------------------------------------------------------------------------");
             settings.LOGGER.LogString($"-- WCC_LITE: COOK pm: {settings.PATCH_MODE}");
@@ -402,14 +402,14 @@ namespace w3tools.Workflows
             if (base.Run() == WFR.WFR_Error)
                 return WFR.WFR_Error;
             // check if step is disabled
-            RAD_Settings settings = (RAD_Settings)base.Parent;
+            WF_Settings settings = (WF_Settings)base.Parent;
             if (!settings.WCC_REPACK_DLC)
                 return (int)WFR.WFR_NotRun;
 
             return _WCC_PackDLCAndCreateMetadatastore(settings);
         }
 
-        private WFR _WCC_PackDLCAndCreateMetadatastore(RAD_Settings settings)
+        private WFR _WCC_PackDLCAndCreateMetadatastore(WF_Settings settings)
         {
             settings.LOGGER.LogString($"--------------------------------------------------------------------------");
             settings.LOGGER.LogString($"-- WCC_LITE: PACK + METADATASTORE DLC pm: {settings.PATCH_MODE}");
@@ -466,14 +466,14 @@ namespace w3tools.Workflows
             if (base.Run() == WFR.WFR_Error)
                 return WFR.WFR_Error;
             // check if step is disabled
-            RAD_Settings settings = (RAD_Settings)base.Parent;
+            WF_Settings settings = (WF_Settings)base.Parent;
             if (!settings.WCC_REPACK_MOD)
                 return (int)WFR.WFR_NotRun;
 
             return _WCC_PackMODAndCreateMetadatastore(settings);
         }
 
-        private WFR _WCC_PackMODAndCreateMetadatastore(RAD_Settings settings)
+        private WFR _WCC_PackMODAndCreateMetadatastore(WF_Settings settings)
         {
             settings.LOGGER.LogString($"--------------------------------------------------------------------------");
             settings.LOGGER.LogString($"-- WCC_LITE: PACK + METADATASTORE MOD pm: {settings.PATCH_MODE}");
@@ -530,14 +530,14 @@ namespace w3tools.Workflows
             if (base.Run() == WFR.WFR_Error)
                 return WFR.WFR_Error;
             // check if step is disabled
-            RAD_Settings settings = (RAD_Settings)base.Parent;
+            WF_Settings settings = (WF_Settings)base.Parent;
             if (!settings.WCC_TEXTURECACHE)
                 return (int)WFR.WFR_NotRun;
 
             return _WCC_GenerateTextureCache(settings);
         }
 
-        private WFR _WCC_GenerateTextureCache(RAD_Settings settings)
+        private WFR _WCC_GenerateTextureCache(WF_Settings settings)
         {
             settings.LOGGER.LogString($"--------------------------------------------------------------------------");
             settings.LOGGER.LogString($"-- WCC_LITE: GENERATE TEXTURE CACHE pm: {settings.PATCH_MODE}");
@@ -615,14 +615,14 @@ namespace w3tools.Workflows
             if (base.Run() == WFR.WFR_Error)
                 return WFR.WFR_Error;
             // check if step is disabled
-            RAD_Settings settings = (RAD_Settings)base.Parent;
+            WF_Settings settings = (WF_Settings)base.Parent;
             if (!settings.WCC_COLLISIONCACHE)
                 return (int)WFR.WFR_NotRun;
 
             return _WCC_GenerateCollisionCache(settings);
         }
 
-        private WFR _WCC_GenerateCollisionCache(RAD_Settings settings)
+        private WFR _WCC_GenerateCollisionCache(WF_Settings settings)
         {
             settings.LOGGER.LogString($"--------------------------------------------------------------------------");
             settings.LOGGER.LogString($"-- WCC_LITE: GENERATE COLLISION CACHE pm: {settings.PATCH_MODE}");

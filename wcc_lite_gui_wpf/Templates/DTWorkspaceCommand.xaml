@@ -33,7 +33,7 @@
                    MouseDown="Toggle_MouseDown" 
                    MouseEnter="Toggle_MouseEnter"
                    MouseLeave="Toggle_MouseLeave"/>
-                <Image Grid.Column="1" Source="/w3tools.UI;component/Resources/Icons/witcher3_101.ico" Margin="10,0,0,0"/>
+                <Image Grid.Column="1" Source="{Binding Image}" Margin="10,0,0,0"/>
                 <TextBlock Grid.Column="2" Text="{Binding Name}" FontWeight="Bold" Margin="10,0,0,0"/>
                 <Image Grid.Column="3" Source="/w3tools.UI;component/Resources/Icons/Close_16x.png" Margin="0,0,0,0" 
                    MouseDown="Close_MouseDown" 

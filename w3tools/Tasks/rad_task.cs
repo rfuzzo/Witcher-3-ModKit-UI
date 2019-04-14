@@ -49,15 +49,16 @@ namespace w3tools
         public WFR RunArgsSync(string encoderName, string args)
         {
             string enoderPath = Path.Combine(Config.GetConfigSetting("RAD_Path"), $"{encoderName}.exe");
-            Logger.LogString($"EnoderPath: {enoderPath}");
+            //Logger.LogString($"EnoderPath: {enoderPath}");
             if (!File.Exists(enoderPath))
             {
                 Logger.LogString($"Could not find encoder with path: {enoderPath}");
                 return WFR.WFR_Error;
             }
 
-            var proc = new ProcessStartInfo(enoderPath) { WorkingDirectory = Path.GetDirectoryName(enoderPath) };
+            //FIXME check for version?
 
+            var proc = new ProcessStartInfo(enoderPath) { WorkingDirectory = Path.GetDirectoryName(enoderPath) };
             try
             {
                 Logger.LogString($"-----------------------------------------------------");

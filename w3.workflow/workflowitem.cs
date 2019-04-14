@@ -28,13 +28,24 @@ namespace w3tools.common
     [Serializable]
     public abstract class WorkflowItem : ObservableObject
     {
+        public WorkflowItem(WccCommandCategory defaultCategory = WccCommandCategory.Default)
+        {
+            DefaultCategory = defaultCategory;
+            Category = defaultCategory;
+        }
+
+        #region Properties
         [BrowsableAttribute(false)]
         public string Name { get; set; }
+
+        [BrowsableAttribute(false)]
+        public string Image { get; set; }
 
         [BrowsableAttribute(false)]
         public WccCommandCategory Category { get; set; }
         [BrowsableAttribute(false)]
         public WccCommandCategory DefaultCategory { get; set; }
+
 
         // need a way to access the workflow settings that are stored
         // in command > list<commands> > workflow > workflowViewModel < settings
@@ -42,13 +53,7 @@ namespace w3tools.common
         public object Parent { get; set; } //holds the document Workspace Settings //FIXME
 
 
-
-
-        public WorkflowItem(WccCommandCategory defaultCategory = WccCommandCategory.Default)
-        {
-            DefaultCategory = defaultCategory;
-            Category = defaultCategory;
-        }
+        #endregion
 
 
         /// <summary>
@@ -58,10 +63,11 @@ namespace w3tools.common
         {
             Category = DefaultCategory;
         }
-
-
-
-
+        public virtual WFR Run()
+        {
+            //FIXME
+            return WFR.WFR_Finished;
+        }
         /// <summary>
         /// Overrides
         /// </summary>
@@ -74,13 +80,7 @@ namespace w3tools.common
         #endregion
 
 
-        public virtual WFR Run()
-        {
-
-
-            //FIXME
-            return WFR.WFR_Finished;
-        }
+       
 
 
     }

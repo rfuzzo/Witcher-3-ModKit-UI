@@ -109,6 +109,7 @@
       <DependentUpon>DTWorkspaceCommand.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainLayoutUpdateStrategy.cs" />
+    <Compile Include="Templates\TreeViewMarginSetter.cs" />
     <Compile Include="UIModule.cs" />
     <Compile Include="Views\AboutView.xaml.cs">
       <DependentUpon>AboutView.xaml</DependentUpon>
@@ -157,6 +158,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Templates\DTWorkspaceCommand.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Templates\TreeViewStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

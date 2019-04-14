@@ -42,7 +42,8 @@ namespace w3tools.App.ViewModels
             ConfigService = configService;
             Logger = logger;
 
-            Commands = new WccCommandsCollection();
+            Commands = new WCCCommandsCollection();
+            //Hier = new WFHierarchy();
             Workflows = new RadishWorkflowCollection();
 
 
@@ -118,7 +119,7 @@ namespace w3tools.App.ViewModels
                     Title = "Workspace",
                     ContentId = "workspace",
                     ParentViewModel = this,
-                    Settings = new RAD_Settings(ConfigService, Logger) //FIXME
+                    Settings = new WF_Settings(ConfigService, Logger) //FIXME
                 },
 
 
@@ -279,7 +280,13 @@ namespace w3tools.App.ViewModels
             }
         }
 
-       
+        public List<List<string>> TestObject { get; set; } = new List<List<string>>()
+        {
+            new List<string>() { "a", "b", "c" },
+            new List<string>() { "a", "b", "c" },
+            new List<string>() { "a", "b", "c" }
+        };
+
 
         private ObservableCollection<WorkflowItem> _commands;
         /// <summary>
@@ -386,7 +393,7 @@ namespace w3tools.App.ViewModels
                     if (data is null)
                         continue;
 
-                    RAD_Settings settings = new RAD_Settings(ConfigService, Logger); //FIXME
+                    WF_Settings settings = new WF_Settings(ConfigService, Logger); //FIXME
                     settings.FromXElement(data.Xsettings); //FIXMEEEE
 
                     var Workflow = new ObservableCollection<WorkflowItem>();
@@ -521,7 +528,7 @@ namespace w3tools.App.ViewModels
                 Title = title,
                 ContentId = ContentId,
                 ParentViewModel = this,
-                Settings = new RAD_Settings(ConfigService,Logger) //FIXME
+                Settings = new WF_Settings(ConfigService,Logger) //FIXME
             };
             DocumentsSource.Add(document);
 

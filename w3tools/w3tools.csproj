@@ -55,10 +55,11 @@
     <Compile Include="Services\SettingNotFoundException.cs" />
     <Compile Include="Tasks\rad_task.cs" />
     <Compile Include="Tasks\wcc_task.cs" />
+    <Compile Include="WFHierarchy.cs" />
     <Compile Include="Workflows\rad_wf.cs" />
     <Compile Include="Workflows\rad_wf_command.cs" />
     <Compile Include="Workflows\rad_wf_commands.cs" />
-    <Compile Include="Workflows\rad_wf_settings.cs" />
+    <Compile Include="Workflows\wf_settings.cs" />
     <Compile Include="Workflows\wcc_wf_command.cs" />
     <Compile Include="Workflows\wcc_wf_commands.cs" />
     <Compile Include="Workflows\win_wf_command.cs" />

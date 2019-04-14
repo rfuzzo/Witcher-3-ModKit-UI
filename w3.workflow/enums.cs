@@ -24,6 +24,7 @@ namespace w3tools.common
     {
         ERL_empty,
         ERL_verbose,
-        ERL_veryverbose
+        ERL_veryverbose,
+        ERL_release
     }
 }

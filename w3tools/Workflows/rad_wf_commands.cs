@@ -27,14 +27,14 @@ namespace w3tools.Workflows
             if (base.Run() == WFR.WFR_Error)
                 return WFR.WFR_Error;
             // check if step is disabled
-            RAD_Settings settings = (RAD_Settings)base.Parent;
+            WF_Settings settings = (WF_Settings)base.Parent;
             if (!settings.ENCODE_WORLD)
                 return (int)WFR.WFR_NotRun;
 
             return _Encode_world(settings);
         }
 
-        private WFR _Encode_world(RAD_Settings settings)
+        private WFR _Encode_world(WF_Settings settings)
         {
             settings.LOGGER.LogString($"--------------------------------------------------------------------------");
             settings.LOGGER.LogString($"-- ENCODING WORLD pm: {settings.PATCH_MODE}");
@@ -112,14 +112,14 @@ namespace w3tools.Workflows
             if (base.Run() == WFR.WFR_Error)
                 return WFR.WFR_Error;
             // check if step is disabled
-            RAD_Settings settings = (RAD_Settings)base.Parent;
+            WF_Settings settings = (WF_Settings)base.Parent;
             if (!settings.ENCODE_ENVS)
                 return (int)WFR.WFR_NotRun;
 
             return _Encode_env(settings);
         }
 
-        private WFR _Encode_env(RAD_Settings settings)
+        private WFR _Encode_env(WF_Settings settings)
         {
             settings.LOGGER.LogString($"--------------------------------------------------------------------------");
             settings.LOGGER.LogString($"-- ENCODING ENVS pm: {settings.PATCH_MODE}");
@@ -183,14 +183,14 @@ namespace w3tools.Workflows
             if (base.Run() == WFR.WFR_Error)
                 return WFR.WFR_Error;
             // check if step is disabled
-            RAD_Settings settings = (RAD_Settings)base.Parent;
+            WF_Settings settings = (WF_Settings)base.Parent;
             if (!settings.ENCODE_SCENES)
                 return (int)WFR.WFR_NotRun;
 
             return _Encode_scene(settings);
         }
 
-        private WFR _Encode_scene(RAD_Settings settings)
+        private WFR _Encode_scene(WF_Settings settings)
         {
             settings.LOGGER.LogString($"--------------------------------------------------------------------------");
             settings.LOGGER.LogString($"-- ENCODING SCENES pm: {settings.PATCH_MODE}");
@@ -276,14 +276,14 @@ namespace w3tools.Workflows
             if (base.Run() == WFR.WFR_Error)
                 return WFR.WFR_Error;
             // check if step is disabled
-            RAD_Settings settings = (RAD_Settings)base.Parent;
+            WF_Settings settings = (WF_Settings)base.Parent;
             if (!settings.ENCODE_QUEST)
                 return (int)WFR.WFR_NotRun;
 
             return _Encode_quest(settings);
         }
 
-        private WFR _Encode_quest(RAD_Settings settings)
+        private WFR _Encode_quest(WF_Settings settings)
         {
             settings.LOGGER.LogString($"--------------------------------------------------------------------------");
             settings.LOGGER.LogString($"-- ENCODING QUESTS pm: {settings.PATCH_MODE}");
@@ -358,14 +358,14 @@ namespace w3tools.Workflows
             if (base.Run() == WFR.WFR_Error)
                 return WFR.WFR_Error;
             // check if step is disabled
-            RAD_Settings settings = (RAD_Settings)base.Parent;
+            WF_Settings settings = (WF_Settings)base.Parent;
             if (!settings.ENCODE_STRINGS)
                 return (int)WFR.WFR_NotRun;
 
             return _Encode_strings(settings);
         }
 
-        private WFR _Encode_strings(RAD_Settings settings)
+        private WFR _Encode_strings(WF_Settings settings)
         {
             settings.LOGGER.LogString($"--------------------------------------------------------------------------");
             settings.LOGGER.LogString($"-- ENCODING STRINGS pm: {settings.PATCH_MODE}");
@@ -457,14 +457,14 @@ namespace w3tools.Workflows
             if (base.Run() == WFR.WFR_Error)
                 return WFR.WFR_Error;
             // check if step is disabled
-            RAD_Settings settings = (RAD_Settings)base.Parent;
+            WF_Settings settings = (WF_Settings)base.Parent;
             if (!settings.ENCODE_SPEECH)
                 return (int)WFR.WFR_NotRun;
 
             return _Encode_speech(settings);
         }
 
-        private WFR _Encode_speech(RAD_Settings settings)
+        private WFR _Encode_speech(WF_Settings settings)
         {
             settings.LOGGER.LogString($"--------------------------------------------------------------------------");
             settings.LOGGER.LogString($"-- ENCODING SPEECH pm: {settings.PATCH_MODE}");

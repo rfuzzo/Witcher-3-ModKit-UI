@@ -15,17 +15,30 @@ namespace w3tools.App.ViewModels
 {
     public class CommandsListViewModel : DockableViewModel
     {
+        public CommandsListViewModel()
+        {
+            AddToFavouritesCommand = new RelayCommand(AddToFavourites, CanAddToFavourites);
+            AddToWorkflowCommand = new DelegateCommand<WorkflowItem>(AddToWorkflow);
+            RemoveFromfavouritesCommand = new RelayCommand(RemoveFromfavourites, CanRemoveFromfavourites);
 
+            Toolbox = new List<CommandCategory>();
+            Toolbox.Add(new CommandCategory { Name = "WCC", Commands = new WCCCommandsCollection().ToList() });
+            Toolbox.Add(new CommandCategory { Name = "RAD", Commands = new RADCommandsCollection().ToList() });
+            Toolbox.Add(new CommandCategory { Name = "WF_WCC", Commands = new WF_WCC_CommandsCollection().ToList() });
+            Toolbox.Add(new CommandCategory { Name = "WF_RAD", Commands = new WF_RAD_CommandsCollection().ToList() });
+            Toolbox.Add(new CommandCategory { Name = "WF_WIN", Commands = new WF_WIN_CommandsCollection().ToList() });
+
+
+        }
+
+        #region Properties
         private WorkflowItem _activeCommand;
         /// <summary>
         /// Holds variables usable in workflows
         /// </summary>
         public WorkflowItem ActiveCommand
         {
-            get
-            {
-                return _activeCommand;
-            }
+            get => _activeCommand;
             set
             {
                 if (_activeCommand != value)
@@ -36,9 +49,34 @@ namespace w3tools.App.ViewModels
             }
         }
 
+        private List<CommandCategory> _toolbox;
+        public List<CommandCategory> Toolbox
+        {
+            get => _toolbox;
+            set
+            {
+                if (_toolbox != value)
+                {
+                    _toolbox = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        #endregion
+
         #region Commands
         public ICommand AddToFavouritesCommand { get; }
+        public ICommand AddToWorkflowCommand { get; }
         public ICommand RemoveFromfavouritesCommand { get; }
+
+        public bool CanAddToWorkflow()
+        {
+            return true;
+        }
+        public void AddToWorkflow(WorkflowItem sender)
+        {
+            CommandDoubleClick(sender);
+        }
 
         public bool CanAddToFavourites()
         {
@@ -69,15 +107,15 @@ namespace w3tools.App.ViewModels
         }
         #endregion
 
+    }
 
-        public CommandsListViewModel()
-        {
-            AddToFavouritesCommand = new RelayCommand(AddToFavourites, CanAddToFavourites);
-            RemoveFromfavouritesCommand = new RelayCommand(RemoveFromfavourites, CanRemoveFromfavourites);
+    public class CommandCategory
+    {
+        public CommandCategory() => Commands = new List<WorkflowItem>();
+        public string Name { get; set; }
+        public string Image { get; set; }
+        public List<WorkflowItem> Commands { get; set; }
 
-        }
-
-
-       
+        public override string ToString() => Name;
     }
 }

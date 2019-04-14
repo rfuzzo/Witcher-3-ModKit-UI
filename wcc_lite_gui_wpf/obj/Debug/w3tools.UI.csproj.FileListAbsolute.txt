@@ -89,3 +89,4 @@ C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\Views\LogView.g
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\Views\LogView.baml
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\w3tools.UI.Properties.Resources.resources
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\w3tools.UI.csproj.GenerateResource.cache
+C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\obj\Debug\Templates\TreeViewStyle.baml

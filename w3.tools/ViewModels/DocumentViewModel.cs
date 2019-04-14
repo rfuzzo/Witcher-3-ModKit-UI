@@ -50,8 +50,8 @@ namespace w3tools.App.ViewModels
         #endregion
 
         #region Properties
-        private RAD_Settings _settings;
-        public RAD_Settings Settings
+        private WF_Settings _settings;
+        public WF_Settings Settings
         {
             get => _settings;
             set
