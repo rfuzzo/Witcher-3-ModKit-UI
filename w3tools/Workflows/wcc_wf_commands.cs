@@ -27,7 +27,7 @@ namespace w3tools.Workflows
             if (base.Run() == WFR.WFR_Error)
                 return WFR.WFR_Error;
             // check if step is disabled
-            WF_Settings settings = (WF_Settings)base.Parent;
+            WF_Settings settings = (WF_Settings)base.CustomTag;
             if (!settings.WCC_IMPORT_MODELS)
                 return (int)WFR.WFR_NotRun;
 
@@ -108,7 +108,7 @@ namespace w3tools.Workflows
             if (base.Run() == WFR.WFR_Error)
                 return WFR.WFR_Error;
             // check if step is disabled
-            WF_Settings settings = (WF_Settings)base.Parent;
+            WF_Settings settings = (WF_Settings)base.CustomTag;
             if (!settings.WCC_OCCLUSIONDATA)
                 return (int)WFR.WFR_NotRun;
 
@@ -179,7 +179,7 @@ namespace w3tools.Workflows
             if (base.Run() == WFR.WFR_Error)
                 return WFR.WFR_Error;
             // check if step is disabled
-            WF_Settings settings = (WF_Settings)base.Parent;
+            WF_Settings settings = (WF_Settings)base.CustomTag;
             if (!settings.WCC_ANALYZE)
                 return (int)WFR.WFR_NotRun;
 
@@ -276,7 +276,7 @@ namespace w3tools.Workflows
             if (base.Run() == WFR.WFR_Error)
                 return WFR.WFR_Error;
             // check if step is disabled
-            WF_Settings settings = (WF_Settings)base.Parent;
+            WF_Settings settings = (WF_Settings)base.CustomTag;
             if (!settings.WCC_NAVDATA)
                 return (int)WFR.WFR_NotRun;
 
@@ -326,7 +326,7 @@ namespace w3tools.Workflows
             if (base.Run() == WFR.WFR_Error)
                 return WFR.WFR_Error;
             // check if step is disabled
-            WF_Settings settings = (WF_Settings)base.Parent;
+            WF_Settings settings = (WF_Settings)base.CustomTag;
             if (!settings.WCC_COOK)
                 return (int)WFR.WFR_NotRun;
 
@@ -402,7 +402,7 @@ namespace w3tools.Workflows
             if (base.Run() == WFR.WFR_Error)
                 return WFR.WFR_Error;
             // check if step is disabled
-            WF_Settings settings = (WF_Settings)base.Parent;
+            WF_Settings settings = (WF_Settings)base.CustomTag;
             if (!settings.WCC_REPACK_DLC)
                 return (int)WFR.WFR_NotRun;
 
@@ -466,7 +466,7 @@ namespace w3tools.Workflows
             if (base.Run() == WFR.WFR_Error)
                 return WFR.WFR_Error;
             // check if step is disabled
-            WF_Settings settings = (WF_Settings)base.Parent;
+            WF_Settings settings = (WF_Settings)base.CustomTag;
             if (!settings.WCC_REPACK_MOD)
                 return (int)WFR.WFR_NotRun;
 
@@ -530,7 +530,7 @@ namespace w3tools.Workflows
             if (base.Run() == WFR.WFR_Error)
                 return WFR.WFR_Error;
             // check if step is disabled
-            WF_Settings settings = (WF_Settings)base.Parent;
+            WF_Settings settings = (WF_Settings)base.CustomTag;
             if (!settings.WCC_TEXTURECACHE)
                 return (int)WFR.WFR_NotRun;
 
@@ -615,7 +615,7 @@ namespace w3tools.Workflows
             if (base.Run() == WFR.WFR_Error)
                 return WFR.WFR_Error;
             // check if step is disabled
-            WF_Settings settings = (WF_Settings)base.Parent;
+            WF_Settings settings = (WF_Settings)base.CustomTag;
             if (!settings.WCC_COLLISIONCACHE)
                 return (int)WFR.WFR_NotRun;
 

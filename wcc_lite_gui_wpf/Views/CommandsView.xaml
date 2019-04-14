@@ -40,8 +40,8 @@
             <TextBox Grid.Column="0" Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
             <!-- Button -->
-            <Button Grid.Column="1" Command="{Binding SearchCommand}">
-                <Image Source="/w3tools.UI;component/Resources/Icons/Search_16x.png"/>
+            <Button Grid.Column="1" Command="{Binding ClearCommand}">
+                <Image Source="{Binding SearchBoxImage}"/>
             </Button>
         </Grid>
 
@@ -73,6 +73,7 @@
                     <EventSetter Event="UIElement.PreviewMouseRightButtonDown" Handler="TreeViewItem_PreviewMouseRightButtonDown"/>
                     <EventSetter Event="MouseDoubleClick" Handler="_commandsListView_MouseDoubleClick"/>
                     <Setter Property="Visibility" Value="{Binding IsVisible, Converter={StaticResource BoolToVis}}"/>
+                    <Setter Property="IsExpanded" Value="{Binding IsExpanded}"/>
                 </Style>
             </TreeView.ItemContainerStyle>
 

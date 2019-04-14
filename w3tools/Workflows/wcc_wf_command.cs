@@ -13,18 +13,11 @@ namespace w3tools.Workflows
     /// Abstract Wcc_lite Batch Command Parentclass
     /// </summary>
     [Serializable]
-    public abstract class WCC_wf_Command : ObservableObject, IWorkflowItem
+    public abstract class WCC_wf_Command : WorkflowItem
     {
+        [Browsable(false)]
+        public new string Image { get; set; } = "/w3tools.UI;component/Resources/witcher3_101.ico";
         public WCC_Task WCC_Task { get; set; }
-
-        [BrowsableAttribute(false)]
-        public string Name { get; set; }
-        [BrowsableAttribute(false)]
-        public string Image { get; } = "/w3tools.UI;component/Resources/witcher3_101.ico";
-        [BrowsableAttribute(false)]
-        public bool IsVisible { get; set; } = true;
-        [BrowsableAttribute(false)]
-        public object Parent { get; set; }
 
         /// <summary>
         /// base Checks on run the batch command
@@ -33,7 +26,7 @@ namespace w3tools.Workflows
         public virtual WFR Run()
         {
             // all radish commands check if radish setttings are OK
-            WF_Settings settings = (WF_Settings)Parent;
+            WF_Settings settings = (WF_Settings)CustomTag;
             if (!settings.CheckSelf())
                 return WFR.WFR_Error;
 

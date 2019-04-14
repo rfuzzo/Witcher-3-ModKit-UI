@@ -405,7 +405,7 @@ namespace w3tools.App.ViewModels
                             continue;
 
                         IWorkflowItem emptyCopy = (IWorkflowItem)Activator.CreateInstance(cmd.GetType());
-                        emptyCopy.Parent = settings;
+                        emptyCopy.CustomTag = settings;
                         Workflow.Add(emptyCopy);
                     }
 

@@ -168,6 +168,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Themes\Light.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\AboutView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -367,6 +371,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\witcher3_101.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Close_red_16x.png" />
+    <Resource Include="Resources\Icons\Close_WhiteNoHalo_12x_16x.png" />
+    <Resource Include="Resources\Icons\Close_White_16x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

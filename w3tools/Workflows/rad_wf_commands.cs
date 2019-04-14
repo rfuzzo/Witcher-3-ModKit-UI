@@ -27,7 +27,7 @@ namespace w3tools.Workflows
             if (base.Run() == WFR.WFR_Error)
                 return WFR.WFR_Error;
             // check if step is disabled
-            WF_Settings settings = (WF_Settings)base.Parent;
+            WF_Settings settings = (WF_Settings)base.CustomTag;
             if (!settings.ENCODE_WORLD)
                 return (int)WFR.WFR_NotRun;
 
@@ -112,7 +112,7 @@ namespace w3tools.Workflows
             if (base.Run() == WFR.WFR_Error)
                 return WFR.WFR_Error;
             // check if step is disabled
-            WF_Settings settings = (WF_Settings)base.Parent;
+            WF_Settings settings = (WF_Settings)base.CustomTag;
             if (!settings.ENCODE_ENVS)
                 return (int)WFR.WFR_NotRun;
 
@@ -183,7 +183,7 @@ namespace w3tools.Workflows
             if (base.Run() == WFR.WFR_Error)
                 return WFR.WFR_Error;
             // check if step is disabled
-            WF_Settings settings = (WF_Settings)base.Parent;
+            WF_Settings settings = (WF_Settings)base.CustomTag;
             if (!settings.ENCODE_SCENES)
                 return (int)WFR.WFR_NotRun;
 
@@ -276,7 +276,7 @@ namespace w3tools.Workflows
             if (base.Run() == WFR.WFR_Error)
                 return WFR.WFR_Error;
             // check if step is disabled
-            WF_Settings settings = (WF_Settings)base.Parent;
+            WF_Settings settings = (WF_Settings)base.CustomTag;
             if (!settings.ENCODE_QUEST)
                 return (int)WFR.WFR_NotRun;
 
@@ -358,7 +358,7 @@ namespace w3tools.Workflows
             if (base.Run() == WFR.WFR_Error)
                 return WFR.WFR_Error;
             // check if step is disabled
-            WF_Settings settings = (WF_Settings)base.Parent;
+            WF_Settings settings = (WF_Settings)base.CustomTag;
             if (!settings.ENCODE_STRINGS)
                 return (int)WFR.WFR_NotRun;
 
@@ -457,7 +457,7 @@ namespace w3tools.Workflows
             if (base.Run() == WFR.WFR_Error)
                 return WFR.WFR_Error;
             // check if step is disabled
-            WF_Settings settings = (WF_Settings)base.Parent;
+            WF_Settings settings = (WF_Settings)base.CustomTag;
             if (!settings.ENCODE_SPEECH)
                 return (int)WFR.WFR_NotRun;
 

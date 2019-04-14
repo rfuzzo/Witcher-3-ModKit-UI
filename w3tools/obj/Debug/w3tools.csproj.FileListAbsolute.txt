@@ -1,5 +1,6 @@
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3tools\bin\Debug\w3tools.dll
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3tools\bin\Debug\w3tools.pdb
+C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3tools\bin\Debug\Ninject.dll
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3tools\bin\Debug\radish.core.dll
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3tools\bin\Debug\w3tools.common.dll
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3tools\bin\Debug\wcc.core.dll
@@ -10,11 +11,10 @@ C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3tools\bin\Debug\radish.core.pdb
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3tools\bin\Debug\wcc.core.pdb
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3tools\bin\Debug\Xceed.wpf.PropertyGrid.Extensions.pdb
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3tools\bin\Debug\w3tools.common.pdb
+C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3tools\bin\Debug\Ninject.xml
+C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3tools\obj\Debug\w3tools.csprojAssemblyReference.cache
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3tools\obj\Debug\w3tools.csproj.CoreCompileInputs.cache
+C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3tools\obj\Debug\w3tools.csproj.Fody.CopyLocal.cache
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3tools\obj\Debug\w3tools.csproj.CopyComplete
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3tools\obj\Debug\w3tools.dll
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3tools\obj\Debug\w3tools.pdb
-C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3tools\obj\Debug\w3tools.csprojAssemblyReference.cache
-C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3tools\bin\Debug\Ninject.dll
-C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3tools\bin\Debug\Ninject.xml
-C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\w3tools\obj\Debug\w3tools.csproj.Fody.CopyLocal.cache

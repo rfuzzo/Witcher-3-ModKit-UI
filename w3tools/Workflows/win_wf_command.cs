@@ -13,18 +13,8 @@ namespace w3tools.Workflows
     /// 
     /// </summary>
     [Serializable]
-    public abstract class WIN_wf_Command : ObservableObject, IWorkflowItem
+    public abstract class WIN_wf_Command : WorkflowItem
     {
-        [BrowsableAttribute(false)]
-        public string Name { get; set; }
-        [BrowsableAttribute(false)]
-        public string Image { get; } = "";
-        [BrowsableAttribute(false)]
-        public bool IsVisible { get; set; } = true;
-        [BrowsableAttribute(false)]
-        public object Parent { get; set; }
-
-
         /// <summary>
         /// 
         /// </summary>
@@ -32,7 +22,7 @@ namespace w3tools.Workflows
         public virtual WFR Run()
         {
             // all radish commands check if radish setttings are OK
-            WF_Settings settings = (WF_Settings)Parent;
+            WF_Settings settings = (WF_Settings)CustomTag;
             if (!settings.CheckSelf())
                 return WFR.WFR_Error;
 

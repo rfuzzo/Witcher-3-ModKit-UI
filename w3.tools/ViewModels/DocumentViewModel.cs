@@ -188,7 +188,7 @@ namespace w3tools.App.ViewModels
                 foreach (IWorkflowItem item in items)
                 {
                     IWorkflowItem emptyCopy = (IWorkflowItem)Activator.CreateInstance(item.GetType());
-                    emptyCopy.Parent = Settings;
+                    emptyCopy.CustomTag = Settings;
                     Workflow.Add(emptyCopy);
                 }
             }
