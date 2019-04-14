@@ -41,7 +41,7 @@ namespace w3tools.App.ViewModels
             SaveCommand = new RelayCommand(Save);
             SaveAsCommand = new RelayCommand(SaveAs);
 
-            Workflow = new ObservableCollection<WorkflowItem>();
+            Workflow = new ObservableCollection<IWorkflowItem>();
         }
 
         #region Services
@@ -111,11 +111,11 @@ namespace w3tools.App.ViewModels
         }
 
 
-        private ObservableCollection<WorkflowItem> _workflow;
+        private ObservableCollection<IWorkflowItem> _workflow;
         /// <summary>
         /// Holds variables usable in workflows
         /// </summary>
-        public ObservableCollection<WorkflowItem> Workflow
+        public ObservableCollection<IWorkflowItem> Workflow
         {
             get => _workflow;
             set
@@ -175,19 +175,19 @@ namespace w3tools.App.ViewModels
         #endregion
 
         #region Methods
-        public void DeleteWorkflowItem(WorkflowItem item)
+        public void DeleteWorkflowItem(IWorkflowItem item)
         {
             _workflow.Remove(item);
         }
 
-        public void AddWorkflowItems(List<WorkflowItem> items)
+        public void AddWorkflowItems(List<IWorkflowItem> items)
         {
             // Optionally add Commands
             if (!(items is null))
             {
-                foreach (WorkflowItem item in items)
+                foreach (IWorkflowItem item in items)
                 {
-                    WorkflowItem emptyCopy = (WorkflowItem)Activator.CreateInstance(item.GetType());
+                    IWorkflowItem emptyCopy = (IWorkflowItem)Activator.CreateInstance(item.GetType());
                     emptyCopy.Parent = Settings;
                     Workflow.Add(emptyCopy);
                 }
@@ -226,7 +226,7 @@ namespace w3tools.App.ViewModels
 
             if (dropInfo.Effects == DragDropEffects.Move) //if drag and drop *within* the list
             {
-                var sourceCollection = dropInfo.DragInfo.SourceCollection.Cast<WorkflowItem>().ToArray(); // UNSAFE if not castable to list
+                var sourceCollection = dropInfo.DragInfo.SourceCollection.Cast<IWorkflowItem>().ToArray(); // UNSAFE if not castable to list
                 var insertIndex = dropInfo.InsertIndex;
                 var sourceIndex = dropInfo.DragInfo.SourceIndex;
                 insertIndex = Math.Min(insertIndex, sourceCollection.Length - 1);
@@ -236,9 +236,9 @@ namespace w3tools.App.ViewModels
             else //handle all dropping *into* the list
             {
                 // handle dropping of commands
-                if (sourceItem.GetType().BaseType == typeof(WorkflowItem))
+                if (sourceItem.GetType().BaseType == typeof(IWorkflowItem))
                 {
-                    WorkflowItem emptyCopy = (WorkflowItem)Activator.CreateInstance(sourceItem.GetType());
+                    IWorkflowItem emptyCopy = (IWorkflowItem)Activator.CreateInstance(sourceItem.GetType());
                     Workflow.Add(emptyCopy);
                 }
                 // handle dropping of variables 

@@ -12,26 +12,22 @@ using wcc.core.Commands;
 namespace w3tools
 {
    
-    public class WCCCommandsCollection : ObservableCollection<WorkflowItem>
+    public class WCCCommandsCollection : ObservableCollection<IWorkflowItem>
     {
         public WCCCommandsCollection()
         {
             #region Wcc
-            /// Commmom Conmmands
-            Add(new uncook(WccCommandCategory.Favourites));
-            Add(new unbundle(WccCommandCategory.Favourites));
-            Add(new export(WccCommandCategory.Favourites));
-            Add(new import(WccCommandCategory.Favourites));
-            Add(new dumpbundleinfo(WccCommandCategory.Favourites));
-            Add(new dumpfile(WccCommandCategory.Favourites));
-            Add(new buildcache(WccCommandCategory.Favourites));
-            Add(new metadatastore(WccCommandCategory.Favourites));
-            Add(new cook(WccCommandCategory.Favourites));
-            Add(new pack(WccCommandCategory.Favourites));
-            Add(new cookmaterials(WccCommandCategory.Favourites));
-
-
-            /// Uncommon Conmmands
+            Add(new uncook());
+            Add(new unbundle());
+            Add(new export());
+            Add(new import());
+            Add(new dumpbundleinfo());
+            Add(new dumpfile());
+            Add(new buildcache());
+            Add(new metadatastore());
+            Add(new cook());
+            Add(new pack());
+            Add(new cookmaterials());
             Add(new package());
             Add(new swfimport());
             Add(new swfdump());
@@ -73,7 +69,7 @@ namespace w3tools
             #endregion
         }
     }
-    public class RADCommandsCollection : ObservableCollection<WorkflowItem>
+    public class RADCommandsCollection : ObservableCollection<IWorkflowItem>
     {
         public RADCommandsCollection()
         {
@@ -89,7 +85,7 @@ namespace w3tools
             #endregion
         }
     }
-    public class WF_WIN_CommandsCollection : ObservableCollection<WorkflowItem>
+    public class WF_WIN_CommandsCollection : ObservableCollection<IWorkflowItem>
     {
         public WF_WIN_CommandsCollection()
         {
@@ -100,7 +96,7 @@ namespace w3tools
             #endregion
         }
     }
-    public class WF_RAD_CommandsCollection : ObservableCollection<WorkflowItem>
+    public class WF_RAD_CommandsCollection : ObservableCollection<IWorkflowItem>
     {
         public WF_RAD_CommandsCollection()
         {
@@ -114,7 +110,7 @@ namespace w3tools
             #endregion
         }
     }
-    public class WF_WCC_CommandsCollection : ObservableCollection<WorkflowItem>
+    public class WF_WCC_CommandsCollection : ObservableCollection<IWorkflowItem>
     {
         public WF_WCC_CommandsCollection()
         {

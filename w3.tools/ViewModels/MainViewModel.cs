@@ -288,11 +288,11 @@ namespace w3tools.App.ViewModels
         };
 
 
-        private ObservableCollection<WorkflowItem> _commands;
+        private ObservableCollection<IWorkflowItem> _commands;
         /// <summary>
         /// Holds the Wcc CommandsCollection stored in the Settings.
         /// </summary>
-        public ObservableCollection<WorkflowItem> Commands
+        public ObservableCollection<IWorkflowItem> Commands
         {
             get
             {
@@ -396,7 +396,7 @@ namespace w3tools.App.ViewModels
                     WF_Settings settings = new WF_Settings(ConfigService, Logger); //FIXME
                     settings.FromXElement(data.Xsettings); //FIXMEEEE
 
-                    var Workflow = new ObservableCollection<WorkflowItem>();
+                    var Workflow = new ObservableCollection<IWorkflowItem>();
                     foreach (var item in data.WorkflowItems)
                     {
                         //we have all commands stored in Commands, no need for assembly qualified names // FIXME
@@ -404,7 +404,7 @@ namespace w3tools.App.ViewModels
                         if (cmd is null)
                             continue;
 
-                        WorkflowItem emptyCopy = (WorkflowItem)Activator.CreateInstance(cmd.GetType());
+                        IWorkflowItem emptyCopy = (IWorkflowItem)Activator.CreateInstance(cmd.GetType());
                         emptyCopy.Parent = settings;
                         Workflow.Add(emptyCopy);
                     }
@@ -456,7 +456,7 @@ namespace w3tools.App.ViewModels
             Logger.LogString("Starting Workflow...");
 
             // FIXME structure?
-            foreach (WorkflowItem item in workflow)
+            foreach (IWorkflowItem item in workflow)
             {
                 WFR completed = WFR.WFR_Error;
 

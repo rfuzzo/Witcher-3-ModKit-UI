@@ -22,15 +22,15 @@ namespace w3tools.UI.Views
         // sends the parent TreeviewItem as well... ? 
         private void _commandsListView_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            MenuItem_Click(sender, e);
+            dynamic viewModel = DataContext;
+            var senderAsTreeViewItem = (TreeViewItem)sender;
+            var senderDC = senderAsTreeViewItem.DataContext as IWorkflowItem;
+            if (senderDC != null)
+                viewModel.CommandDoubleClick((IWorkflowItem)senderDC);
         }
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            dynamic viewModel = DataContext;
-            var senderAsTreeViewItem = (TreeViewItem)sender;
-            var senderDC = senderAsTreeViewItem.DataContext as WorkflowItem;
-            if (senderDC != null)
-                viewModel.CommandDoubleClick((WorkflowItem)senderDC);
+            
         }
 
         //Selects the node when rightclicking

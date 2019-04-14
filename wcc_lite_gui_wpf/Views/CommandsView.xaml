@@ -7,6 +7,7 @@
              xmlns:dd="urn:gong-wpf-dragdrop"
              xmlns:vm="clr-namespace:w3tools.App.ViewModels;assembly=w3tools.App"
              xmlns:c="clr-namespace:w3tools.common;assembly=w3tools.common"
+             xmlns:uc="clr-namespace:w3tools.UI.Views.UserControls"
                
              xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
              xmlns:dat="clr-namespace:System.Windows.Data;assembly=PresentationFramework"
@@ -16,10 +17,36 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="200"
     >
-
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+    </UserControl.Resources>
 
     <Grid>
-        <TreeView ItemsSource="{Binding Toolbox}"
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <!-- SearchBox -->
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <!-- Textbox -->
+                <ColumnDefinition Width="*"/>
+                <!-- Button -->
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Textbox -->
+            <TextBox Grid.Column="0" Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <!-- Button -->
+            <Button Grid.Column="1" Command="{Binding SearchCommand}">
+                <Image Source="/w3tools.UI;component/Resources/Icons/Search_16x.png"/>
+            </Button>
+        </Grid>
+
+        <!-- Toolbox List of Commands-->
+        <TreeView Grid.Row="1" ItemsSource="{Binding Toolbox}"
                   Tag="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
                   
            >
@@ -45,6 +72,7 @@
                 <Style TargetType="{x:Type TreeViewItem}">
                     <EventSetter Event="UIElement.PreviewMouseRightButtonDown" Handler="TreeViewItem_PreviewMouseRightButtonDown"/>
                     <EventSetter Event="MouseDoubleClick" Handler="_commandsListView_MouseDoubleClick"/>
+                    <Setter Property="Visibility" Value="{Binding IsVisible, Converter={StaticResource BoolToVis}}"/>
                 </Style>
             </TreeView.ItemContainerStyle>
 

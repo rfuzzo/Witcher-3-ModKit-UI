@@ -30,12 +30,12 @@ namespace w3tools.Workflows
 
         [BrowsableAttribute(false)]
         [CategoryAttribute("General")]
-        public List<WorkflowItem> Steps { get; set; }
+        public List<IWorkflowItem> Steps { get; set; }
 
 
         public RAD_Workflow()
         {
-            Steps = new List<WorkflowItem>();
+            Steps = new List<IWorkflowItem>();
         }
 
         /// <summary>

@@ -17,26 +17,23 @@ namespace w3tools.App.ViewModels
     {
         public CommandsListViewModel()
         {
-            AddToFavouritesCommand = new RelayCommand(AddToFavourites, CanAddToFavourites);
-            AddToWorkflowCommand = new DelegateCommand<WorkflowItem>(AddToWorkflow);
-            RemoveFromfavouritesCommand = new RelayCommand(RemoveFromfavourites, CanRemoveFromfavourites);
+            AddToWorkflowCommand = new DelegateCommand<IWorkflowItem>(AddToWorkflow);
+            SearchCommand = new RelayCommand(Search);
+
 
             Toolbox = new List<CommandCategory>();
             Toolbox.Add(new CommandCategory { Name = "WCC", Commands = new WCCCommandsCollection().ToList() });
             Toolbox.Add(new CommandCategory { Name = "RAD", Commands = new RADCommandsCollection().ToList() });
-            Toolbox.Add(new CommandCategory { Name = "WF_WCC", Commands = new WF_WCC_CommandsCollection().ToList() });
-            Toolbox.Add(new CommandCategory { Name = "WF_RAD", Commands = new WF_RAD_CommandsCollection().ToList() });
-            Toolbox.Add(new CommandCategory { Name = "WF_WIN", Commands = new WF_WIN_CommandsCollection().ToList() });
+            Toolbox.Add(new CommandCategory { Name = "WFWCC", Commands = new WF_WCC_CommandsCollection().ToList() });
+            Toolbox.Add(new CommandCategory { Name = "WFRAD", Commands = new WF_RAD_CommandsCollection().ToList() });
+            Toolbox.Add(new CommandCategory { Name = "WFWIN", Commands = new WF_WIN_CommandsCollection().ToList() });
 
 
         }
 
         #region Properties
-        private WorkflowItem _activeCommand;
-        /// <summary>
-        /// Holds variables usable in workflows
-        /// </summary>
-        public WorkflowItem ActiveCommand
+        private IWorkflowItem _activeCommand;
+        public IWorkflowItem ActiveCommand
         {
             get => _activeCommand;
             set
@@ -62,59 +59,91 @@ namespace w3tools.App.ViewModels
                 }
             }
         }
+
+        private string _searchText;
+        public string SearchText
+        {
+            get => _searchText;
+            set
+            {
+                if (_searchText != value)
+                {
+                    _searchText = value;
+                    OnPropertyChanged();
+                    // change treeview view
+                    FilterTreeView(value);
+                }
+            }
+        }
+
+        
+
         #endregion
 
         #region Commands
-        public ICommand AddToFavouritesCommand { get; }
         public ICommand AddToWorkflowCommand { get; }
-        public ICommand RemoveFromfavouritesCommand { get; }
+        public ICommand SearchCommand { get; }
 
         public bool CanAddToWorkflow()
         {
             return true;
         }
-        public void AddToWorkflow(WorkflowItem sender)
+        public void AddToWorkflow(IWorkflowItem sender)
         {
             CommandDoubleClick(sender);
         }
+        public void Search()
+        {
 
-        public bool CanAddToFavourites()
-        {
-            return ActiveCommand != null && ActiveCommand.Category != WccCommandCategory.Favourites;
-        }
-        public void AddToFavourites()
-        {
-            ActiveCommand.Category = WccCommandCategory.Favourites;
-        }
-        public bool CanRemoveFromfavourites()
-        {
-            return ActiveCommand != null && ActiveCommand.Category == WccCommandCategory.Favourites;
-        }
-        public void RemoveFromfavourites()
-        {
-            ActiveCommand.ResetCategory();
         }
 
 
-
-        public void CommandDoubleClick(WorkflowItem sender)
+        public void CommandDoubleClick(IWorkflowItem sender)
         {
             //FIXME handle open docs
             DocumentViewModel currentDoc = ParentViewModel.DocumentsSource.FirstOrDefault(x => x.IsSelected);
 
-            WorkflowItem emptyCopy = (WorkflowItem)Activator.CreateInstance(sender.GetType());
+            IWorkflowItem emptyCopy = (IWorkflowItem)Activator.CreateInstance(sender.GetType());
             currentDoc.Workflow.Add(emptyCopy);
         }
         #endregion
+
+        #region Filtering
+        private void FilterTreeView(string str)
+        {
+            foreach (CommandCategory cat in Toolbox)
+            {
+                foreach (IWorkflowItem item in cat.Commands)
+                    MarkVisible(item, str);
+            }
+        }
+        private void MarkVisible(IWorkflowItem item, string str)
+        {
+            if (string.IsNullOrEmpty(str))
+            {
+                item.IsVisible = true;
+            }
+            else if (item.Name.ToLower().Contains(str.ToLower()))
+            {
+                item.IsVisible = true;
+            }
+            else
+            {
+                item.IsVisible = false;
+            }
+        }
+        #endregion
+
+
 
     }
 
     public class CommandCategory
     {
-        public CommandCategory() => Commands = new List<WorkflowItem>();
+        public CommandCategory() => Commands = new List<IWorkflowItem>();
         public string Name { get; set; }
         public string Image { get; set; }
-        public List<WorkflowItem> Commands { get; set; }
+        public List<IWorkflowItem> Commands { get; set; }
 
         public override string ToString() => Name;
     }

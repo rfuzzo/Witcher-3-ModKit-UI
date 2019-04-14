@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -12,38 +13,34 @@ namespace w3tools.Workflows
     /// 
     /// </summary>
     [Serializable]
-    public abstract class WIN_wf_Command : WorkflowItem
+    public abstract class WIN_wf_Command : ObservableObject, IWorkflowItem
     {
-        //fixme bind to settings
-        public bool Enabled { get; set; } = true;
-
-        public WIN_wf_Command(WccCommandCategory defaultCategory = WccCommandCategory.WF_Windows)
-        {
-            base.Category = defaultCategory;
-            base.DefaultCategory = defaultCategory;
-        }
+        [BrowsableAttribute(false)]
+        public string Name { get; set; }
+        [BrowsableAttribute(false)]
+        public string Image { get; } = "";
+        [BrowsableAttribute(false)]
+        public bool IsVisible { get; set; } = true;
+        [BrowsableAttribute(false)]
+        public object Parent { get; set; }
 
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public override WFR Run()
+        public virtual WFR Run()
         {
-            //check if WorkflowItem.Run returns 1
-            if (base.Run() == WFR.WFR_Error)
-                return WFR.WFR_Error;
             // all radish commands check if radish setttings are OK
-            WF_Settings settings = (WF_Settings)base.Parent;
+            WF_Settings settings = (WF_Settings)Parent;
             if (!settings.CheckSelf())
                 return WFR.WFR_Error;
-            //manual override
-            if (!Enabled)
-                return WFR.WFR_NotRun;
 
             // no errors detected
             return WFR.WFR_Finished;
         }
+
+        public override string ToString() => Name;
 
         /// <summary>
         /// 

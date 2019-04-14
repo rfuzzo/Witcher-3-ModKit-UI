@@ -65,7 +65,7 @@ namespace w3tools.UI.Templates
         {
             dynamic view = ((Image)sender).DataContext;
             dynamic viewModel = view.DataContext;
-            WorkflowItem item = (WorkflowItem)DataContext;
+            IWorkflowItem item = (IWorkflowItem)DataContext;
             if (item != null && viewModel != null && view != null)
             {
                 viewModel.DeleteWorkflowItem(item);
