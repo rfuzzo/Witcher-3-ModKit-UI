@@ -13,9 +13,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "w3tools", "..\w3tools\w3too
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wcc.core", "..\Wcc_lite_core\wcc.core.csproj", "{9A1A410D-D826-4DD1-AF00-2A89F6A3B6EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "radish.core", "..\..\Radish_core\Radish_core\radish.core.csproj", "{81620735-E3AA-43C5-9DA0-B6722724567D}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xceed.wpf.PropertyGrid.Extensions", "..\Xceed.wpf.PropertyGrid.Extensions\Xceed.wpf.PropertyGrid.Extensions.csproj", "{067072D6-DA16-4AB0-8B55-AA31C358DD4D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "radish.core", "..\Radish_core\radish.core.csproj", "{81620735-E3AA-43C5-9DA0-B6722724567D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,14 +43,14 @@ Global
 		{9A1A410D-D826-4DD1-AF00-2A89F6A3B6EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A1A410D-D826-4DD1-AF00-2A89F6A3B6EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9A1A410D-D826-4DD1-AF00-2A89F6A3B6EF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{81620735-E3AA-43C5-9DA0-B6722724567D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{81620735-E3AA-43C5-9DA0-B6722724567D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{81620735-E3AA-43C5-9DA0-B6722724567D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{81620735-E3AA-43C5-9DA0-B6722724567D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{067072D6-DA16-4AB0-8B55-AA31C358DD4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{067072D6-DA16-4AB0-8B55-AA31C358DD4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{067072D6-DA16-4AB0-8B55-AA31C358DD4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{067072D6-DA16-4AB0-8B55-AA31C358DD4D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81620735-E3AA-43C5-9DA0-B6722724567D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81620735-E3AA-43C5-9DA0-B6722724567D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81620735-E3AA-43C5-9DA0-B6722724567D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81620735-E3AA-43C5-9DA0-B6722724567D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

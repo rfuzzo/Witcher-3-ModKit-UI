@@ -72,7 +72,7 @@
     <Compile Include="Workflows\win_wf_commands.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Radish_core\Radish_core\radish.core.csproj">
+    <ProjectReference Include="..\Radish_core\radish.core.csproj">
       <Project>{81620735-e3aa-43c5-9da0-b6722724567d}</Project>
       <Name>radish.core</Name>
     </ProjectReference>
