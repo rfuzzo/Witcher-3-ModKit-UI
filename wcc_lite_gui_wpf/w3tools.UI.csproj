@@ -316,10 +316,6 @@
     <Resource Include="Resources\Icons\Undo_16x.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Xceed.wpf.PropertyGrid.Extensions\Xceed.wpf.PropertyGrid.Extensions\Xceed.wpf.PropertyGrid.Extensions.csproj">
-      <Project>{067072d6-da16-4ab0-8b55-aa31c358dd4d}</Project>
-      <Name>Xceed.wpf.PropertyGrid.Extensions</Name>
-    </ProjectReference>
     <ProjectReference Include="..\w3.tools\w3tools.App.csproj">
       <Project>{8cac32e6-ba2c-4a47-b9ab-9e7291015978}</Project>
       <Name>w3tools.App</Name>
@@ -331,6 +327,10 @@
     <ProjectReference Include="..\w3tools\w3tools.csproj">
       <Project>{8ad8911f-faa2-4a6e-b913-2b4fbbe1d1f0}</Project>
       <Name>w3tools</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Xceed.wpf.PropertyGrid.Extensions\Xceed.wpf.PropertyGrid.Extensions.csproj">
+      <Project>{067072d6-da16-4ab0-8b55-aa31c358dd4d}</Project>
+      <Name>Xceed.wpf.PropertyGrid.Extensions</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

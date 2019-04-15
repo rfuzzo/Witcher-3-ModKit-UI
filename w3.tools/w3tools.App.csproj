@@ -98,10 +98,6 @@
       <Project>{81620735-e3aa-43c5-9da0-b6722724567d}</Project>
       <Name>radish.core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Xceed.wpf.PropertyGrid.Extensions\Xceed.wpf.PropertyGrid.Extensions\Xceed.wpf.PropertyGrid.Extensions.csproj">
-      <Project>{067072d6-da16-4ab0-8b55-aa31c358dd4d}</Project>
-      <Name>Xceed.wpf.PropertyGrid.Extensions</Name>
-    </ProjectReference>
     <ProjectReference Include="..\w3.workflow\w3tools.common.csproj">
       <Project>{8c1e1dc3-3ee4-4ae1-a5fe-cc62a9df3f51}</Project>
       <Name>w3tools.common</Name>
@@ -113,6 +109,10 @@
     <ProjectReference Include="..\Wcc_lite_core\wcc.core.csproj">
       <Project>{9a1a410d-d826-4dd1-af00-2a89f6a3b6ef}</Project>
       <Name>wcc.core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Xceed.wpf.PropertyGrid.Extensions\Xceed.wpf.PropertyGrid.Extensions.csproj">
+      <Project>{067072d6-da16-4ab0-8b55-aa31c358dd4d}</Project>
+      <Name>Xceed.wpf.PropertyGrid.Extensions</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
