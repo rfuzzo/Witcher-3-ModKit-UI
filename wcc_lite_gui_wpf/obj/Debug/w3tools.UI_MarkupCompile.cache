@@ -12,9 +12,9 @@ DEBUG;TRACE
 C:\DATA\GitHub\MyGit\Wcc_lite-GUI_wpf\wcc_lite_gui_wpf\App.xaml
 221330378141
 
-311582513429
+33-975900716
 31-2073192254
 Templates\DataTemplates.xaml;Templates\DTVariable.xaml;Templates\DTWorkspaceCommand.xaml;Templates\TreeViewStyle.xaml;Views\AboutView.xaml;Views\CommandsListView.xaml;Views\CommandsTreeView.xaml;Views\LogView.xaml;Templates\DialogTemplates.xaml;Views\Dialogs\DialogView.xaml;Views\Dialogs\ExceptionDialogView.xaml;Views\Dialogs\MessageDialog.xaml;Views\Dialogs\SettingsDialogView.xaml;Views\Dialogs\UnsavedChangesDialogView.xaml;Views\ErrorsView.xaml;Views\Pages\Settings_Editor.xaml;Views\PropertiesView.xaml;Views\UserControls\SearchBox.xaml;Views\VariablesView.xaml;Views\WorkflowListView.xaml;Views\DocumentView.xaml;MainWindow.xaml;
 
-False
+True
 
