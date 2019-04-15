@@ -1,0 +1,14 @@
+C:\DATA\GitHub\MyGit\Wcc_lite_core\Wcc_lite_core\bin\Debug\Wcc_lite_core.dll
+C:\DATA\GitHub\MyGit\Wcc_lite_core\Wcc_lite_core\bin\Debug\Wcc_lite_core.pdb
+C:\DATA\GitHub\MyGit\Wcc_lite_core\Wcc_lite_core\bin\Debug\Xceed.wpf.PropertyGrid.Extensions.dll
+C:\DATA\GitHub\MyGit\Wcc_lite_core\Wcc_lite_core\bin\Debug\Xceed.Wpf.Toolkit.dll
+C:\DATA\GitHub\MyGit\Wcc_lite_core\Wcc_lite_core\bin\Debug\WPFFolderBrowser.dll
+C:\DATA\GitHub\MyGit\Wcc_lite_core\Wcc_lite_core\bin\Debug\Xceed.wpf.PropertyGrid.Extensions.pdb
+C:\DATA\GitHub\MyGit\Wcc_lite_core\Wcc_lite_core\obj\Debug\Wcc_lite_core.csprojAssemblyReference.cache
+C:\DATA\GitHub\MyGit\Wcc_lite_core\Wcc_lite_core\obj\Debug\Wcc_lite_core.g.resources
+C:\DATA\GitHub\MyGit\Wcc_lite_core\Wcc_lite_core\obj\Debug\Wcc_lite_core.Properties.Resources.resources
+C:\DATA\GitHub\MyGit\Wcc_lite_core\Wcc_lite_core\obj\Debug\Wcc_lite_core.csproj.GenerateResource.cache
+C:\DATA\GitHub\MyGit\Wcc_lite_core\Wcc_lite_core\obj\Debug\Wcc_lite_core.csproj.CoreCompileInputs.cache
+C:\DATA\GitHub\MyGit\Wcc_lite_core\Wcc_lite_core\obj\Debug\Wcc_lite_core.csproj.CopyComplete
+C:\DATA\GitHub\MyGit\Wcc_lite_core\Wcc_lite_core\obj\Debug\Wcc_lite_core.dll
+C:\DATA\GitHub\MyGit\Wcc_lite_core\Wcc_lite_core\obj\Debug\Wcc_lite_core.pdb

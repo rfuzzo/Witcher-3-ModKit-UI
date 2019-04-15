@@ -1,0 +1,14 @@
+C:\DATA\GitHub\MyGit\Radish_core\Radish_core\bin\Debug\radish.core.dll
+C:\DATA\GitHub\MyGit\Radish_core\Radish_core\bin\Debug\radish.core.pdb
+C:\DATA\GitHub\MyGit\Radish_core\Radish_core\bin\Debug\w3tools.common.dll
+C:\DATA\GitHub\MyGit\Radish_core\Radish_core\bin\Debug\Xceed.wpf.PropertyGrid.Extensions.dll
+C:\DATA\GitHub\MyGit\Radish_core\Radish_core\bin\Debug\Xceed.Wpf.Toolkit.dll
+C:\DATA\GitHub\MyGit\Radish_core\Radish_core\bin\Debug\WPFFolderBrowser.dll
+C:\DATA\GitHub\MyGit\Radish_core\Radish_core\bin\Debug\w3tools.common.pdb
+C:\DATA\GitHub\MyGit\Radish_core\Radish_core\bin\Debug\Xceed.wpf.PropertyGrid.Extensions.pdb
+C:\DATA\GitHub\MyGit\Radish_core\Radish_core\obj\Debug\radish.core.csprojAssemblyReference.cache
+C:\DATA\GitHub\MyGit\Radish_core\Radish_core\obj\Debug\radish.core.csproj.CoreCompileInputs.cache
+C:\DATA\GitHub\MyGit\Radish_core\Radish_core\obj\Debug\radish.core.csproj.Fody.CopyLocal.cache
+C:\DATA\GitHub\MyGit\Radish_core\Radish_core\obj\Debug\radish.core.csproj.CopyComplete
+C:\DATA\GitHub\MyGit\Radish_core\Radish_core\obj\Debug\radish.core.dll
+C:\DATA\GitHub\MyGit\Radish_core\Radish_core\obj\Debug\radish.core.pdb
