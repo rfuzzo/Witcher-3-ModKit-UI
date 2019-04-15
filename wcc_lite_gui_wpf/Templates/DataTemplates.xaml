@@ -7,9 +7,15 @@
                     >
     
     <DataTemplate DataType="{x:Type vm:CommandsListViewModel}">
-        <v:CommandsView>
+        <v:CommandsListView>
             
-        </v:CommandsView>
+        </v:CommandsListView>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:CommandsTreeViewModel}">
+        <v:CommandsTreeView>
+
+        </v:CommandsTreeView>
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type vm:WorkflowListViewModel}">

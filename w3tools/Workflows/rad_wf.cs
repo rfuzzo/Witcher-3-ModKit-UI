@@ -17,10 +17,10 @@ namespace w3tools.Workflows
 
         [BrowsableAttribute(false)]
         [CategoryAttribute("General")]
-        public WccCommandCategory Category { get; set; }
+        public ECommandCategory Category { get; set; }
         [BrowsableAttribute(false)]
         [CategoryAttribute("General")]
-        public WccCommandCategory DefaultCategory { get; }
+        public ECommandCategory DefaultCategory { get; }
 
         [BrowsableAttribute(false)]
         [CategoryAttribute("General")]

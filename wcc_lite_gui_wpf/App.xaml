@@ -13,9 +13,16 @@
 
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <!-- View Templates -->
                 <ResourceDictionary Source="Templates/DialogTemplates.xaml"/>
+                <!-- Tree View Style Don't use with Dark Them -->
                 <ResourceDictionary Source="Templates/TreeViewStyle.xaml"/>
-                <ResourceDictionary Source="Themes/Light.xaml"/>
+
+                <!-- App Themes: If using this, comment out TreeviewStyle and switch Viewmodels in MainView Model -->
+                <!--ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Dark.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Red.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Red.xaml" /-->
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
 

@@ -12,11 +12,12 @@ namespace w3tools.Workflows
     /// <summary>
     /// Abstract Wcc_lite Batch Command Parentclass
     /// </summary>
-    [Serializable]
     public abstract class WCC_wf_Command : WorkflowItem
     {
         [Browsable(false)]
         public new string Image { get; set; } = "/w3tools.UI;component/Resources/witcher3_101.ico";
+        public new ECommandCategory Category { get; set; } = ECommandCategory.WF_Wcc;
+
         public WCC_Task WCC_Task { get; set; }
 
         /// <summary>

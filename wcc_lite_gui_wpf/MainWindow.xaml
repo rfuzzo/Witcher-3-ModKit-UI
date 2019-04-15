@@ -8,10 +8,7 @@
         xmlns:ad="http://schemas.xceed.com/wpf/xaml/avalondock"
     
         xmlns:local="clr-namespace:w3tools.UI" 
-        
-        xmlns:md="https://github.com/fantasticfiasco/mvvm-dialogs"
-        md:DialogServiceViews.IsRegistered="True"
-        
+                
         mc:Ignorable="d"
         Title="Radish Mod Tools UI"  
         Height="900" 

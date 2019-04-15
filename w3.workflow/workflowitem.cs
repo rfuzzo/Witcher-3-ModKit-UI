@@ -11,7 +11,7 @@ namespace w3tools.common
     /// <summary>
     /// 
     /// </summary>
-    public enum WccCommandCategory
+    public enum ECommandCategory
     {
         Favourites,
         Wcc,
@@ -110,7 +110,20 @@ namespace w3tools.common
         }
 
         [BrowsableAttribute(false)]
-        public ITreeViewItem ParentTreeViewItem { get; set; }
+        private ECommandCategory _category;
+        [BrowsableAttribute(false)]
+        public ECommandCategory Category
+        {
+            get => _category;
+            set
+            {
+                if (_category != value)
+                {
+                    _category = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         public virtual WFR Run()
         {
@@ -121,7 +134,7 @@ namespace w3tools.common
     /// <summary>
     /// Interface for executable commands for Wcc_Lite or the Radish Encoders
     /// </summary>
-    public interface IWorkflowItem : ITreeViewItem
+    public interface IWorkflowItem : IListViewItem
     {
 
         #region Properties
@@ -135,12 +148,20 @@ namespace w3tools.common
     }
 
     /// <summary>
-    /// Interface for searchable TreeView Items
+    /// Interface for searchable TreeViewItems
     /// </summary>
     public interface ITreeViewItem
     {
         bool IsVisible { get; set; }
         bool IsExpanded { get; set; }
         ITreeViewItem ParentTreeViewItem { get; set; } //unused
+    }
+    /// <summary>
+    /// Interface for searchable ListViewItems
+    /// </summary>
+    public interface IListViewItem
+    {
+        bool IsVisible { get; set; }
+        ECommandCategory Category { get; set; }
     }
 }

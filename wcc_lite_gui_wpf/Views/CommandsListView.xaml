@@ -1,0 +1,119 @@
+﻿<UserControl x:Class="w3tools.UI.Views.CommandsListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:w3tools.UI.Views"
+             xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+             xmlns:dat="clr-namespace:System.Windows.Data;assembly=PresentationFramework"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="200"
+             
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+                Background="{DynamicResource MaterialDesignPaper}"
+             
+             >
+
+
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+        
+        <CollectionViewSource  
+            x:Key="cvs_cs" 
+            Source="{Binding Toolbox, Mode=TwoWay}"
+            IsLiveGroupingRequested="True"
+            IsLiveFilteringRequested="True"
+            IsLiveSortingRequested="True"
+           
+            >
+            <!-- Sorting -->
+            <CollectionViewSource.SortDescriptions>
+                <scm:SortDescription PropertyName="Category"/>
+                <scm:SortDescription PropertyName="Name"/>
+            </CollectionViewSource.SortDescriptions>
+
+            <!-- Grouping-->
+            <CollectionViewSource.GroupDescriptions>
+                <dat:PropertyGroupDescription PropertyName="Category" />
+            </CollectionViewSource.GroupDescriptions>
+
+        </CollectionViewSource>
+
+        <Style x:Key="ContainerStyle" TargetType="{x:Type GroupItem}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Expander Header="{Binding Name}" IsExpanded="True" >
+                            <ItemsPresenter/>
+                        </Expander>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- SearchBox -->
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <!-- Textbox -->
+                <ColumnDefinition Width="*"/>
+                <!-- Button -->
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Textbox -->
+            <TextBox Grid.Column="0" Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <!-- Button -->
+            <Button Grid.Column="1" Command="{Binding ClearCommand}">
+                <Image Source="{Binding SearchBoxImage}" Height="16" />
+            </Button>
+        </Grid>
+
+        <!-- Toolbox List of Commands-->
+        <ListView Grid.Row="1" x:Name="_commandsListView" 
+                  ItemsSource="{Binding Source={StaticResource cvs_cs}, UpdateSourceTrigger=PropertyChanged}" 
+                  SelectedItem="{Binding ActiveCommand}"
+                  
+                   >
+            <ListView.InputBindings>
+                <MouseBinding Gesture="LeftDoubleClick" Command="{Binding AddCommand}" />
+            </ListView.InputBindings>
+
+
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Add Command to Workflow"
+                         Command="{Binding AddCommand}"
+                         CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu}, Path=PlacementTarget.SelectedItem}">
+                    </MenuItem>
+                   
+                </ContextMenu>
+            </ListView.ContextMenu>
+
+
+            <ListView.GroupStyle>
+                <GroupStyle ContainerStyle="{StaticResource ContainerStyle}"/>
+            </ListView.GroupStyle>
+
+            <!-- Filtering -->
+
+            <ListView.ItemContainerStyle>
+                <Style BasedOn="{StaticResource MaterialDesignListBoxItem}" TargetType="{x:Type ListViewItem}">
+                    <Setter Property="Visibility" Value="{Binding IsVisible, Converter={StaticResource BoolToVis}}"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+
+
+        </ListView>
+    </Grid>
+</UserControl>

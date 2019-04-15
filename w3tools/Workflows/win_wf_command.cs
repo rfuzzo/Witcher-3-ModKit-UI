@@ -15,6 +15,9 @@ namespace w3tools.Workflows
     [Serializable]
     public abstract class WIN_wf_Command : WorkflowItem
     {
+        public new ECommandCategory Category { get; set; } = ECommandCategory.WF_Windows;
+        public new bool IsVisible { get; set; } = false;
+
         /// <summary>
         /// 
         /// </summary>

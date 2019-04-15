@@ -66,6 +66,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\CommandsTreeViewModel.cs" />
     <Compile Include="ViewModels\CommandsListViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\CustomDialogResult.cs" />
     <Compile Include="ViewModels\Dialogs\DialogCloseRequestEventArgs.cs" />

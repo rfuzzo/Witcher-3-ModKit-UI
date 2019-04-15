@@ -13,16 +13,23 @@ namespace w3tools.App.ViewModels
         private const string ClearIcon = "/w3tools.UI;component/Resources/Icons/Close_White_16x.png";
         public CommandsListViewModel()
         {
-            AddToWorkflowCommand = new DelegateCommand<IWorkflowItem>(AddToWorkflow);
+            AddCommand = new DelegateCommand<IWorkflowItem>(Add, CanAdd);
             ClearCommand = new RelayCommand(Clear);
 
 
-            Toolbox = new ObservableCollection<CommandCategory>();
-            Toolbox.Add(new CommandCategory { Name = "WCC", Commands = new WCCCommandsCollection() });
-            Toolbox.Add(new CommandCategory { Name = "RAD", Commands = new RADCommandsCollection() });
-            Toolbox.Add(new CommandCategory { Name = "WFWCC", Commands = new WF_WCC_CommandsCollection() });
-            Toolbox.Add(new CommandCategory { Name = "WFRAD", Commands = new WF_RAD_CommandsCollection() });
-            Toolbox.Add(new CommandCategory { Name = "WFWIN", Commands = new WF_WIN_CommandsCollection() });
+            Toolbox = new ObservableCollection<IWorkflowItem>();
+            
+            foreach (var item in new WCCCommandsCollection())
+                Toolbox.Add(item);
+            foreach (var item in new RADCommandsCollection())
+                Toolbox.Add(item);
+            foreach (var item in new WF_WCC_CommandsCollection())
+                Toolbox.Add(item);
+            foreach (var item in new WF_RAD_CommandsCollection())
+                Toolbox.Add(item);
+            foreach (var item in new WF_WIN_CommandsCollection())
+                Toolbox.Add(item);
+                
 
         }
 
@@ -41,8 +48,8 @@ namespace w3tools.App.ViewModels
             }
         }
 
-        private ObservableCollection<CommandCategory> _toolbox;
-        public ObservableCollection<CommandCategory> Toolbox
+        private ObservableCollection<IWorkflowItem> _toolbox;
+        public ObservableCollection<IWorkflowItem> Toolbox
         {
             get => _toolbox;
             set
@@ -59,14 +66,14 @@ namespace w3tools.App.ViewModels
         #endregion
 
         #region Commands
-        public ICommand AddToWorkflowCommand { get; }
+        public ICommand AddCommand { get; }
         public ICommand ClearCommand { get; }
 
-        public bool CanAddToWorkflow()
+        public bool CanAdd(IWorkflowItem sender)
         {
-            return true;
+            return ParentViewModel.DocumentsSource.Any();
         }
-        public void AddToWorkflow(IWorkflowItem sender)
+        public void Add(IWorkflowItem sender)
         {
             CommandDoubleClick(sender);
         }
@@ -78,7 +85,6 @@ namespace w3tools.App.ViewModels
 
         public void CommandDoubleClick(IWorkflowItem sender)
         {
-            //FIXME handle open docs
             DocumentViewModel currentDoc = ParentViewModel.DocumentsSource.FirstOrDefault(x => x.IsSelected);
 
             IWorkflowItem emptyCopy = (IWorkflowItem)Activator.CreateInstance(sender.GetType());
@@ -105,13 +111,11 @@ namespace w3tools.App.ViewModels
         }
         private void FilterTreeView(string str)
         {
-            foreach (CommandCategory cat in Toolbox)
-            {
-                foreach (IWorkflowItem item in cat.Commands)
-                    MarkVisible(item, cat, str);
-            }
+
+                foreach (IWorkflowItem item in Toolbox)
+                    MarkVisible(item, str);
         }
-        private void MarkVisible(IWorkflowItem item, CommandCategory cat, string str)
+        private void MarkVisible(IWorkflowItem item, string str)
         {
             if (string.IsNullOrEmpty(str))
             {
@@ -120,7 +124,6 @@ namespace w3tools.App.ViewModels
             else if (item.Name.ToLower().Contains(str.ToLower()))
             {
                 item.IsVisible = true;
-                cat.IsExpanded = true;
             }
             else
             {
@@ -145,52 +148,6 @@ namespace w3tools.App.ViewModels
     }
 
 
-    /// <summary>
-    /// 
-    /// </summary>
-    public class CommandCategory : ObservableObject, ITreeViewItem
-    {
-        public CommandCategory()
-        {
-            Commands = new ObservableCollection<IWorkflowItem>();
-            IsExpanded = false;
-            IsVisible = true;
-        }
-
-        public string Name { get; set; }
-        public string Image { get; set; }
-        public ITreeViewItem ParentTreeViewItem { get; set; }
-        public ObservableCollection<IWorkflowItem> Commands { get; set; }
 
 
-        private bool _isVisible;
-        public bool IsVisible
-        {
-            get => _isVisible;
-            set
-            {
-                if (_isVisible != value)
-                {
-                    _isVisible = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        private bool _isExpanded;
-        public bool IsExpanded
-        {
-            get => _isExpanded;
-            set
-            {
-                if (_isExpanded != value)
-                {
-                    _isExpanded = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-       
-        public override string ToString() => Name;
-    }
 }

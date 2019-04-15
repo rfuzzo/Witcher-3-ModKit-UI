@@ -7,9 +7,14 @@
              xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
              xmlns:dat="clr-namespace:System.Windows.Data;assembly=PresentationFramework"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="400">
-    
-    
+             d:DesignHeight="450" d:DesignWidth="400"
+             
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+                Background="{DynamicResource MaterialDesignPaper}"
+             
+             >
+
+
     <UserControl.Resources>
         <CollectionViewSource  
             x:Key="cvs_wfs" 
@@ -70,11 +75,7 @@
                 </ContextMenu>
             </ListView.ContextMenu>
 
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Command"/>
-                </GridView>
-            </ListView.View>
+            
 
             <ListView.GroupStyle>
                 <GroupStyle ContainerStyle="{StaticResource ContainerStyle}">

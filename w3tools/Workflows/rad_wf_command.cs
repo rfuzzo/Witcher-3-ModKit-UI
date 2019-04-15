@@ -18,6 +18,8 @@ namespace w3tools.Workflows
     {
         [Browsable(false)]
         public new string Image { get; set; } = "/w3tools.UI;component/Resources/radish_icon_circle.png";
+        public new ECommandCategory Category { get; set; } = ECommandCategory.WF_Radish;
+
         public RAD_Task RAD_Task { get; set; }
 
         /// <summary>

@@ -1,5 +1,4 @@
 ﻿using Microsoft.Win32;
-using MvvmDialogs;
 using Ninject;
 using Ninject.Activation;
 using Ninject.Modules;
@@ -10,6 +9,7 @@ using w3tools.App.ViewModels;
 using w3tools.App.Services;
 using Ninject.Infrastructure;
 using w3tools.App;
+using ShowMeTheXAML;
 
 namespace w3tools.UI
 {
@@ -31,6 +31,7 @@ namespace w3tools.UI
 
         protected override void OnStartup(StartupEventArgs e)
         {
+            XamlDisplay.Init();
             base.OnStartup(e);
             MainWindow = Kernel.Get<MainWindow>();
             MainWindow.Show();

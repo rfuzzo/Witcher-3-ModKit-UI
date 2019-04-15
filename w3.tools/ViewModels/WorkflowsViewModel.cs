@@ -29,10 +29,7 @@ namespace w3tools.App.ViewModels
         /// </summary>
         public RAD_Workflow ActiveWorkflow
         {
-            get
-            {
-                return _activeWorkflow;
-            }
+            get => _activeWorkflow;
             set
             {
                 if (_activeWorkflow != value)
@@ -64,15 +61,15 @@ namespace w3tools.App.ViewModels
 
         public bool CanAddToFavourites()
         {
-            return ActiveWorkflow != null && ActiveWorkflow.Category != WccCommandCategory.Favourites;
+            return ActiveWorkflow != null && ActiveWorkflow.Category != ECommandCategory.Favourites;
         }
         public void AddToFavourites()
         {
-            ActiveWorkflow.Category = WccCommandCategory.Favourites;
+            ActiveWorkflow.Category = ECommandCategory.Favourites;
         }
         public bool CanRemoveFromfavourites()
         {
-            return ActiveWorkflow != null && ActiveWorkflow.Category == WccCommandCategory.Favourites;
+            return ActiveWorkflow != null && ActiveWorkflow.Category == ECommandCategory.Favourites;
         }
         public void RemoveFromfavourites()
         {

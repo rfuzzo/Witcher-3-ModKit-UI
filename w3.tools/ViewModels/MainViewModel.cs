@@ -74,7 +74,13 @@ namespace w3tools.App.ViewModels
             #region Layout
             AnchorablesSource = new ObservableCollection<DockableViewModel>()
             {
-                new CommandsListViewModel()
+                /*new CommandsListViewModel()
+                {
+                    Title = "Commands List",
+                    ContentId = "commandsList",
+                    ParentViewModel = this,
+                },*/
+                new CommandsTreeViewModel()
                 {
                     Title = "Commands List",
                     ContentId = "commandsList",
